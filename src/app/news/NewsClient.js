@@ -5,7 +5,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useState, useEffect } from "react";
 
-function ContactClient() {
+function NewsClient() {
   const [showTitle, setShowTitle] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function ContactClient() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Επικοινωνία
+            Νέα
           </h1>
         </div>
       </div>
@@ -43,4 +43,4 @@ function ContactClient() {
   );
 }
 
-export default ContactClient;
+export default NewsClient;

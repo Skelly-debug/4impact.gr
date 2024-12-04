@@ -52,7 +52,7 @@ const AnimatedOffsetCards = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4 mt-[-2rem]">
+    <div className="flex justify-center items-center min-h-screen p-4 mt-[1rem]">
       <div className="relative w-full max-w-6xl space-y-8">
         {cards.map((card, index) => (
           <div

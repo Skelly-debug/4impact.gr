@@ -1,7 +1,7 @@
 import HomeClient from "./home/HomeClient";
 
 export const metadata = {
-  title: "HOME",
+  title: "Αρχική",
 };
 
 export default function Home() {
