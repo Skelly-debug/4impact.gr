@@ -1,17 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { useState, useEffect } from "react";
 
 function NewsClient() {
   const [showTitle, setShowTitle] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowTitle(true);
     }, 100);
+
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch("/api/articles");
+        if (!response.ok) {
+          throw new Error("Failed to fetch articles");
+        }
+        const data = await response.json();
+        setArticles(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchArticles();
 
     return () => clearTimeout(timer);
   }, []);
@@ -37,6 +55,48 @@ function NewsClient() {
             Νέα
           </h1>
         </div>
+      </div>
+
+      {/* Article Creation Form */}
+      <div className="container mx-auto px-4 py-10 text-black">
+        {/* Existing Articles Display */}
+        {isLoading ? (
+          <div className="text-center text-xl">Loading articles...</div>
+        ) : articles.length === 0 ? (
+          <div className="text-center text-xl">No articles found</div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {articles.map((article) => (
+              <div
+                key={article.id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform hover:scale-105 ease-in-out duration-300"
+              >
+                {article.imageUrl && (
+                  <img
+                    src={article.imageUrl}
+                    alt={article.title}
+                    className="w-full h-[30rem] object-cover"
+                  />
+                )}
+                <div className="p-6">
+                  <h2 className="text-2xl font-bold mb-2">{article.title}</h2>
+                  <div className="flex justify-between text-sm text-gray-600 mb-4">
+                    <span>By {article.author}</span>
+                    <span>
+                      {new Date(article.publishedDate).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-gray-700 line-clamp-3">
+                    {article.content}
+                  </p>
+                  <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <Footer />
     </div>
