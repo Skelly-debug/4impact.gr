@@ -35,7 +35,7 @@ function NewsClient() {
   }, []);
 
   return (
-    <div className="font-playfair-display bg-gray-100 min-h-screen">
+    <div className="font-playfair-display bg-gray-100 min-h-screen overflow-hidden">
       <Navbar />
       <div className="relative h-screen">
         <img
@@ -63,7 +63,9 @@ function NewsClient() {
         {isLoading ? (
           <div className="text-center text-xl">Loading articles...</div>
         ) : articles.length === 0 ? (
-          <div className="text-center text-xl">No articles found</div>
+          <div className="text-center text-xl py-[20rem]">
+            No articles found
+          </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
             {articles.map((article) => (

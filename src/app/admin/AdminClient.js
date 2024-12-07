@@ -5,6 +5,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import { useState } from "react";
 
 function AdminClient() {
+  const [articles, setArticles] = useState([]);
   const [newArticle, setNewArticle] = useState({
     title: "",
     content: "",
