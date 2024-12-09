@@ -17,7 +17,7 @@ export const metadata = {
   description: "test",
 };
 
-import SessionProvider from "@/components/SessionProvider";
+import SessionProvider from "../components/SessionProvider";
 
 export default function RootLayout({ children }) {
   return (

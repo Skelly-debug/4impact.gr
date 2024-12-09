@@ -4,6 +4,10 @@ import Navbar from "@/components/NavBar/Navbar";
 import AnimatedOffsetCards from "@/components/HomeCards/AnimatedOffsetCards";
 import Footer from "@/components/Footer/Footer";
 
+// export const metadata = {
+//   title: "Αρχική",
+// };
+
 export default function HomeClient() {
   const [showTitle, setShowTitle] = useState(false);
 

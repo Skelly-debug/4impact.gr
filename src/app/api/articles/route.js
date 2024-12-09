@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 const articlesFilePath = path.join(process.cwd(), "data/articles.json");
-const pagesDirectory = path.join(process.cwd(), "app/articles");
+const pagesDirectory = path.join(process.cwd(), "data/articles");
 
 function ensureDataFile() {
   const dataDir = path.join(process.cwd(), "data");
