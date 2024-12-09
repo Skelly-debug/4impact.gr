@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Trash2, Edit, Plus } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
+import DOMPurify from "dompurify";
 import AdminForm from "../AdminForm/AdminForm";
 
 const ArticleMonitoring = () => {
@@ -167,6 +168,42 @@ const ArticleMonitoring = () => {
                   <div>
                     <h3 className="font-bold">{article.title}</h3>
                     <p className="text-sm text-gray-600">By {article.author}</p>
+                    {/* Sanitize and render HTML content */}
+                    <div
+                      className="mt-2"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(article.content, {
+                          ALLOWED_TAGS: [
+                            "p",
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "br",
+                            "strong",
+                            "em",
+                            "u",
+                            "a",
+                            "img",
+                            "iframe",
+                            "ul",
+                            "ol",
+                            "li",
+                          ],
+                          ALLOWED_ATTR: [
+                            "src",
+                            "href",
+                            "width",
+                            "height",
+                            "frameborder",
+                            "allowfullscreen",
+                            "target",
+                          ],
+                        }),
+                      }}
+                    />
                   </div>
                   <div className="flex space-x-2">
                     <button
@@ -215,7 +252,7 @@ const ArticleMonitoring = () => {
                     content: e.target.value,
                   })
                 }
-                placeholder="Article Content"
+                placeholder="Article Content (HTML allowed)"
                 className="w-full p-2 border rounded h-[30vh]"
                 required
               />
