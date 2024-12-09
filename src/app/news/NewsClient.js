@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
+import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
 
 function NewsClient() {
@@ -89,10 +90,12 @@ function NewsClient() {
                     </span>
                   </div>
                   <p className="text-gray-700 line-clamp-3">
-                    {article.content}
+                    {article.content.length > 150
+                      ? article.content.substring(0, 50) + "..."
+                      : article.content}
                   </p>
                   <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                    Read More
+                    <Link href={`/articles/${article.id}`}>Read More</Link>
                   </button>
                 </div>
               </div>

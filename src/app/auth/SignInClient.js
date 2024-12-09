@@ -23,10 +23,7 @@ export default function SignIn() {
     if (result?.error) {
       setError("Invalid credentials");
     } else {
-      const push = router.push("/admin");
-      if (push?.error) {
-        router.push("/auth/error");
-      }
+      router.push("/admin");
     }
   };
 

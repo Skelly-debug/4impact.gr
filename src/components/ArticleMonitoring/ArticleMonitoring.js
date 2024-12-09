@@ -142,13 +142,13 @@ const ArticleMonitoring = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              className="p-[0.65rem] bg-blue-500 text-white rounded hover:bg-white hover:text-blue-500 border border-blue-500 transition"
             >
               <Plus className="h-4 w-4" />
             </button>
             <button
               onClick={() => signOut({ callbackUrl: "/auth/signin" })}
-              className="p-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+              className="p-[0.4rem] bg-red-500 text-white rounded hover:bg-white hover:text-red-500 border border-red-500 transition ease-in-out duration-300"
             >
               Logout
             </button>

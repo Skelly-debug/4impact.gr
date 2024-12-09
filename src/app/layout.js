@@ -17,15 +17,13 @@ export const metadata = {
   description: "test",
 };
 
-import { Providers } from "../components/Providers";
+import SessionProvider from "@/components/SessionProvider";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Providers>{children}</Providers>
+    <html lang="gr" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="font-sans">
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
