@@ -4,10 +4,6 @@ import Navbar from "@/components/NavBar/Navbar";
 import AnimatedOffsetCards from "@/components/HomeCards/AnimatedOffsetCards";
 import Footer from "@/components/Footer/Footer";
 
-// export const metadata = {
-//   title: "Αρχική",
-// };
-
 export default function HomeClient() {
   const [showTitle, setShowTitle] = useState(false);
 
@@ -20,7 +16,7 @@ export default function HomeClient() {
   }, []);
 
   return (
-    <div className="font-playfair-display bg-gray-100">
+    <div className="font-playfair-display bg-gray-100 overflow-hidden">
       <Navbar />
       <div className="relative h-screen">
         <div className="absolute w-full h-full">
