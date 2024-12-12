@@ -1,24 +1,47 @@
+// src/app/api/contact/route.js
+
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // Use secure connection
   auth: {
     user: process.env.USER_EMAIL,
     pass: process.env.USER_PASSWORD,
   },
-  // Add these options for better reliability
-  secure: true,
 });
 
 export async function POST(req) {
   try {
-    const { name, email, message } = await req.json();
+    // Log the raw request body for debugging
+    const rawBody = await req.text();
+    console.log('Raw Request Body:', rawBody);
 
-    // Basic server-side validation
+    // Parse the JSON manually
+    let body;
+    try {
+      body = JSON.parse(rawBody);
+    } catch (parseError) {
+      console.error('JSON Parsing Error:', parseError);
+      return NextResponse.json(
+        { message: "Invalid JSON format", error: parseError.toString() },
+        { status: 400 }
+      );
+    }
+
+    const { name, email, message } = body;
+
+    // Existing validation...
+    console.log('Parsed Body:', { name, email, message });
+
     if (!name || !email || !message) {
       return NextResponse.json(
-        { message: "All fields are required" },
+        { 
+          message: "All fields are required",
+          receivedData: { name, email, message }
+        },
         { status: 400 }
       );
     }

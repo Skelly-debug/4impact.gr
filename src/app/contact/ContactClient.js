@@ -53,7 +53,7 @@ export default function ContactClient() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
+    message: ""
   });
 
   const handleChange = (e) => {
@@ -68,6 +68,9 @@ export default function ContactClient() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+  
+
+    // console.log('Submitting Form Data:', formData);
 
     try {
       const response = await fetch("/api/contact", {
@@ -75,14 +78,22 @@ export default function ContactClient() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        }),
       });
-
+  
+      const responseData = await response.json();
+      console.log('Response:', response.status, responseData);
+  
       if (response.ok) {
         setSubmitStatus("Το μήνυμά σας στάλθηκε με επιτυχία!");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        setSubmitStatus("Αποτυχία αποστολής. Παρακαλώ δοκιμάστε ξανά.");
+        // Log the error response
+        setSubmitStatus(responseData.message || "Αποτυχία αποστολής. Παρακαλώ δοκιμάστε ξανά.");
       }
     } catch (error) {
       console.error("Error:", error);
