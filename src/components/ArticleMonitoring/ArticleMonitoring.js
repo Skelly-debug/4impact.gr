@@ -55,54 +55,74 @@ const ArticleMonitoring = () => {
     return null;
   }
 
+
   const handleDeleteArticle = async (articleId) => {
     try {
-      const response = await fetch(`/api/articles/${articleId}`, {
+      // Optimistically remove the article from the UI
+      setArticles(currentArticles => 
+        currentArticles.filter(article => article.id !== articleId)
+      );
+  
+      const response = await fetch('/api/articles', {
         method: "DELETE",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete article");
-      }
-
-      setArticles(articles.filter((article) => article.id !== articleId));
-    } catch (error) {
-      console.error("Error deleting article:", error);
-      alert("Failed to delete article");
-    }
-  };
-
-  const handleUpdateArticle = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(`/api/articles/${editingArticle.id}`, {
-        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editingArticle),
+        body: JSON.stringify(articleId), // Pass just the ID as the body
       });
-
+  
       if (!response.ok) {
-        throw new Error("Failed to update article");
+        const errorText = await response.text();
+        console.error(`Failed to delete article. Status: ${response.status}`, errorText);
+        
+        // Fetch the current articles to ensure we have the most up-to-date list
+        const fetchResponse = await fetch('/api/articles');
+        const currentArticles = await fetchResponse.json();
+        setArticles(currentArticles);
+  
+        throw new Error(`Failed to delete article: ${errorText}`);
       }
-
-      const updatedArticle = await response.json();
-
-      setArticles(
-        articles.map((article) =>
-          article.id === updatedArticle.id ? updatedArticle : article
-        )
-      );
-
-      setEditingArticle(null);
     } catch (error) {
-      console.error("Error updating article:", error);
-      alert("Failed to update article");
+      console.error("Error deleting article:", error);
+      alert(`Failed to delete article: ${error.message}`);
     }
   };
 
+ const handleUpdateArticle = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('/api/articles', {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: editingArticle.id,
+        ...editingArticle
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Full error response:', errorText);
+      throw new Error(`Failed to update article. Status: ${response.status}`);
+    }
+
+    const updatedArticle = await response.json();
+
+    setArticles(
+      articles.map((article) =>
+        article.id === updatedArticle.id ? updatedArticle : article
+      )
+    );
+
+    setEditingArticle(null);
+  } catch (error) {
+    console.error("Error updating article:", error);
+    alert(`Failed to update article: ${error.message}`);
+  }
+};
   const handleAddArticle = async (newArticle) => {
     try {
       const response = await fetch("/api/articles", {
