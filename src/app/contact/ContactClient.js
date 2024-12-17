@@ -4,40 +4,73 @@ import React from "react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useRef } from "react";
 
-function ContactClient() {
+export default function ContactClient() {
   const [showTitle, setShowTitle] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Ref and animation controls for cards
+  const contactInfoRef = useRef(null);
+  const formRef = useRef(null);
+  const contactInfoInView = useInView(contactInfoRef, { once: true });
+  const formInView = useInView(formRef, { once: true });
+  const contactInfoControls = useAnimation();
+  const formControls = useAnimation();
+
+  // Card animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTitle(true);
+    }, 300);
+
+    // Trigger animations when cards come into view
+    if (contactInfoInView) {
+      contactInfoControls.start("visible");
+    }
+    if (formInView) {
+      formControls.start("visible");
+    }
+  
+    return () => clearTimeout(timer);
+  }, [contactInfoInView, formInView, contactInfoControls, formControls]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
-  });
-
-  const [submitStatus, setSubmitStatus] = useState({
-    loading: false,
-    success: false,
-    error: false,
-    message: "",
+    message: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+  
 
-    // Reset status and set loading
-    setSubmitStatus({
-      loading: true,
-      success: false,
-      error: false,
-      message: "",
-    });
+    // console.log('Submitting Form Data:', formData);
 
     try {
       const response = await fetch("/api/contact", {
@@ -45,175 +78,172 @@ function ContactClient() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        }),
       });
-
-      // Ensure we always parse the response, even if it's an error
-      const responseData = await response
-        .text()
-        .then((text) =>
-          text
-            ? JSON.parse(text)
-            : { success: false, message: "No response from server" }
-        );
-
-      if (responseData.success) {
-        setSubmitStatus({
-          loading: false,
-          success: true,
-          error: false,
-          message: responseData.message || "Message sent successfully!",
-        });
-
-        // Reset form after successful submission
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
+  
+      const responseData = await response.json();
+      console.log('Response:', response.status, responseData);
+  
+      if (response.ok) {
+        setSubmitStatus("Το μήνυμά σας στάλθηκε με επιτυχία!");
+        setFormData({ name: "", email: "", message: "" });
       } else {
-        throw new Error(responseData.message || "Submission failed");
+        // Log the error response
+        setSubmitStatus(responseData.message || "Αποτυχία αποστολής. Παρακαλώ δοκιμάστε ξανά.");
       }
     } catch (error) {
-      setSubmitStatus({
-        loading: false,
-        success: false,
-        error: true,
-        message: error.message || "Something went wrong. Please try again.",
-      });
+      console.error("Error:", error);
+      setSubmitStatus("Προέκυψε ένα σφάλμα. Παρακαλώ δοκιμάστε ξανά.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTitle(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="font-playfair-display bg-gray-100 min-h-screen">
-      <Navbar />
-      <div className="relative h-[60vh]">
-        <img
-          className="absolute w-full h-full object-cover"
-          src="https://placehold.co/1920x1080"
-          alt="Background Image"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-20 z-1"></div>
-        <div className="flex justify-center items-center h-full">
-          <h1
-            className={`text-5xl font-bold text-neutral-800 text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
-              showTitle
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            Επικοινωνία
-          </h1>
+    <div className="flex flex-col min-h-screen bg-gray-50 selection:bg-blue-500 selection:text-white">
+      <div className="font-playfair-display bg-gray-100 overflow-hidden">
+        <Navbar />
+        <div className="relative h-[100vh] overflow-hidden">
+          <div className="absolute w-full h-full">
+            <img
+              className="absolute w-full h-full object-cover"
+              src="https://placehold.co/1920x1080"
+              alt="Background Image"
+            />
+          </div>
+          <div className="absolute inset-0 bg-black bg-opacity-20 z-1"></div>
+          <div className="flex justify-center items-center h-full">
+            <h1
+              className={`text-5xl font-bold text-neutral-800 text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
+                showTitle
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              Επικοινωνία
+            </h1>
+          </div>
         </div>
       </div>
-      <div className="max-w-[98%] mx-auto p-8 text-gray-800">
-        {submitStatus.message && (
-          <div
-            className={`
-            mb-4 p-4 rounded 
-            ${
-              submitStatus.success
-                ? "bg-green-100 text-green-700"
-                : submitStatus.error
-                ? "bg-red-100 text-red-700"
-                : "bg-yellow-100 text-yellow-700"
-            }
-          `}
-          >
-            {submitStatus.message}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2"
+      <div className="flex-grow">
+        <div className="container mx-auto px-4 py-16 lg:py-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Contact Info Column */}
+            <motion.div 
+              ref={contactInfoRef}
+              initial="hidden"
+              animate={contactInfoControls}
+              variants={cardVariants}
+              className="bg-white shadow-lg rounded-xl p-8 h-full flex flex-col justify-center"
             >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md 
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Your Name"
-            />
-          </div>
+              <h2 className="text-3xl font-bold mb-6 text-blue-600 text-center">
+                Τρόποι Επικοινωνίας
+              </h2>
+              <div className="space-y-4 text-center">
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">EMAIL</p>
+                  <p className="text-xl text-gray-800 font-medium">
+                    info@4impact.gr
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">ΤΗΛΕΦΩΝΟ</p>
+                  <p className="text-xl text-gray-800 font-medium">
+                    +30 210 1234567
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">ΔΙΕΥΘΥΝΣΗ</p>
+                  <p className="text-lg text-gray-800">
+                    Λεωφ. Συγγρού 123, Αθήνα
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
+            {/* Form Column */}
+            <motion.div 
+              ref={formRef}
+              initial="hidden"
+              animate={formControls}
+              variants={cardVariants}
+              className="bg-white shadow-lg rounded-xl p-8"
             >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md 
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="your.email@example.com"
-            />
+              <h2 className="text-3xl font-bold mb-6 text-blue-600 text-center">
+                Επικοινωνία
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Όνομα</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                    placeholder="Εισάγετε το όνομά σας"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                    placeholder="Εισάγετε το email σας"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Μήνυμα</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows="4"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                    placeholder="Πληκτρολογήστε το μήνυμά σας"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 inline animate-spin" />
+                      Αποστολή...
+                    </>
+                  ) : (
+                    "Αποστολή Μηνύματος"
+                  )}
+                </button>
+                {submitStatus && (
+                  <p
+                    className={`text-center mt-4 font-medium ${
+                      submitStatus.includes("επιτυχία")
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {submitStatus}
+                  </p>
+                )}
+              </form>
+            </motion.div>
           </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows="4"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md 
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Your message..."
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            disabled={submitStatus.loading}
-            className={`
-              w-full py-2 px-4 rounded-md 
-              transition duration-300 
-              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
-              ${
-                submitStatus.loading
-                  ? "bg-blue-300 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-600 text-white"
-              }
-            `}
-          >
-            {submitStatus.loading ? "Sending..." : "Send Message"}
-          </button>
-        </form>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
-
-export default ContactClient;

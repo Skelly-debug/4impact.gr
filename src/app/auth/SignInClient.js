@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Navbar from "@/components/NavBar/Navbar";
 import { useRouter } from "next/navigation";
 
 export default function SignIn() {
@@ -29,6 +30,7 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 text-gray-800">
+      <Navbar />
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
         {error && (

@@ -1,109 +1,94 @@
+// src/app/api/contact/route.js
+
 import nodemailer from "nodemailer";
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  // CORS handling
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-  );
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // Use secure connection
+  auth: {
+    user: process.env.USER_EMAIL,
+    pass: process.env.USER_PASSWORD,
+  },
+});
 
-  // Handle OPTIONS request
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
-
-  // Only allow POST requests
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      success: false,
-      message: "Method Not Allowed",
-    });
-  }
-
-  // Destructure form data from request body
-  const { name, email, message } = req.body;
-
-  // Validate input
-  if (!name || !email || !message) {
-    return res.status(400).json({
-      success: false,
-      message: "Missing required fields",
-    });
-  }
-
-  // Check for simple validation
-  if (!isValidEmail(email)) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid email format",
-    });
-  }
-
-  // Create a mock transporter for development (replace with real email in production)
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // Use TLS
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
+export async function POST(req) {
   try {
-    // Send email
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.RECIPIENT_EMAIL,
-      subject: `New Contact Form Submission from ${name}`,
-      html: `
-        <h1>New Contact Form Submission</h1>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Message:</strong></p>
-        <p>${escapeHtml(message)}</p>
-      `,
-    });
+    // Log the raw request body for debugging
+    const rawBody = await req.text();
+    console.log('Raw Request Body:', rawBody);
 
-    // Log submission
-    console.log("Contact form submission:", { name, email });
+    // Parse the JSON manually
+    let body;
+    try {
+      body = JSON.parse(rawBody);
+    } catch (parseError) {
+      console.error('JSON Parsing Error:', parseError);
+      return NextResponse.json(
+        { message: "Invalid JSON format", error: parseError.toString() },
+        { status: 400 }
+      );
+    }
 
-    // Respond with success
-    return res.status(200).json({
-      success: true,
-      message: "Message sent successfully!",
-    });
+    const { name, email, message } = body;
+
+    // Existing validation...
+    console.log('Parsed Body:', { name, email, message });
+
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { 
+          message: "All fields are required",
+          receivedData: { name, email, message }
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return NextResponse.json(
+        { message: "Invalid email address" },
+        { status: 400 }
+      );
+    }
+
+    // More detailed error logging
+    const mailOptions = {
+      from: process.env.USER_EMAIL,
+      to: process.env.RECEPIENT_EMAIL,
+      subject: "New Contact Form Submission",
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      html: `<p><strong>Name:</strong> ${name}</p>
+             <p><strong>Email:</strong> ${email}</p>
+             <p><strong>Message:</strong> ${message}</p>`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error("Email sending error:", emailError);
+      return NextResponse.json(
+        { 
+          message: "Προέκυψε ένα σφάλμα κατά την αποστολή email.", 
+          error: emailError.toString() 
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Το μήνυμά σας στάλθηκε με επιτυχία!" },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("Email send error:", error);
-
-    // More detailed error handling
-    return res.status(500).json({
-      success: false,
-      message: "Failed to send message",
-      error: error.message || "Unknown error",
-    });
+    console.error("Unexpected error:", error);
+    return NextResponse.json(
+      { 
+        message: "Προέκυψε ένα σφάλμα. Παρακαλώ δοκιμάστε ξανά.",
+        error: error.toString() 
+      },
+      { status: 500 }
+    );
   }
-}
-
-// Email validation function
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-// Simple HTML escaping to prevent XSS
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
 }
