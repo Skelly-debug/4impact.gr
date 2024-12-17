@@ -78,3 +78,115 @@ export default function Article() {
     );
   }
 }
+
+export async function PUT(request) {
+  try {
+    ensureDataFile();
+    const updatedArticle = await request.json();
+
+    // Validate required fields
+    if (
+      !updatedArticle.id ||
+      !updatedArticle.title ||
+      !updatedArticle.content
+    ) {
+      return NextResponse.json(
+        { error: "ID, title, and content are required" },
+        { status: 400 }
+      );
+    }
+
+    // Read existing articles
+    const articles = JSON.parse(fs.readFileSync(articlesFilePath, "utf8"));
+
+    // Find and update the article
+    const articleIndex = articles.findIndex(
+      (article) => article.id === updatedArticle.id
+    );
+
+    if (articleIndex === -1) {
+      return NextResponse.json({ error: "Article not found" }, { status: 404 });
+    }
+
+    // Update the article while preserving original publishedDate
+    const updatedArticleWithDate = {
+      ...articles[articleIndex],
+      ...updatedArticle,
+      publishedDate: articles[articleIndex].publishedDate,
+    };
+
+    articles[articleIndex] = updatedArticleWithDate;
+
+    // Write updated articles back to file
+    fs.writeFileSync(articlesFilePath, JSON.stringify(articles, null, 2));
+
+    // Update the corresponding page file
+    const pageContent = `
+import ArticleTemplate from '@/app/components/ArticleTemplate';
+
+export default function Article() {
+  const article = ${JSON.stringify(updatedArticleWithDate)};
+  return <ArticleTemplate {...article} />;
+}
+    `;
+
+    fs.writeFileSync(
+      path.join(pagesDirectory, `${updatedArticleWithDate.id}.js`),
+      pageContent
+    );
+
+    return NextResponse.json(updatedArticleWithDate, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to update article" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    ensureDataFile();
+    const { searchParams } = new URL(request.url);
+    const articleId = searchParams.get("id");
+
+    if (!articleId) {
+      return NextResponse.json(
+        { error: "Article ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const articles = JSON.parse(fs.readFileSync(articlesFilePath, "utf8"));
+    const updatedArticles = articles.filter(
+      (article) => article.id !== articleId
+    );
+
+    if (articles.length === updatedArticles.length) {
+      return NextResponse.json({ error: "Article not found" }, { status: 404 });
+    }
+
+    fs.writeFileSync(
+      articlesFilePath,
+      JSON.stringify(updatedArticles, null, 2)
+    );
+
+    // Remove the corresponding page file
+    const pageFilePath = path.join(pagesDirectory, `${articleId}.js`);
+    if (fs.existsSync(pageFilePath)) {
+      fs.unlinkSync(pageFilePath);
+    }
+
+    return NextResponse.json(
+      { message: "Article deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to delete article" },
+      { status: 500 }
+    );
+  }
+}

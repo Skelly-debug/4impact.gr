@@ -57,7 +57,7 @@ const ArticleMonitoring = () => {
 
   const handleDeleteArticle = async (articleId) => {
     try {
-      const response = await fetch(`/api/articles/${articleId}`, {
+      const response = await fetch(`/api/articles?id=${articleId}`, {
         method: "DELETE",
       });
 
@@ -72,16 +72,22 @@ const ArticleMonitoring = () => {
     }
   };
 
-  const handleUpdateArticle = async (e) => {
+  const handleUpdateArticle = async (e, articleId) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/articles/${editingArticle.id}`, {
+      // Ensure you have all the original article properties
+      const fullArticleUpdate = {
+        ...editingArticle,
+        id: articleId,
+      };
+
+      const response = await fetch("/api/articles", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editingArticle),
+        body: JSON.stringify(fullArticleUpdate),
       });
 
       if (!response.ok) {
@@ -92,7 +98,9 @@ const ArticleMonitoring = () => {
 
       setArticles(
         articles.map((article) =>
-          article.id === updatedArticle.id ? updatedArticle : article
+          article.id === updatedArticle.id
+            ? { ...article, ...updatedArticle }
+            : article
         )
       );
 
@@ -172,36 +180,41 @@ const ArticleMonitoring = () => {
                     <div
                       className="mt-2"
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(article.content, {
-                          ALLOWED_TAGS: [
-                            "p",
-                            "h1",
-                            "h2",
-                            "h3",
-                            "h4",
-                            "h5",
-                            "h6",
-                            "br",
-                            "strong",
-                            "em",
-                            "u",
-                            "a",
-                            "img",
-                            "iframe",
-                            "ul",
-                            "ol",
-                            "li",
-                          ],
-                          ALLOWED_ATTR: [
-                            "src",
-                            "href",
-                            "width",
-                            "height",
-                            "frameborder",
-                            "allowfullscreen",
-                            "target",
-                          ],
-                        }),
+                        __html: DOMPurify.sanitize(
+                          article.content.length > 50
+                            ? `${article.content.slice(0, 50)}...`
+                            : article.content,
+                          {
+                            ALLOWED_TAGS: [
+                              "p",
+                              "h1",
+                              "h2",
+                              "h3",
+                              "h4",
+                              "h5",
+                              "h6",
+                              "br",
+                              "strong",
+                              "em",
+                              "u",
+                              "a",
+                              "img",
+                              "iframe",
+                              "ul",
+                              "ol",
+                              "li",
+                            ],
+                            ALLOWED_ATTR: [
+                              "src",
+                              "href",
+                              "width",
+                              "height",
+                              "frameborder",
+                              "allowfullscreen",
+                              "target",
+                            ],
+                          }
+                        ),
                       }}
                     />
                   </div>
@@ -230,7 +243,10 @@ const ArticleMonitoring = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded-lg max-h-[80vh] w-[80vw] overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">Edit Article</h2>
-            <form onSubmit={handleUpdateArticle} className="space-y-4">
+            <form
+              onSubmit={(e) => handleUpdateArticle(e, editingArticle.id)}
+              className="space-y-4"
+            >
               <input
                 type="text"
                 value={editingArticle.title}
