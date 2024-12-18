@@ -26,7 +26,7 @@ function Footer() {
               <Facebook className="mr-2 h-6 w-6" />
             </a>
             <a
-              href="https://www.linkedin.com/company/4impact/"
+              href="https://gr.linkedin.com/in/iasonkantas"
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
             >
               <Linkedin className="mr-2 h-6 w-6" />

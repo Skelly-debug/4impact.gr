@@ -41,19 +41,21 @@ function NewsClient() {
       <div className="relative h-screen">
         <img
           className="absolute w-full h-full object-cover"
-          src="https://placehold.co/1920x1080"
+          src="images/NEWS.jpg"
           alt="Background Image"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-20 z-1"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50 z-1"></div>
         <div className="flex justify-center items-center h-full">
           <h1
-            className={`text-5xl font-bold text-neutral-800 text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
+            className={`text-6xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
               showTitle
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Νέα
+            <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+              Νέα
+            </span>
           </h1>
         </div>
       </div>

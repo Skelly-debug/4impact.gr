@@ -24,14 +24,14 @@ export default function ContactClient() {
   // Card animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   useEffect(() => {
@@ -46,14 +46,14 @@ export default function ContactClient() {
     if (formInView) {
       formControls.start("visible");
     }
-  
+
     return () => clearTimeout(timer);
   }, [contactInfoInView, formInView, contactInfoControls, formControls]);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -68,7 +68,6 @@ export default function ContactClient() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-  
 
     // console.log('Submitting Form Data:', formData);
 
@@ -81,19 +80,21 @@ export default function ContactClient() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          message: formData.message
+          message: formData.message,
         }),
       });
-  
+
       const responseData = await response.json();
-      console.log('Response:', response.status, responseData);
-  
+      console.log("Response:", response.status, responseData);
+
       if (response.ok) {
         setSubmitStatus("Το μήνυμά σας στάλθηκε με επιτυχία!");
         setFormData({ name: "", email: "", message: "" });
       } else {
         // Log the error response
-        setSubmitStatus(responseData.message || "Αποτυχία αποστολής. Παρακαλώ δοκιμάστε ξανά.");
+        setSubmitStatus(
+          responseData.message || "Αποτυχία αποστολής. Παρακαλώ δοκιμάστε ξανά."
+        );
       }
     } catch (error) {
       console.error("Error:", error);
@@ -111,20 +112,22 @@ export default function ContactClient() {
           <div className="absolute w-full h-full">
             <img
               className="absolute w-full h-full object-cover"
-              src="https://placehold.co/1920x1080"
+              src="images/GIA_EPIKOINWNIA_MAYBE.jpg"
               alt="Background Image"
             />
           </div>
-          <div className="absolute inset-0 bg-black bg-opacity-20 z-1"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-60 z-1"></div>
           <div className="flex justify-center items-center h-full">
             <h1
-              className={`text-5xl font-bold text-neutral-800 text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
+              className={`text-6xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
                 showTitle
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
               }`}
             >
-              Επικοινωνία
+              <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+                Επικοινωνία
+              </span>
             </h1>
           </div>
         </div>
@@ -133,7 +136,7 @@ export default function ContactClient() {
         <div className="container mx-auto px-4 py-16 lg:py-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Contact Info Column */}
-            <motion.div 
+            <motion.div
               ref={contactInfoRef}
               initial="hidden"
               animate={contactInfoControls}
@@ -145,19 +148,25 @@ export default function ContactClient() {
               </h2>
               <div className="space-y-4 text-center">
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 mb-2">EMAIL</p>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">
+                    EMAIL
+                  </p>
                   <p className="text-xl text-gray-800 font-medium">
                     info@4impact.gr
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 mb-2">ΤΗΛΕΦΩΝΟ</p>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">
+                    ΤΗΛΕΦΩΝΟ
+                  </p>
                   <p className="text-xl text-gray-800 font-medium">
                     +30 210 1234567
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 mb-2">ΔΙΕΥΘΥΝΣΗ</p>
+                  <p className="text-sm font-semibold text-gray-500 mb-2">
+                    ΔΙΕΥΘΥΝΣΗ
+                  </p>
                   <p className="text-lg text-gray-800">
                     Λεωφ. Συγγρού 123, Αθήνα
                   </p>
@@ -166,7 +175,7 @@ export default function ContactClient() {
             </motion.div>
 
             {/* Form Column */}
-            <motion.div 
+            <motion.div
               ref={formRef}
               initial="hidden"
               animate={formControls}
@@ -178,7 +187,12 @@ export default function ContactClient() {
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Όνομα</label>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Όνομα
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -190,7 +204,12 @@ export default function ContactClient() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -202,7 +221,12 @@ export default function ContactClient() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Μήνυμα</label>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Μήνυμα
+                  </label>
                   <textarea
                     name="message"
                     value={formData.message}

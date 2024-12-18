@@ -1,111 +1,86 @@
-import Image from 'next/image'
-
+import Image from "next/image";
 
 export default function Bio() {
-  const contactInfo = [
-    { icon: '📧', text: 'info@4impact.gr' },
-    { icon: '📱', text: '+30 210 1234567' },
-    { icon: '📍', text: 'Αθήνα, Αττική' },
-  ];
-
-  const workExperience = [
-    {
-      position: 'Previous Position',
-      duration: 'Fall 2018 - Summer 2023',
-      accomplishments: [
-        "Makaronia",
-        'me',
-        'kima',
-      ],
-    },
-    {
-      position: 'Previous Position 2',
-      duration: 'Summer 2015 - Winter 2017',
-      accomplishments: [
-        'Makaronia',
-        'me tiri',
-      ],
-    },
-  ];
-
-  const skills = [
-    'Communication',
-    'Leadership',
-    'Problem Solving',
-    'Marketing',
-    'Project Management',
-  ];
-
   return (
     <div className="max-w-[85%] mx-auto p-8 bg-white shadow-lg rounded-lg relative">
-      <div className="absolute top-8 right-8 md:right-12">
+      <div className="absolute top-[6rem] left-20 lg:left-20 transform -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 lg:w-48 lg:h-48 flex items-center justify-center">
         <Image
-          src="https://placehold.co/600x400"
+          src="/images/profile.webp"
           alt="Profile Picture"
-          width={120}
-          height={120}
-          className="rounded-full border-4 border-gray-300"
+          width={160}
+          height={160}
+          className="rounded-full border-2 border-gray-300 object-cover"
         />
-      </div>
-
-      <div className="mb-6">
-        <h2 className="text-4xl font-bold text-gray-800">Ιάσωνας Κάντας</h2>
-        <p className="text-xl text-gray-600">Communications Expert</p>
-      </div>
-
-      <div className="mb-6">
-        {contactInfo.map((info, index) => (
-          <p key={index} className="text-gray-700">
-            {info.icon} {info.text}
+        <div className="ml-4 lg:ml-6">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+            Ιάσονας Κάντας
+          </h1>
+          <p className="text-gray-600 text-sm md:text-base">
+            Communications Expert
           </p>
-        ))}
+        </div>
       </div>
 
-      <section className="mb-6">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Professional Summary</h3>
-        <p className="text-gray-700">
-          Ta papakia sti seira
+      <div className="mt-[10rem]">
+        <p className="text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Ο Ιάσονας Κάντας είναι ένας δυναμικός επαγγελματίας στον τομέα της
+          επικοινωνίας και του marketing, με σημαντική εμπειρία στη στρατηγική
+          επικοινωνία, την ενδυνάμωση της εταιρικής εικόνας και την ουσιαστική
+          σύνδεση με τα κοινά, με βασικό του πάντα γνώμονα το ουσιαστικό impact.
         </p>
-      </section>
 
-      <section className="mb-6">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Work Experience</h3>
-        {workExperience.map((job, index) => (
-          <div key={index} className="mb-4">
-            <h4 className="text-xl font-medium text-gray-800">{job.position}</h4>
-            <p className="text-gray-600 italic">{job.duration}</p>
-            <ul className="list-disc list-inside text-gray-700 mt-2">
-              {job.accomplishments.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Ως πρώην Head of Communication and Engagement Dpt στο{" "}
+          <strong className="font-bold">WWF Ελλάς</strong>, σχεδίασε και
+          υλοποίησε, με την ομάδα του, σειρά δράσεων ευαισθητοποίησης και
+          συμμετοχής, ενισχύοντας την αναγνωρισιμότητα του οργανισμού και
+          αυξάνοντας την αλληλεπίδραση με το κοινό σε κρίσιμα περιβαλλοντικά
+          ζητήματα.
+        </p>
 
-      <section className="mb-6">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Education</h3>
-        <div>
-          <h4 className="text-xl font-medium text-gray-800">Master Communications</h4>
-          <p className="text-gray-700">Αθηνα 2012</p>
-        </div>
-        <div>
-          <h4 className="text-xl font-medium text-gray-800">Bachelor Communications</h4>
-          <p className="text-gray-700">Αθηνα 2015</p>
-        </div>
-      </section>
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Παράλληλα είχε την ευκαιρία να συνεργαστεί με άλλους οργανισμούς σε
+          εθνικό και διεθνές επίπεδο, καθώς και να συν-σχεδιάσει προγράμματα με
+          μεγάλες εταιρείες όπως η{" "}
+          <strong className="font-bold">Vodafone</strong> και η{" "}
+          <strong className="font-bold">ΑΒ Βασιλόπουλος</strong>.
+        </p>
 
-      <section>
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Skills</h3>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill) => (
-            <span key={skill} className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Επιπλέον, έχει αναπτύξει στρατηγικές επικοινωνίας για ευρωπαϊκά
+          προγράμματα, όπως το LIFE, και διαθέτει εκτενή εμπειρία στη
+          δημοσιογραφία σε όλες τις μορφές της και στη διαχείριση γραφείων
+          τύπου, με εις βάθος γνώση του «μιντιακού τοπίου» και ένα διαρκώς
+          αναπτυσσόμενο δίκτυο επαφών από τον δημοσιογραφικό χώρο. Μεγάλη του
+          αγάπη παραμένει το visual storytelling και η παραγωγή πρωτότυπου
+          περιεχομένου.
+        </p>
+
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Τα τελευταία τρία χρόνια, έχει τη χαρά να είναι μέντορας σε πεδία
+          branding, επικοινωνίας και στρατηγικής μέσω του “Social Dynamo” του{" "}
+          <strong className="font-bold">Ιδρύματος Μποδοσάκη</strong>,
+          υποστηρίζοντας μικρές και ανερχόμενες οργανώσεις της κοινωνίας των
+          πολιτών.
+        </p>
+
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Έχει επίσης συνεργαστεί με{" "}
+          <strong className="font-bold">
+            το Ίδρυμα Καπετάν Βασίλη και Κάρμεν Κωνσταντακόπουλου{" "}
+          </strong>
+          για τον σχεδιασμό στρατηγικής επικοινωνίας, ενώ παρέχει υπηρεσίες
+          συμβουλευτικής και διαχείρισης σχέσεων ΜΜΕ στα{" "}
+          <strong className="font-bold">Παιδικά Χωριά SOS</strong>.
+        </p>
+
+        <p className="mt-4 text-gray-700 leading-relaxed text-md md:text-lg lg:text-xl">
+          Με πάθος για την επικοινωνία που φέρνει πραγματική αλλαγή, πίστη στη
+          δύναμη των αυθεντικών ιστοριών και της συνδιαμόρφωσης και εξειδίκευση
+          στις στρατηγικές επικοινωνίας, επιμένει να σχεδιάζει και να υλοποιεί
+          δράσεις που εμπνέουν, κινητοποιούν και φέρνουν πραγματικό Impact.
+        </p>
+      </div>
     </div>
   );
 }
-

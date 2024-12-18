@@ -12,7 +12,10 @@ function Navbar() {
             src="https://placehold.co/600x400"
             alt="Logo"
           />
-          <h1 className="text-2xl font-bold text-neutral-800 font-sans hover:scale-105 transition ease-in-out duration-300">
+          <h1
+            className="text-3xl font-bold text-neutral-800 font-sans hover:scale-105 transition ease-in-out duration-300"
+            style={{ fontFamily: "Playwrite Netherland Guides" }}
+          >
             <a href="/">4Impact</a>
           </h1>
         </div>
