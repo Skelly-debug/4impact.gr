@@ -89,21 +89,53 @@ function ServicesClient() {
           <AnimatedSection>
             <p className="text-lg text-gray-800 mb-6 leading-relaxed mx-4 sm:mx-12">
               <span className="font-semibold text-4xl">Μ</span> ε έμφαση στο{" "}
-              <span className="text-lg text-gray-800 font-semibold transition-all duration-300 ease-in-out hover:text-3xl hover:scale-110 inline-block">
+              <span className="text-lg text-gray-800 font-semibold transition-all duration-300 ease-in-out hover:text-2xl hover:scale-110 inline-block">
                 impact
               </span>
-              , την αυθεντικότητα, τη συνδιαμόρφωση και τη συνέπεια, βοηθάμε τον
+              , την {" "}
+              <span className="text-lg text-gray-800 font-semibold transition-all duration-300 ease-in-out hover:text-2xl hover:scale-110 inline-block">
+                αυθεντικότητα
+              </span>, 
+              τη {" "}
+              <span className="text-lg text-gray-800 font-semibold transition-all duration-300 ease-in-out hover:text-2xl hover:scale-110 inline-block">
+                συνδιαμόρφωση
+              </span>,
+              και τη {" "}
+              <span className="text-lg text-gray-800 font-semibold transition-all duration-300 ease-in-out hover:text-2xl hover:scale-110 inline-block">
+              συνέπεια
+              </span>
+              , βοηθάμε τον
               οργανισμό σας να επικοινωνήσει το όραμα και τις αξίες του με
               ουσιαστική απήχηση και μετρήσιμα αποτελέσματα.
               <br />
               Στοχευμένες στρατηγικές επικοινωνίας για το σύνολο του brand σας ή
               για συγκεκριμένα projects, ανάπτυξη και διαχείριση digital content
               και offline περιεχομένου, διαχείριση σχέσεων με τα ΜΜΕ, σχεδιασμός
-              έργων εταιρικής κοινωνικής ευθύνης.
+              έργων εταιρικής κοινωνικής ευθύνης. {" "}
+              <i>Αυτές</i> είναι οι βασικές υπηρεσίες που προσφέρουμε και ανυπομονούμε 
+              να καλύψουμε και τις δικές σας ανάγκες με καινοτόμες ιδέες και 
+              προσήλωση στην επίτευξη των στόχων σας.
             </p>
           </AnimatedSection>
 
           <AnimatedSection className="bg-blue-100 rounded-lg pt-5 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
+            <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
+            Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection className="bg-white rounded-lg py-12 shadow-xl mx-1 sm:mx-2 md:mx-4 lg:mx-8 xl:mx-16">
+            <p className="text-lg text-gray-600 leading-relaxed mx-auto max-w-[90%] md:max-w-[80%] xl:max-w-[70%]">
+              Προσφέρουμε ολοκληρωμένες υπηρεσίες στρατηγικής επικοινωνίας, σχεδιασμένες για να κάνουν πραγματική διαφορά στον κόσμο. Κατανοούμε ότι κάθε επιχείρηση και οργανισμός έχει μοναδικές προκλήσεις και ευκαιρίες, και στόχος μας είναι να τις αξιοποιήσουμε στο έπακρο.
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mx-auto max-w-[90%] md:max-w-[80%] xl:max-w-[70%]">
+              Είτε είστε μια επιχείρηση που θέλει να εδραιώσει την παρουσία της στην αγορά, είτε μια μεγάλη οργάνωση που επιθυμεί να ανανεώσει τη στρατηγική της, είμαστε εδώ για να σας καθοδηγήσουμε. Εστιάζουμε στην ανάπτυξη και υλοποίηση στρατηγικών που όχι μόνο ενισχύουν την εικόνα και φήμη σας, αλλά δημιουργούν ουσιαστική σύνδεση με το κοινό σας. Αναλαμβάνουμε τον επικοινωνιακό σχεδιασμό και την υλοποίηση συγκεκριμένων projects αλλά και ευρύτερες καμπάνιες ευαισθητοποίησης και brand awareness.
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mx-auto max-w-[90%] md:max-w-[80%] xl:max-w-[70%]">
+              Ας συνεργαστούμε για να δημιουργήσουμε μια ισχυρή στρατηγική επικοινωνίας που θα σας βοηθήσει να ξεχωρίσετε και να επιτύχετε τους στόχους σας. Ελάτε να χτίσουμε μαζί τον αντίκτυπο που ονειρεύεστε!
+            </p>
+          
+
+          <AnimatedSection className="bg-blue-100 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
             <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
               Πώς δουλεύουμε;
             </h2>
@@ -116,22 +148,54 @@ function ServicesClient() {
             circleText3="Αξιολόγηση, Βελτίωση και προσαρμογή"
             arrowText3="Παρακολοθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, προσαρμόζοντας τις τακτικές μας για τη μέγιστη δυνατή αποτελεσματικότητα."
           />
+          </AnimatedSection>
+          <AnimatedSection className="bg-blue-100 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
+            <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
+            Στρατηγικός σχεδιασμός και παραγωγή περιεχομένου
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection className="bg-white shadow-xl rounded-lg p-8 mx-16">
+            <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Όσο κι αν ζούμε σε ένα ταχύτατα μεταβαλλόμενο επικοινωνιακό σύμπαν, με το AI να αλλάζει δραματικά τα δεδομένα, το αυθεντικό, ελκυστικό και ουσιωδώς ανθρώπινο περιεχόμενο συνεχίζει και θα συνεχίσει να είναι το Α και το Ω της αποτελεσματικής επικοινωνίας. Σήμερα μάλιστα περισσότερο από ποτέ, οι άνθρωποι αναζητούν αυθεντικό περιεχόμενο και ιστορίες που αξίζει να ειπωθούν για να συνδεθούν με τους οργανισμούς και τα Brands.
+          </p>
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Κάποτε ήταν η επανάσταση του Google Search και του περίφημου Search Engine Optimization για να ακολουθήσουν τα περίφημα social media με τους αλγόριθμους, την ακριβή στόχευση και τις άπειρες άλλες δυνατότητες που προσφέρουν. Σήμερα με το AI έχουμε περάσει σε μια νέα εποχή με το SEO να μετατρέπεται πχ σε Search Everywhere Optimization και την αλληλεπίδραση του κάθε χρήστη με το εκάστοτε περιβάλλον στο οποίο βρίσκεται να αλλάζει δραματικά.
+          </p>
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Παρόλα αυτά, και μάλλον ακριβώς λόγω όλων αυτών των εξελίξεων, οι πραγματικά δυνατές ιστορίες στο κατάλληλο format που θα εμφανιστούν «τη σωστή στιγμή στο σωστό μέρος» είναι αυτές που μπορούν κάνουν τη διαφορά για το Brand σας. Μαζί μπορούμε να σχεδιάσουμε στρατηγικά το περιεχόμενο που θα σας κάνει να ξεχωρίσετε και να δημιουργήσουμε για εσάς videos, key visuals και κείμενα για όλα τα μέσα που θα αφήσουν το δικό σας μοναδικό αποτύπωμα και θα σας φέρουν σε ουσιαστική επαφή και σύνδεση με τα κοινά σας.
+          </p>
+          </AnimatedSection>
+        
+          <AnimatedSection className="bg-blue-100 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
+            <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
+            Σχέσεις με ΜΜΕ
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection className="bg-white shadow-xl rounded-lg p-8 mx-16">
+            <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12">
+            Οι σχέσεις με τα ΜΜΕ είναι πάνω και πέρα από όλα σχέσεις με ανθρώπους. Έτσι, όπως κάθε ανθρώπινη σχέση, βασίζονται στην εμπιστοσύνη, την αυθεντικότητα και τη συνέχεια. Με περισσότερα από 10 χρόνια διαχείρισης γραφείων τύπου και δημοσιογραφική εμπειρία σε κάθε είδους μέσο, το 4Impact Communications, δεν προσεγγίζει τις σχέσεις με τους δημοσιογράφους και τα ΜΜΕ ως public relations αλλά ως σχέσεις ουσίας. Για αυτό μπορεί να βοηθήσει τον οργανισμό σας να αυξήσει σημαντικά την ορατότητά του στα ΜΜΕ και να διαχύσει τα μηνύματά του.
+            </p>
+          </AnimatedSection>
+          
+          <AnimatedSection className="bg-blue-100 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
+            <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
+            Στήριξη επιχειρήσεων για ένα κοινωνικά υπεύθυνο μέλλον
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection className="bg-white shadow-xl rounded-lg p-8 mx-16">
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Η επιχείρησή μας ειδικεύεται στη δημιουργία καινοτόμων projects εταιρικής κοινωνικής υπευθυνότητας (ΕΚΕ) και καμπανιών κοινωνικής ευαισθητοποίησης που προσφέρουν πραγματική αξία στην κοινωνία και ενισχύουν το κύρος της εταιρείας σας. Στόχος μας είναι να συνδυάσουμε τις αξίες της επιχείρησής σας με τις ανάγκες της κοινότητας, χτίζοντας ισχυρούς δεσμούς και προωθώντας τη βιωσιμότητα.
+          </p>
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Αναλαμβάνουμε τη σχεδίαση και υλοποίηση προγραμμάτων ΕΚΕ, όπως δράσεις για το περιβάλλον, την εκπαίδευση ή την υγεία, που ενσωματώνονται άψογα στη στρατηγική της εταιρείας σας. Παράλληλα, σχεδιάζουμε στοχευμένες καμπάνιες κοινωνικής ευαισθητοποίησης, αξιοποιώντας τα πιο σύγχρονα εργαλεία επικοινωνίας και μάρκετινγκ για να εμπνεύσουμε και να κινητοποιήσουμε το κοινό σας.
+          </p>
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6">
+            Η διαδικασία μας περιλαμβάνει ανάλυση των αναγκών και των στόχων σας, δημιουργία εξατομικευμένων προτάσεων και διαχείριση κάθε φάσης του έργου, από την ιδέα μέχρι την υλοποίηση και την αξιολόγηση των αποτελεσμάτων. Με τη γνώση και την εμπειρία μας, βοηθάμε την επιχείρησή σας να ξεχωρίσει ως παράδειγμα κοινωνικής υπευθυνότητας, ενώ παράλληλα ενισχύουμε την εικόνα και τη φήμη σας.
+          </p>
 
-          <AnimatedSection className="bg-white shadow-lg rounded-lg p-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-              Σχέσεις με ΜΜΕ
-            </h3>
-            <p className="text-gray-800 leading-relaxed mb-6">
-              Οι σχέσεις με τα ΜΜΕ είναι πάνω και πέρα από όλα σχέσεις με
-              ανθρώπους. Έτσι, όπως κάθε ανθρώπινη σχέση, βασίζονται στην
-              εμπιστοσύνη, την αυθεντικότητα και τη συνέχεια.
-            </p>
-            <p className="text-gray-800 leading-relaxed">
-              Με περισσότερα από 10 χρόνια διαχείρισης γραφείων τύπου και
-              δημοσιογραφική εμπειρία σε κάθε είδους μέσο, το 4Impact
-              Communications, δεν προσεγγίζει τις σχέσεις με τους δημοσιογράφους
-              και τα ΜΜΕ ως public relations αλλά ως σχέσεις ουσίας.
-            </p>
+          <p className="text-lg text-gray-800 leading-relaxed mx-4 sm:mx-12 mb-6" >
+            Ελάτε να συν-δημιουργήσουμε ένα καλύτερο αύριο, μέσα από δράσεις που κάνουν τη διαφορά.
+          </p>
           </AnimatedSection>
 
           <AnimatedSection className="text-center">

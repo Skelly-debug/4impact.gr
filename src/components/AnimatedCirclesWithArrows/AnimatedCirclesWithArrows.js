@@ -15,7 +15,7 @@ const AnimatedCirclesWithArrows = ({
   });
 
   const renderCircle = (circleText, arrowText, delay = 0) => (
-    <div className="flex items-center space-x-8">
+    <div className="flex items-center space-x-4">
       <div
         className={`
           flex items-center justify-center 
