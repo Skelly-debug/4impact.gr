@@ -135,7 +135,7 @@ function ServicesClient() {
             </p>
           
 
-          <AnimatedSection className="bg-blue-100 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
+          <AnimatedSection className="bg-gray-200 rounded-lg pt-5 mt-10 pb-[0.1rem] mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-[28rem]">
             <h2 className="text-3xl text-center font-semibold text-gray-900 mb-6">
               Πώς δουλεύουμε;
             </h2>
