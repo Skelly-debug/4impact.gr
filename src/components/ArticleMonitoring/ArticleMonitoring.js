@@ -126,26 +126,68 @@ const ArticleMonitoring = () => {
     }
   };
   const handleAddArticle = async (newArticle) => {
+    // Log the starting point and input data
+    console.log("Starting handleAddArticle with data:", newArticle);
+
     try {
+      // Log the request we're about to make
+      console.log("Making POST request to /api/articles");
+
       const response = await fetch("/api/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.user?.accessToken || ""}`,
         },
         body: JSON.stringify(newArticle),
       });
 
+      // Log the initial response
+      console.log("Received response:", {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries([...response.headers]),
+      });
+
       if (!response.ok) {
-        throw new Error("Failed to add article");
+        // Try to read the response body
+        const errorText = await response.text();
+        console.log("Error response body:", errorText);
+
+        let errorMessage;
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage =
+            errorData.message || errorData.error || "Unknown server error";
+        } catch {
+          errorMessage = `Server error: ${response.status} ${response.statusText}`;
+        }
+
+        throw new Error(errorMessage);
       }
 
+      console.log("Response was OK, parsing JSON");
       const addedArticle = await response.json();
+      console.log("Successfully parsed response:", addedArticle);
 
-      setArticles([addedArticle, ...articles]);
+      setArticles((prevArticles) => [addedArticle, ...prevArticles]);
       setIsAddModalOpen(false);
     } catch (error) {
-      console.error("Error adding article:", error);
-      alert("Failed to add article");
+      // Detailed error logging
+      const errorDetails = {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+        type: error instanceof TypeError ? "Network error" : "General error",
+        status: error.status,
+      };
+
+      console.error("Detailed error information:", errorDetails);
+      console.error("Error occurred in handleAddArticle:", error);
+
+      alert(
+        `Failed to add article: ${error.message || "Unknown error occurred"}`
+      );
     }
   };
 

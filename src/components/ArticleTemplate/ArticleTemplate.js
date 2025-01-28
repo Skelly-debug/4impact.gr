@@ -1,35 +1,71 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Navbar from "../NavBar/Navbar";
 
 export default function ArticleTemplate({
+  id, // Add id to props
   title,
   content,
   publishedDate,
   imageUrl,
   author,
 }) {
+  const [articleData, setArticleData] = useState({
+    title,
+    content,
+    publishedDate,
+    imageUrl,
+    author,
+  });
+
+  useEffect(() => {
+    const eventSource = new EventSource("/api/articles/stream");
+
+    eventSource.onmessage = (event) => {
+      const update = JSON.parse(event.data);
+
+      // Only update if this is our article
+      if (update.article.id === id) {
+        switch (update.type) {
+          case "update":
+            setArticleData(update.article);
+            break;
+          case "delete":
+            // Optionally redirect if article is deleted
+            window.location.href = "/articles";
+            break;
+        }
+      }
+    };
+
+    return () => eventSource.close();
+  }, [id]);
+
   return (
     <div className="font-playfair-display bg-gray-100 min-h-screen overflow-hidden">
       <Navbar />
       <div className="pt-[4.5rem]">
-        {imageUrl ? (
+        {articleData.imageUrl ? (
           <div className="w-full">
             <img
-              src={imageUrl}
-              alt={title}
+              src={articleData.imageUrl}
+              alt={articleData.title}
               className="w-full max-h-[70vh] object-cover"
             />
           </div>
         ) : null}
         <article className="max-w-[95%] mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">{title}</h1>
+          <h1 className="text-3xl font-bold mb-4 text-gray-800">
+            {articleData.title}
+          </h1>
           <p className="text-gray-400 mb-8 font-semibold italic">
-            {author} {new Date(publishedDate).toLocaleDateString()}
+            {articleData.author}{" "}
+            {new Date(articleData.publishedDate).toLocaleDateString()}
           </p>
           <div
             className="prose text-gray-800 break-words"
-            dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: articleData.content }}
           />
         </article>
       </div>

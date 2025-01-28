@@ -42,7 +42,7 @@ export default function HomeClient() {
         </div>
       </div>
       <AnimatedOffsetCards />
-      <h1 className="text-4xl text-center font-bold text-neutral-800 font-sans my-10 mt-16">
+      <h1 className="text-4xl text-center font-bold text-neutral-800 font-sans my-10">
         Ελάτε να δημιουργήσουμε μαζί το impact που θα ξεχωρίσει το Brand σας!
       </h1>
       <Footer />
