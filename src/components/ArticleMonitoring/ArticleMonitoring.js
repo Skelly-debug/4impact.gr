@@ -97,6 +97,7 @@ const ArticleMonitoring = () => {
         body: JSON.stringify({
           id: editingArticle.id,
           ...editingArticle,
+          imageUrl: editingArticle.imageUrl || null,
         }),
       });
 
