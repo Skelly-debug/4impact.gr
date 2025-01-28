@@ -57,17 +57,13 @@ const ArticleMonitoring = () => {
 
   const handleDeleteArticle = async (articleId) => {
     try {
-      // Optimistically remove the article from the UI
+      // Optimistically update UI
       setArticles((currentArticles) =>
         currentArticles.filter((article) => article.id !== articleId)
       );
 
-      const response = await fetch("/api/articles", {
+      const response = await fetch(`/api/articles?id=${articleId}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(articleId), // Pass just the ID as the body
       });
 
       if (!response.ok) {
@@ -77,7 +73,7 @@ const ArticleMonitoring = () => {
           errorText
         );
 
-        // Fetch the current articles to ensure we have the most up-to-date list
+        // Fetch updated articles
         const fetchResponse = await fetch("/api/articles");
         const currentArticles = await fetchResponse.json();
         setArticles(currentArticles);
