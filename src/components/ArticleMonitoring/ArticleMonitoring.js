@@ -82,7 +82,6 @@ const ArticleMonitoring = () => {
       }
     } catch (error) {
       console.error("Error deleting article:", error);
-      alert(`Failed to delete article: ${error.message}`);
     }
   };
 
