@@ -122,7 +122,6 @@ const ArticleMonitoring = () => {
       setEditingArticle(null);
     } catch (error) {
       console.error("Error updating article:", error);
-      alert(`Failed to update article: ${error.message}`);
     }
   };
   const handleAddArticle = async (newArticle) => {
@@ -184,10 +183,6 @@ const ArticleMonitoring = () => {
 
       console.error("Detailed error information:", errorDetails);
       console.error("Error occurred in handleAddArticle:", error);
-
-      alert(
-        `Failed to add article: ${error.message || "Unknown error occurred"}`
-      );
     }
   };
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../NavBar/Navbar";
 
 export default function ArticleTemplate({
-  id, // Add id to props
+  id,
   title,
   content,
   publishedDate,
@@ -19,20 +19,32 @@ export default function ArticleTemplate({
     author,
   });
 
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return isNaN(parsedDate.getTime())
+      ? "Unknown Date"
+      : parsedDate.toLocaleDateString();
+  };
+
   useEffect(() => {
     const eventSource = new EventSource("/api/articles/stream");
 
     eventSource.onmessage = (event) => {
       const update = JSON.parse(event.data);
 
-      // Only update if this is our article
       if (update.article.id === id) {
+        const normalizedArticle = {
+          ...update.article,
+          publishedDate: update.article.publishedDate
+            ? new Date(update.article.publishedDate).toISOString()
+            : null,
+        };
+
         switch (update.type) {
           case "update":
-            setArticleData(update.article);
+            setArticleData(normalizedArticle);
             break;
           case "delete":
-            // Optionally redirect if article is deleted
             window.location.href = "/articles";
             break;
         }
@@ -60,8 +72,7 @@ export default function ArticleTemplate({
             {articleData.title}
           </h1>
           <p className="text-gray-400 mb-8 font-semibold italic">
-            {articleData.author}{" "}
-            {new Date(articleData.publishedDate).toLocaleDateString()}
+            {articleData.author} {formatDate(articleData.publishedDate)}
           </p>
           <div
             className="prose text-gray-800 break-words"
