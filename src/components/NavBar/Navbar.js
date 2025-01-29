@@ -64,14 +64,6 @@ function Navbar() {
                 </li>
                 <li>
                   <a
-                    href="/impact"
-                    className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
-                  >
-                    Impact
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="/about"
                     className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
                   >
@@ -102,12 +94,6 @@ function Navbar() {
             className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
           >
             Νέα
-          </a>
-          <a
-            href="/impact"
-            className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
-          >
-            Impact
           </a>
           <a
             href="/about"

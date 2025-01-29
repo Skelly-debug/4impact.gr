@@ -16,7 +16,7 @@ export default function Bio() {
             Ιάσονας Κάντας
           </h1>
           <p className="text-gray-600 text-sm md:text-base">
-            Communications Expert
+            Communication Strategist – 4Impact Communications Founder
           </p>
         </div>
       </div>

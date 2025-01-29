@@ -32,7 +32,7 @@ function AboutClient() {
         <div className="absolute w-full h-full">
           <img
             className="absolute w-full h-full object-cover"
-            src="images/WE.jpg"
+            src="images/IMPACT.jpg"
             alt="Background Image"
           />
         </div>
@@ -58,6 +58,13 @@ function AboutClient() {
           }`}
         >
           <Bio />
+        </div>
+        <div className="text-gray-600 text-xl m-16">
+          Για την 4Impact Communications τα καλύτερα αποτελέσματα έρχονται μέσα
+          από τη συνεργασία και την ομαδική δουλειά. Για αυτό, μέσα στα χρόνια
+          είμαστε περήφανοι για το δίκτυο συνεργατών μας, με τις οποίες και τους
+          οποίους εργαζόμαστε παρέα ανάλογα με την υφή και τα ζητούμενα του κάθε
+          project.
         </div>
       </div>
       <Footer />
