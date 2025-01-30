@@ -1,74 +1,141 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const logos = [
-  "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
-  "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
-  "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
-  "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
-  "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
+
+//edw vale onomata
+const defaultLogos = [
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Discover",
+    name: "DISCOVER"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "iTunes",
+    name: "iTunes"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Payoneer",
+    name: "PAYONEER"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Qatar Airways",
+    name: "QATAR AIRWAYS"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Suzuki",
+    name: "SUZUKI"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Microsoft",
+    name: "MICROSOFT"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Google",
+    name: "GOOGLE"
+  },
+  {
+    src: "/api/placeholder/200/100",
+    alt: "Qatar Airways",
+    name: "QATAR AIRWAYS"
+  },
 ];
 
-export default function LogoSlider() {
-  const [index, setIndex] = useState(0);
+//edw tha oriseis apo pou tha arxisei
+const LogoSlider = ({ logos = defaultLogos }) => {
+  const [translateX, setTranslateX] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0); 
+  const [isAnimating, setIsAnimating] = useState(false);
+  
+  const itemWidth = 272; 
 
-  const nextSlide = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % logos.length);
+  const handleNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    const nextIndex = (currentIndex + 1) % logos.length;
+    const nextTranslate = nextIndex * itemWidth;
+    
+
+    //MHN PEIRAKSEIS TO -3 GT THA VGAZEI LEUKA KOUTAKIA META TO LAST
+    if (nextIndex === logos.length - 3) {
+      setTranslateX(0);
+      setCurrentIndex(0);
+    } else {
+      setTranslateX(nextTranslate);
+      setCurrentIndex(nextIndex);
+    }
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
-  const prevSlide = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + logos.length) % logos.length);
+  const handlePrev = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    const nextIndex = (currentIndex - 1 + logos.length) % logos.length;
+    const nextTranslate = nextIndex * itemWidth;
+
+    setTranslateX(nextTranslate);
+    setCurrentIndex(nextIndex);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto p-8 overflow-hidden">
-      <div className="flex items-center justify-center">
-        <div className="relative flex w-full max-w-4xl overflow-hidden">
-          <motion.div
-            className="flex gap-8"
-            animate={{ x: `-${index * 25}%` }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            style={{ width: "max-content" }}
+    <div className="w-full max-w-6xl mx-auto px-4">
+      <h2 className="text-2xl font-semibold text-center mb-8 text-teal-800">
+        
+      </h2>
+      <div className="relative">
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+          disabled={isAnimating}
+        >
+          <ChevronLeft className="w-6 h-6 text-gray-600" />
+        </button>
+
+        <button
+          onClick={handleNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+          disabled={isAnimating}
+        >
+          <ChevronRight className="w-6 h-6 text-gray-600" />
+        </button>
+
+        <div className="overflow-hidden">
+          <div
+            className="flex gap-4 transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${translateX}px)`
+            }}
           >
-            {[...logos, ...logos].map((logo, i) => {
-              const isActive = i % logos.length === index;
-              return (
-                <motion.div
-                  key={i}
-                  className="flex-shrink-0 w-1/4 flex justify-center"
-                  animate={{
-                    scale: isActive ? 1.2 : 1,
-                    opacity: isActive ? 1 : 0.6,
-                  }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <img
-                    src={logo}
-                    alt={`Service ${i % logos.length + 1}`}
-                    className="w-full h-56 object-contain rounded-lg shadow-lg"
-                  />
-                </motion.div>
-              );
-            })}
-          </motion.div>
+            {logos.map((logo, index) => (
+              <div
+                key={`${logo.name}-${index}`}
+                className="flex-shrink-0 w-64 h-32 bg-white rounded-lg shadow-sm border border-black flex flex-col items-center justify-center p-4"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-w-full max-h-16 object-contain mb-2"
+                  draggable="false"
+                />
+                <span className="text-sm font-semibold text-gray-600">{logo.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Navigation Buttons */}
-      <button
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-300"
-        onClick={prevSlide}
-      >
-        <ChevronLeft size={32} />
-      </button>
-
-      <button
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-300"
-        onClick={nextSlide}
-      >
-        <ChevronRight size={32} />
-      </button>
     </div>
   );
-}
+};
+
+export default LogoSlider;
+
+
+
