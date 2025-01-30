@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
-import AnimatedOffsetCards from "@/components/HomeCards/AnimatedOffsetCards";
+import ServiceSlider from "@/components/ServiceSlider/ServiceSlider";
 import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
 
@@ -64,6 +64,7 @@ export default function HomeClient() {
       >
         Ελάτε να δημιουργήσουμε μαζί το impact που θα ξεχωρίσει το Brand σας!
       </Link>
+      <ServiceSlider />
       <Footer />
     </div>
   );
