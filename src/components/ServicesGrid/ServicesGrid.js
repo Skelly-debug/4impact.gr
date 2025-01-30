@@ -1,0 +1,66 @@
+import React from "react";
+import Link from "next/link";
+
+const ServicesGrid = () => {
+  const images = [
+    {
+      src: "https://placehold.co/600x400",
+      text: "Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο",
+      url: "/services",
+    },
+    {
+      src: "https://placehold.co/600x400",
+      text: "Στρατηγικός σχεδιασμός και παραγωγή περιεχομένου",
+      url: "/services",
+    },
+    {
+      src: "https://placehold.co/600x400",
+      text: "Σχέσεις με ΜΜΕ",
+      url: "/services",
+    },
+    {
+      src: "https://placehold.co/600x400",
+      text: "Στήριξη επιχειρήσεων για ένα κοινωνικά υπεύθυνο μέλλον",
+      url: "/services",
+    },
+    {
+      src: "https://placehold.co/600x400",
+      text: "Συμβουλευτική επικοινωνίας και διαχείρισης κρίσεων",
+      url: "/services",
+    },
+    {
+      src: "https://placehold.co/600x400",
+      text: "Εκπαιδευτικά πακέτα",
+      url: "/services",
+    },
+  ];
+
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {images.map((image, index) => (
+          <Link href={image.url} key={index} className="block">
+            <div className="relative group cursor-pointer overflow-hidden rounded-lg">
+              <img
+                src={image.src}
+                alt={image.text}
+                className="w-full h-48 sm:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Overlay with blur/shade effect */}
+              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
+
+              {/* Centered text */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <h3 className="text-white text-lg sm:text-xl font-bold z-10 text-center px-4 sm:px-6 max-w-[90%]">
+                  {image.text}
+                </h3>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ServicesGrid;
