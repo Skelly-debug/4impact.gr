@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
-import ServiceSlider from "@/components/ServiceSlider/ServiceSlider";
+import LogoSlider from "@/components/LogoSlider/LogoSlider";
 import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
 
@@ -42,29 +42,43 @@ export default function HomeClient() {
           </h1>
         </div>
       </div>
-      <h1 className="text-xl text-gray-700 text-center m-8">
+      <h1 className="text-xl text-gray-800 text-center m-12 mx-96">
         Για εμάς, η επικοινωνία δεν είναι απλώς μια διαδικασία – είναι ο
         πραγματικός αντίκτυπος που δημιουργούμε «εκεί έξω». Δεν επικοινωνούμε
         απλά για να κάνουμε «θόρυβο» αλλά για να πετύχουμε - μαζί με τους
         συνεργάτες που μας εμπιστεύονται – την πραγματική αλλαγή που επιθυμούν.
+      </h1>
+      <h1 className="text-xl text-gray-800 text-center m-12 mx-96">
         Στην 4Impact Communications, πιστεύουμε ότι ο σκοπός των Brands – είτε
         πρόκειται για οργανώσεις της κοινωνίας των πολιτών είτε για εταιρείες –
         είναι η πυξίδα μας στις στρατηγικές λύσεις Marketing, Επικοινωνίας και
         Branding που προτείνουμε. Με 20 χρόνια εμπειρίας στους τομείς της
         στρατηγικής επικοινωνίας, του Marketing, του Branding και της παραγωγής
         περιεχομένου κάθε μορφής, είμαστε έτοιμοι να σας βοηθήσουμε να ανοίξετε
-        τον δρόμο για να πετύχετε τους στόχους σας. Αν ψάχνετε έναν συνεργάτη
-        που θα μοιραστεί το όραμά σας και θα σας καθοδηγήσει προς απτά
-        αποτελέσματα μέσω στοχευμένων λύσεων και στρατηγικών επικοινωνίας,
-        είμαστε εδώ για να κάνουμε τα σχέδιά σας πραγματικότητα.
+        τον δρόμο για να πετύχετε τους στόχους σας.
       </h1>
-      <Link
-        className="text-4xl font-bold text-neutral-800 font-sans m-2  0 text-center"
-        href="/services"
-      >
-        Ελάτε να δημιουργήσουμε μαζί το impact που θα ξεχωρίσει το Brand σας!
-      </Link>
-      <ServiceSlider />
+      <h1 className="text-xl text-gray-800 text-center m-12 mx-96">
+        Αν ψάχνετε έναν συνεργάτη που θα μοιραστεί το όραμά σας και θα σας
+        καθοδηγήσει προς απτά αποτελέσματα μέσω στοχευμένων λύσεων και
+        στρατηγικών επικοινωνίας, είμαστε εδώ για να κάνουμε τα σχέδιά σας
+        πραγματικότητα.
+      </h1>
+
+      <center>
+        <Link
+          className="text-4xl font-bold text-neutral-800 font-sans m-2 hover:scale-105 transition ease-in-out duration-300"
+          href="/services"
+        >
+          Ελάτε να δημιουργήσουμε μαζί το impact που θα ξεχωρίσει το Brand σας!
+        </Link>
+      </center>
+      <h2 className="italic text-center font-bold text-neutral-500 my-24">
+        Υπηρεσίες Εδώ
+      </h2>
+      <h1 className="text-4xl text-center font-bold text-neutral-500 font-sans m-2 mt-24">
+        Συνεργασίες
+      </h1>
+      <LogoSlider />
       <Footer />
     </div>
   );
