@@ -46,11 +46,11 @@ const ServicesGrid = () => {
                 alt={image.text}
                 className="w-full h-48 sm:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              {/* Overlay with blur/shade effect */}
-              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
+              {/* Overlay with blur/shade effect - always visible on mobile, hover effect on desktop */}
+              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 sm:group-hover:opacity-40 max-sm:opacity-40 transition-opacity duration-300" />
 
-              {/* Centered text */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {/* Centered text - always visible on mobile, hover effect on desktop */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 sm:group-hover:opacity-100 max-sm:opacity-100 transition-opacity duration-300">
                 <h3 className="text-white text-lg sm:text-xl font-bold z-10 text-center px-4 sm:px-6 max-w-[90%]">
                   {image.text}
                 </h3>

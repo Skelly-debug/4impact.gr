@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const defaultLogos = [
@@ -18,9 +18,21 @@ const LogoSlider = ({ logos = defaultLogos }) => {
   const [translateX, setTranslateX] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const itemWidth = 272;
-  const showNavigation = logos.length >= 4;
+  // Check for mobile screen size
+  useEffect(() => {
+    const checkMobileSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobileSize();
+    window.addEventListener("resize", checkMobileSize);
+    return () => window.removeEventListener("resize", checkMobileSize);
+  }, []);
+
+  const itemWidth = isMobile ? 240 : 272; // Slightly smaller on mobile
+  const visibleLogos = isMobile ? 1 : 4; // Show one logo at a time on mobile
 
   const handleNext = () => {
     if (isAnimating) return;
@@ -29,7 +41,7 @@ const LogoSlider = ({ logos = defaultLogos }) => {
     const nextIndex = (currentIndex + 1) % logos.length;
     const nextTranslate = nextIndex * itemWidth;
 
-    if (nextIndex === logos.length - 3) {
+    if (nextIndex >= logos.length - visibleLogos + 1) {
       setTranslateX(0);
       setCurrentIndex(0);
     } else {
@@ -51,45 +63,73 @@ const LogoSlider = ({ logos = defaultLogos }) => {
     setTimeout(() => setIsAnimating(false), 500);
   };
 
+  // Show navigation if there are more logos than visible slots AND not on mobile
+  const showNavigation = !isMobile && logos.length > visibleLogos;
+
   return (
-    <div className="w-full max-w-6xl mx-auto px-8 my-12">
-      <h2 className="text-2xl font-semibold text-center mb-8 text-teal-800"></h2>
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-8 my-12">
       <div className="relative">
         {showNavigation && (
           <>
             <button
               onClick={handlePrev}
-              className="absolute -left-[3.5rem] top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+              className="absolute -left-8 sm:-left-[3.5rem] top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
               disabled={isAnimating}
             >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
             </button>
 
             <button
               onClick={handleNext}
-              className="absolute -right-[2.5rem] top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+              className="absolute -right-8 sm:-right-[2.5rem] top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
               disabled={isAnimating}
             >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
             </button>
           </>
         )}
 
-        <div className="overflow-hidden">
+        <div
+          className={`
+            ${isMobile ? "overflow-x-auto" : "overflow-hidden"}
+          `}
+        >
           <div
-            className={`flex gap-4 transition-transform duration-500 ease-in-out ${
-              !showNavigation ? "justify-center" : ""
-            }`}
+            className={`
+              flex gap-4 
+              ${
+                isMobile
+                  ? "w-max"
+                  : "transition-transform duration-500 ease-in-out " +
+                    (logos.length < 4 ? "justify-center" : "")
+              }
+            `}
             style={{
-              transform: showNavigation
-                ? `translateX(-${translateX}px)`
-                : "none",
+              transform:
+                !isMobile && showNavigation
+                  ? `translateX(-${translateX}px)`
+                  : "none",
             }}
           >
             {logos.map((logo, index) => (
               <div
                 key={`${logo.name}-${index}`}
-                className="flex-shrink-0 w-64 h-32 bg-white rounded-lg shadow-sm border border-black flex flex-col items-center justify-center p-4"
+                className="
+                  flex-shrink-0 
+                  w-60 sm:w-64 
+                  h-32 
+                  bg-white 
+                  rounded-lg 
+                  shadow-sm 
+                  border 
+                  border-black 
+                  flex 
+                  flex-col 
+                  items-center 
+                  justify-center 
+                  p-4
+                  min-w-[240px]
+                "
               >
                 <img
                   src={logo.src}
@@ -97,7 +137,7 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   className="max-w-full max-h-16 object-contain mb-2"
                   draggable="false"
                 />
-                <span className="text-sm font-semibold text-gray-600">
+                <span className="text-sm font-semibold text-gray-600 text-center">
                   {logo.name}
                 </span>
               </div>
