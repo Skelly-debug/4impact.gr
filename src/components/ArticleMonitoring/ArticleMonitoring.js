@@ -7,6 +7,37 @@ import { redirect } from "next/navigation";
 import DOMPurify from "dompurify";
 import AdminForm from "../AdminForm/AdminForm";
 
+const Toolbar = ({ onAddImage }) => {
+  return (
+    <div className="flex space-x-2 p-2 bg-gray-100 border-b">
+      <button
+        onClick={() => document.execCommand("bold", false, null)}
+        className="p-2 bg-white border rounded hover:bg-gray-200"
+      >
+        <strong>B</strong>
+      </button>
+      <button
+        onClick={() => document.execCommand("italic", false, null)}
+        className="p-2 bg-white border rounded hover:bg-gray-200"
+      >
+        <em>I</em>
+      </button>
+      <button
+        onClick={() => document.execCommand("underline", false, null)}
+        className="p-2 bg-white border rounded hover:bg-gray-200"
+      >
+        <u>U</u>
+      </button>
+      <button
+        onClick={onAddImage}
+        className="p-2 bg-white border rounded hover:bg-gray-200"
+      >
+        📷
+      </button>
+    </div>
+  );
+};
+
 const ArticleMonitoring = () => {
   const { data: session, status } = useSession({
     required: true,
@@ -47,17 +78,8 @@ const ArticleMonitoring = () => {
     fetchArticles();
   }, [session]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "unauthenticated") {
-    return null;
-  }
-
   const handleDeleteArticle = async (articleId) => {
     try {
-      // Optimistically update UI
       setArticles((currentArticles) =>
         currentArticles.filter((article) => article.id !== articleId)
       );
@@ -68,16 +90,10 @@ const ArticleMonitoring = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(
-          `Failed to delete article. Status: ${response.status}`,
-          errorText
-        );
-
-        // Fetch updated articles
+        console.error("Failed to delete article:", errorText);
         const fetchResponse = await fetch("/api/articles");
         const currentArticles = await fetchResponse.json();
         setArticles(currentArticles);
-
         throw new Error(`Failed to delete article: ${errorText}`);
       }
     } catch (error) {
@@ -103,31 +119,24 @@ const ArticleMonitoring = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Full error response:", errorText);
+        console.error("Failed to update article:", errorText);
         throw new Error(`Failed to update article. Status: ${response.status}`);
       }
 
       const updatedArticle = await response.json();
-
       setArticles(
         articles.map((article) =>
           article.id === updatedArticle.id ? updatedArticle : article
         )
       );
-
       setEditingArticle(null);
     } catch (error) {
       console.error("Error updating article:", error);
     }
   };
+
   const handleAddArticle = async (newArticle) => {
-    // Log the starting point and input data
-    console.log("Starting handleAddArticle with data:", newArticle);
-
     try {
-      // Log the request we're about to make
-      console.log("Making POST request to /api/articles");
-
       const response = await fetch("/api/articles", {
         method: "POST",
         headers: {
@@ -137,57 +146,32 @@ const ArticleMonitoring = () => {
         body: JSON.stringify(newArticle),
       });
 
-      // Log the initial response
-      console.log("Received response:", {
-        status: response.status,
-        statusText: response.statusText,
-        headers: Object.fromEntries([...response.headers]),
-      });
-
       if (!response.ok) {
-        // Try to read the response body
         const errorText = await response.text();
-        console.log("Error response body:", errorText);
-
-        let errorMessage;
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage =
-            errorData.message || errorData.error || "Unknown server error";
-        } catch {
-          errorMessage = `Server error: ${response.status} ${response.statusText}`;
-        }
-
-        throw new Error(errorMessage);
+        throw new Error(errorText);
       }
 
-      console.log("Response was OK, parsing JSON");
       const addedArticle = await response.json();
-      console.log("Successfully parsed response:", addedArticle);
-
       setArticles((prevArticles) => [addedArticle, ...prevArticles]);
       setIsAddModalOpen(false);
     } catch (error) {
-      // Detailed error logging
-      const errorDetails = {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-        type: error instanceof TypeError ? "Network error" : "General error",
-        status: error.status,
-      };
-
-      console.error("Detailed error information:", errorDetails);
-      console.error("Error occurred in handleAddArticle:", error);
+      console.error("Error adding article:", error);
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <p>Loading articles...</p>
-      </div>
-    );
+  const handleAddImage = () => {
+    const imageUrl = prompt("Enter the image URL:");
+    if (imageUrl) {
+      document.execCommand("insertImage", false, imageUrl);
+    }
+  };
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "unauthenticated") {
+    return null;
   }
 
   return (
@@ -223,45 +207,10 @@ const ArticleMonitoring = () => {
                   <div>
                     <h3 className="font-bold">{article.title}</h3>
                     <p className="text-sm text-gray-600">By {article.author}</p>
-                    {/* Sanitize and render HTML content */}
                     <div
                       className="mt-2"
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(
-                          article.content.length > 50
-                            ? `${article.content.slice(0, 50)}...`
-                            : article.content,
-                          {
-                            ALLOWED_TAGS: [
-                              "p",
-                              "h1",
-                              "h2",
-                              "h3",
-                              "h4",
-                              "h5",
-                              "h6",
-                              "br",
-                              "strong",
-                              "em",
-                              "u",
-                              "a",
-                              "img",
-                              "iframe",
-                              "ul",
-                              "ol",
-                              "li",
-                            ],
-                            ALLOWED_ATTR: [
-                              "src",
-                              "href",
-                              "width",
-                              "height",
-                              "frameborder",
-                              "allowfullscreen",
-                              "target",
-                            ],
-                          }
-                        ),
+                        __html: DOMPurify.sanitize(article.content),
                       }}
                     />
                   </div>
@@ -307,17 +256,17 @@ const ArticleMonitoring = () => {
                 className="w-full p-2 border rounded"
                 required
               />
-              <textarea
-                value={editingArticle.content}
-                onChange={(e) =>
+              <Toolbar onAddImage={handleAddImage} />
+              <div
+                contentEditable
+                onInput={(e) =>
                   setEditingArticle({
                     ...editingArticle,
-                    content: e.target.value,
+                    content: e.target.innerHTML,
                   })
                 }
-                placeholder="Article Content (HTML allowed)"
-                className="w-full p-2 border rounded h-[30vh]"
-                required
+                dangerouslySetInnerHTML={{ __html: editingArticle.content }}
+                className="w-full p-2 border rounded h-[30vh] overflow-y-auto"
               />
               <input
                 type="text"

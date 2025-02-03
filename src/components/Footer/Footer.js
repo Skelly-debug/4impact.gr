@@ -47,12 +47,6 @@ function Footer() {
             Νέα
           </a>
           <a
-            href="/about"
-            className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
-          >
-            Σχετικά με εμάς
-          </a>
-          <a
             href="/contact"
             className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
           >

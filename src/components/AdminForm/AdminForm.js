@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
+import Toolbar from "../Toolbar/toolbar";
 function AdminForm({ onSubmit, onCancel }) {
   const [newArticle, setNewArticle] = useState({
     title: "",
@@ -7,6 +7,8 @@ function AdminForm({ onSubmit, onCancel }) {
     author: "",
     imageUrl: "",
   });
+
+  const editorRef = useRef(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,9 +18,45 @@ function AdminForm({ onSubmit, onCancel }) {
     }));
   };
 
+  const handleEditorInput = () => {
+    setNewArticle((prev) => ({
+      ...prev,
+      content: editorRef.current?.innerHTML || "",
+    }));
+  };
+
+  const handleAddImage = () => {
+    const imageUrl = prompt("Enter image URL:");
+    if (imageUrl && editorRef.current) {
+      editorRef.current.focus();
+      document.execCommand("insertImage", false, imageUrl);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(newArticle);
+  };
+
+  // Initialize editor content and focus
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.innerHTML = newArticle.content;
+      editorRef.current.focus(); // Ensure the editor is focused
+      placeCaretAtEnd(editorRef.current); // Move the cursor to the end of the content
+    }
+  }, [newArticle.content]);
+
+  // Helper function to place the cursor at the end of the content
+  const placeCaretAtEnd = (element) => {
+    if (element) {
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(element);
+      range.collapse(false); // Collapse the range to the end
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   };
 
   return (
@@ -39,16 +77,20 @@ function AdminForm({ onSubmit, onCancel }) {
             className="w-full px-3 py-2 border rounded-md"
           />
         </div>
+
+        {/* Rich Text Editor Section */}
         <div className="mb-4">
-          <textarea
-            name="content"
-            value={newArticle.content}
-            onChange={handleInputChange}
-            placeholder="Article Content"
-            required
-            className="w-full px-3 py-2 border rounded-md h-32"
+          <Toolbar editorRef={editorRef} onAddImage={handleAddImage} />
+          <div
+            ref={editorRef}
+            contentEditable
+            onInput={handleEditorInput}
+            className="w-full px-3 py-2 border rounded-md min-h-[200px] overflow-y-auto text-left"
+            style={{ textAlign: "left", direction: "ltr", outline: "none" }} // Ensure left-to-right typing and remove outline
+            dangerouslySetInnerHTML={{ __html: newArticle.content }}
           />
         </div>
+
         <div className="mb-4">
           <input
             type="text"
@@ -66,7 +108,7 @@ function AdminForm({ onSubmit, onCancel }) {
             name="imageUrl"
             value={newArticle.imageUrl}
             onChange={handleInputChange}
-            placeholder="Image URL (optional)"
+            placeholder="Cover Image URL (optional)"
             className="w-full px-3 py-2 border rounded-md"
           />
         </div>

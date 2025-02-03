@@ -1,7 +1,30 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+
+  const dropdownVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut",
+      },
+    },
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full p-[1rem] bg-white z-50">
@@ -63,19 +86,55 @@ function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/about"
-                    className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                  <div
+                    className="relative"
+                    onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
                   >
-                    Σχετικά με εμάς
-                  </a>
+                    <span className="flex items-center text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200 cursor-pointer">
+                      Σχετικά με εμάς
+                      <ChevronDown
+                        className={`ml-2 transition-transform duration-300 ${
+                          isAboutDropdownOpen ? "rotate-180" : ""
+                        }`}
+                        size={20}
+                      />
+                    </span>
+                    <AnimatePresence>
+                      {isAboutDropdownOpen && (
+                        <motion.ul
+                          variants={dropdownVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          className="pl-4 space-y-2 mt-2 overflow-hidden"
+                        >
+                          <li>
+                            <a
+                              href="/about/who-we-are"
+                              className="text-md text-neutral-800 hover:bg-gray-300 rounded p-2 transition ease-in duration-200 block"
+                            >
+                              Ποιοι είμαστε
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="/about/portfolio"
+                              className="text-md text-neutral-800 hover:bg-gray-300 rounded p-2 transition ease-in duration-200 block"
+                            >
+                              Portfolio
+                            </a>
+                          </li>
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </li>
                 <li>
                   <a
                     href="/contact"
                     className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
                   >
-                    Επικοινωνία
+                    Επικοινωνία
                   </a>
                 </li>
               </ul>
@@ -95,17 +154,50 @@ function Navbar() {
           >
             Νέα
           </a>
-          <a
-            href="/about"
-            className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsAboutDropdownOpen(true)}
+            onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            Σχετικά με εμάς
-          </a>
+            <span className="flex items-center text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200 cursor-pointer">
+              Σχετικά με εμάς
+              <ChevronDown
+                className={`ml-2 transition-transform duration-300 ${
+                  isAboutDropdownOpen ? "rotate-180" : ""
+                }`}
+                size={20}
+              />
+            </span>
+            <AnimatePresence>
+              {isAboutDropdownOpen && (
+                <motion.div
+                  variants={dropdownVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="absolute top-full left-0 bg-white shadow-lg rounded-md mt-2 py-2 w-40 z-10 overflow-hidden"
+                >
+                  <a
+                    href="/about/who-we-are"
+                    className="block px-4 py-2 text-neutral-800 hover:bg-gray-100 transition ease-in duration-200"
+                  >
+                    Ποιοι είμαστε
+                  </a>
+                  <a
+                    href="/about/portfolio"
+                    className="block px-4 py-2 text-neutral-800 hover:bg-gray-100 transition ease-in duration-200"
+                  >
+                    Portfolio
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <a
             href="/contact"
             className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
           >
-            Επικοινωνία
+            Επικοινωνία
           </a>
         </nav>
       </div>
