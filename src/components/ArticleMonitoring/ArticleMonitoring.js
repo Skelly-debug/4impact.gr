@@ -1,48 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Trash2, Edit, Plus } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import DOMPurify from "dompurify";
 import AdminForm from "../AdminForm/AdminForm";
-
-const Toolbar = ({ onAddImage }) => {
-  return (
-    <div className="flex space-x-2 p-2 bg-gray-100 border-b">
-      <button
-        onClick={() => document.execCommand("bold", false, null)}
-        className="p-2 bg-white border rounded hover:bg-gray-200"
-      >
-        <strong>B</strong>
-      </button>
-      <button
-        onClick={() => document.execCommand("italic", false, null)}
-        className="p-2 bg-white border rounded hover:bg-gray-200"
-      >
-        <em>I</em>
-      </button>
-      <button
-        onClick={() => document.execCommand("underline", false, null)}
-        className="p-2 bg-white border rounded hover:bg-gray-200"
-      >
-        <u>U</u>
-      </button>
-      <button
-        onClick={onAddImage}
-        className="p-2 bg-white border rounded hover:bg-gray-200"
-      >
-        📷
-      </button>
-    </div>
-  );
-};
+import Toolbar from "../Toolbar/toolbar";
 
 const ArticleMonitoring = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/auth/signin");
+      redirect("/auth");
     },
   });
 
@@ -50,6 +20,19 @@ const ArticleMonitoring = () => {
   const [editingArticle, setEditingArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const editorRef = useRef(null);
+
+  // Helper function to place cursor at end of content
+  const placeCaretAtEnd = (element) => {
+    if (element) {
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(element);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  };
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -62,9 +45,7 @@ const ArticleMonitoring = () => {
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch articles");
-        }
+        if (!response.ok) throw new Error("Failed to fetch articles");
 
         const data = await response.json();
         setArticles(data);
@@ -78,10 +59,18 @@ const ArticleMonitoring = () => {
     fetchArticles();
   }, [session]);
 
+  // Initialize editor content when editing
+  useEffect(() => {
+    if (editingArticle && editorRef.current) {
+      editorRef.current.innerHTML = editingArticle.content;
+      placeCaretAtEnd(editorRef.current);
+    }
+  }, [editingArticle]);
+
   const handleDeleteArticle = async (articleId) => {
     try {
-      setArticles((currentArticles) =>
-        currentArticles.filter((article) => article.id !== articleId)
+      setArticles((current) =>
+        current.filter((article) => article.id !== articleId)
       );
 
       const response = await fetch(`/api/articles?id=${articleId}`, {
@@ -90,11 +79,12 @@ const ArticleMonitoring = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Failed to delete article:", errorText);
-        const fetchResponse = await fetch("/api/articles");
-        const currentArticles = await fetchResponse.json();
-        setArticles(currentArticles);
-        throw new Error(`Failed to delete article: ${errorText}`);
+        console.error("Delete failed:", errorText);
+        const freshData = await fetch("/api/articles").then((res) =>
+          res.json()
+        );
+        setArticles(freshData);
+        throw new Error(`Delete failed: ${errorText}`);
       }
     } catch (error) {
       console.error("Error deleting article:", error);
@@ -103,13 +93,10 @@ const ArticleMonitoring = () => {
 
   const handleUpdateArticle = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("/api/articles", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: editingArticle.id,
           ...editingArticle,
@@ -119,8 +106,7 @@ const ArticleMonitoring = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Failed to update article:", errorText);
-        throw new Error(`Failed to update article. Status: ${response.status}`);
+        throw new Error(`Update failed: ${errorText}`);
       }
 
       const updatedArticle = await response.json();
@@ -152,27 +138,15 @@ const ArticleMonitoring = () => {
       }
 
       const addedArticle = await response.json();
-      setArticles((prevArticles) => [addedArticle, ...prevArticles]);
+      setArticles((prev) => [addedArticle, ...prev]);
       setIsAddModalOpen(false);
     } catch (error) {
       console.error("Error adding article:", error);
     }
   };
 
-  const handleAddImage = () => {
-    const imageUrl = prompt("Enter the image URL:");
-    if (imageUrl) {
-      document.execCommand("insertImage", false, imageUrl);
-    }
-  };
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "unauthenticated") {
-    return null;
-  }
+  if (status === "loading") return <div>Loading...</div>;
+  if (status === "unauthenticated") return null;
 
   return (
     <div className="max-w-[98%] mx-auto pt-[6rem]">
@@ -194,6 +168,7 @@ const ArticleMonitoring = () => {
             </button>
           </div>
         </div>
+
         <div className="p-4">
           {articles.length === 0 ? (
             <p className="text-center text-gray-500">No articles found</p>
@@ -239,60 +214,69 @@ const ArticleMonitoring = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded-lg max-h-[80vh] w-[80vw] overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">Edit Article</h2>
-            <form
-              onSubmit={(e) => handleUpdateArticle(e, editingArticle.id)}
-              className="space-y-4"
-            >
+            <form onSubmit={handleUpdateArticle} className="space-y-4">
               <input
                 type="text"
                 value={editingArticle.title}
                 onChange={(e) =>
-                  setEditingArticle({
-                    ...editingArticle,
+                  setEditingArticle((prev) => ({
+                    ...prev,
                     title: e.target.value,
-                  })
+                  }))
                 }
                 placeholder="Article Title"
                 className="w-full p-2 border rounded"
                 required
               />
-              <Toolbar onAddImage={handleAddImage} />
+
+              <Toolbar editorRef={editorRef} />
+
               <div
+                ref={editorRef}
                 contentEditable
                 onInput={(e) =>
-                  setEditingArticle({
-                    ...editingArticle,
+                  setEditingArticle((prev) => ({
+                    ...prev,
                     content: e.target.innerHTML,
-                  })
+                  }))
                 }
-                dangerouslySetInnerHTML={{ __html: editingArticle.content }}
                 className="w-full p-2 border rounded h-[30vh] overflow-y-auto"
+                style={{
+                  textAlign: "left",
+                  direction: "ltr",
+                  outline: "none",
+                  lineHeight: "1.5",
+                  padding: "0.5rem",
+                }}
               />
+
               <input
                 type="text"
                 value={editingArticle.author}
                 onChange={(e) =>
-                  setEditingArticle({
-                    ...editingArticle,
+                  setEditingArticle((prev) => ({
+                    ...prev,
                     author: e.target.value,
-                  })
+                  }))
                 }
                 placeholder="Author Name"
                 className="w-full p-2 border rounded"
                 required
               />
+
               <input
                 type="url"
                 value={editingArticle.imageUrl || ""}
                 onChange={(e) =>
-                  setEditingArticle({
-                    ...editingArticle,
+                  setEditingArticle((prev) => ({
+                    ...prev,
                     imageUrl: e.target.value,
-                  })
+                  }))
                 }
                 placeholder="Image URL (optional)"
                 className="w-full p-2 border rounded"
               />
+
               <div className="flex justify-end space-x-2">
                 <button
                   type="button"

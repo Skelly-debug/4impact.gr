@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 
-const Toolbar = ({ editorRef, onAddImage }) => {
+const Toolbar = ({ editorRef }) => {
   const handleFormat = (command, value = null) => {
     if (editorRef.current) {
       editorRef.current.focus();
@@ -8,25 +10,21 @@ const Toolbar = ({ editorRef, onAddImage }) => {
     }
   };
 
+  const handleAddImage = () => {
+    const imageUrl = prompt("Enter image URL:");
+    if (imageUrl) handleFormat("insertImage", imageUrl);
+  };
+
   const handleAddLink = () => {
-    // Get the selected text (if any)
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
-
-    // Prompt for URL and display text
-    const url = prompt("Enter the URL:", "https://");
-    const displayText = prompt(
-      "Enter the display text:",
-      selectedText || "Link"
-    );
+    const url = prompt("Enter URL:", "https://");
+    const displayText = prompt("Display text:", selectedText || "Link");
 
     if (url && displayText) {
-      // Create the link element
       const link = document.createElement("a");
       link.href = url;
       link.textContent = displayText;
-
-      // Insert the link at the cursor position
       const range = selection.getRangeAt(0);
       range.deleteContents();
       range.insertNode(link);
@@ -65,7 +63,7 @@ const Toolbar = ({ editorRef, onAddImage }) => {
       </button>
       <button
         type="button"
-        onClick={onAddImage}
+        onClick={handleAddImage}
         className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
       >
         📷 Add Image
