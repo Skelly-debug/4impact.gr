@@ -29,19 +29,16 @@ function Navbar() {
   return (
     <div className="fixed top-0 left-0 w-full p-[1rem] bg-white z-50">
       <div className="flex justify-between items-center">
-        <div className="flex items-center justify-end space-x-4 ml-0 lg:ml-[10rem]">
+        <a
+          href="/"
+          className="flex items-center justify-end space-x-4 ml-0 lg:ml-[10rem] hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
+        >
           <img
-            className="w-12 h-12 object-cover text-black"
-            src="https://placehold.co/600x400"
+            className="w-22 h-16 object-cover text-black"
+            src="../images/logo.png"
             alt="Logo"
           />
-          <h1
-            className="text-3xl font-bold text-neutral-800 font-sans hover:scale-105 transition ease-in-out duration-300"
-            style={{ fontFamily: "Playwrite Netherland Guides" }}
-          >
-            <a href="/">4Impact</a>
-          </h1>
-        </div>
+        </a>
         <div className="lg:hidden">
           <button
             type="button"

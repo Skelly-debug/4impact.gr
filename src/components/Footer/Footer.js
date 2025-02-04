@@ -33,30 +33,10 @@ function Footer() {
             </a>
           </div>
         </nav>
-        <nav className="hidden lg:flex items-center space-x-4 justify-center">
-          <a
-            href="/"
-            className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
-          >
-            Αρχική
-          </a>
-          <a
-            href="/news"
-            className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
-          >
-            Νέα
-          </a>
-          <a
-            href="/contact"
-            className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
-          >
-            Επικοινωνία
-          </a>
-        </nav>
         <div className="flex items-center justify-end">
           <img
-            className="w-12 h-12 object-cover text-black m-auto"
-            src="https://placehold.co/600x400"
+            className="w-20 h-12 object-cover text-black m-auto"
+            src="../images/logo.png"
             alt="Logo"
           />
         </div>
