@@ -23,7 +23,7 @@ export default function ArticleTemplate({
     const parsedDate = new Date(date);
     return isNaN(parsedDate.getTime())
       ? "Unknown Date"
-      : parsedDate.toLocaleDateString();
+      : parsedDate.toLocaleString();
   };
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function ArticleTemplate({
         const normalizedArticle = {
           ...update.article,
           publishedDate: update.article.publishedDate
-            ? new Date(update.article.publishedDate).toISOString()
+            ? new Date(update.article.publishedDate).toLocaleString()
             : null,
         };
 
@@ -83,3 +83,5 @@ export default function ArticleTemplate({
     </div>
   );
 }
+
+

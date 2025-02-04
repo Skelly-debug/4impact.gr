@@ -69,27 +69,29 @@ const ArticleMonitoring = () => {
 
   const handleDeleteArticle = async (articleId) => {
     try {
-      setArticles((current) =>
-        current.filter((article) => article.id !== articleId)
-      );
-
       const response = await fetch(`/api/articles?id=${articleId}`, {
         method: "DELETE",
       });
-
+  
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Delete failed:", errorText);
-        const freshData = await fetch("/api/articles").then((res) =>
-          res.json()
-        );
-        setArticles(freshData);
         throw new Error(`Delete failed: ${errorText}`);
       }
+  
+      // Remove article from the state after successful deletion
+      setArticles((current) => current.filter((article) => article.id !== articleId));
+  
+      // Show success message
+      alert("Article deleted successfully!");
+  
     } catch (error) {
       console.error("Error deleting article:", error);
+  
+      // Show error message
+      alert("Error deleting article: " + error.message);
     }
   };
+  
 
   const handleUpdateArticle = async (e) => {
     e.preventDefault();
@@ -103,23 +105,33 @@ const ArticleMonitoring = () => {
           imageUrl: editingArticle.imageUrl || null,
         }),
       });
-
+  
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Update failed: ${errorText}`);
       }
-
+  
       const updatedArticle = await response.json();
       setArticles(
         articles.map((article) =>
           article.id === updatedArticle.id ? updatedArticle : article
         )
       );
+  
+      // Close the modal
       setEditingArticle(null);
+  
+      // Show success message
+      alert("Article updated successfully!");
+  
     } catch (error) {
       console.error("Error updating article:", error);
+  
+      // Show error message
+      alert("Error updating article: " + error.message);
     }
   };
+  
 
   const handleAddArticle = async (newArticle) => {
     try {
@@ -131,19 +143,29 @@ const ArticleMonitoring = () => {
         },
         body: JSON.stringify(newArticle),
       });
-
+  
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText);
       }
-
+  
       const addedArticle = await response.json();
       setArticles((prev) => [addedArticle, ...prev]);
+  
+      // Close the modal
       setIsAddModalOpen(false);
+  
+      // Show success message
+      alert("Article added successfully!");
+  
     } catch (error) {
       console.error("Error adding article:", error);
+  
+      // Show error message
+      alert("Error adding article: " + error.message);
     }
   };
+  
 
   if (status === "loading") return <div>Loading...</div>;
   if (status === "unauthenticated") return null;
@@ -312,3 +334,5 @@ const ArticleMonitoring = () => {
 };
 
 export default ArticleMonitoring;
+
+
