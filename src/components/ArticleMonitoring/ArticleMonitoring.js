@@ -69,6 +69,7 @@ const ArticleMonitoring = () => {
 
   const handleDeleteArticle = async (articleId) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 700));
       const response = await fetch(`/api/articles?id=${articleId}`, {
         method: "DELETE",
       });
