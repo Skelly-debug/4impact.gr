@@ -41,16 +41,6 @@ Check out the development version of the website hosted on Vercel:
 
 ---
 
-## 📸 Screenshots
-
-![Homepage](https://via.placeholder.com/800x400.png?text=Homepage+Screenshot)  
-*Example of the homepage with animated elements.*
-
-![Admin Dashboard](https://via.placeholder.com/800x400.png?text=Admin+Dashboard+Screenshot)  
-*Admin dashboard for managing website content.*
-
----
-
 ## 🚀 Getting Started
 
 To run this project locally, follow these steps:
@@ -59,14 +49,13 @@ To run this project locally, follow these steps:
    ```bash
    git clone https://github.com/Skelly-debug/4impact.gr.git
    cd 4impact.gr
-   
+   ```
 2. **Install dependencies**:
-```bash
-  npm install
-```
-
+  ```bash
+    npm install
+  ```
 3. **Set up environment variables**:
-- Create a .env.local file and add your environment variables (e.g., database credentials).
+  - Create a .env.local file and add your environment variables (e.g., database credentials).
 
 4. **Run the development server**:
    ```bash
