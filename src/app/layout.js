@@ -15,6 +15,7 @@ const geistMono = localFont({
 export const metadata = {
   title: "4Impact",
   description: "test",
+  icons: { icon: "/favicon.ico" },
 };
 
 import SessionProvider from "../components/SessionProvider";

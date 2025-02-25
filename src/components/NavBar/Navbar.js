@@ -34,7 +34,7 @@ function Navbar() {
           className="flex items-center justify-end space-x-4 ml-0 lg:ml-[10rem] hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
         >
           <img
-            className="w-22 h-16 object-cover text-black"
+            className="w-36 h-16 object-cover text-black"
             src="../images/logo.png"
             alt="Logo"
           />
@@ -64,7 +64,7 @@ function Navbar() {
             </div>
           </button>
           {isMobileMenuOpen && (
-            <nav className="absolute top-20 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
+            <nav className="absolute top-24 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
               <ul className="space-y-4">
                 <li>
                   <a

@@ -4,32 +4,32 @@ import Link from "next/link";
 const ServicesGrid = () => {
   const images = [
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service1.jpg",
       text: "Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο",
       url: "/services",
     },
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service2.jpg",
       text: "Στρατηγικός σχεδιασμός και παραγωγή περιεχομένου",
       url: "/services",
     },
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service3.jpg",
       text: "Σχέσεις με ΜΜΕ",
       url: "/services",
     },
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service4.jpg",
       text: "Στήριξη επιχειρήσεων για ένα κοινωνικά υπεύθυνο μέλλον",
       url: "/services",
     },
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service5.jpg",
       text: "Συμβουλευτική επικοινωνίας και διαχείρισης κρίσεων",
       url: "/services",
     },
     {
-      src: "https://placehold.co/600x400",
+      src: "../images/service6.jpg",
       text: "Εκπαιδευτικά πακέτα",
       url: "/services",
     },
