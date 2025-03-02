@@ -84,7 +84,7 @@ function ServicesClient() {
   const { showTitle } = useInView(titleRef);
 
   return (
-    <div className="font-playfair-display bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <Navbar />
 
       <div className="relative min-h-screen flex flex-col">
@@ -94,26 +94,26 @@ function ServicesClient() {
             src="images/SERVICES.jpg"
             alt="Background Image"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70 z-1"></div>
+          {/* Overlay with gradient effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
           <div
             ref={titleRef}
             className="relative z-10 flex justify-center items-center min-h-screen"
           >
             <div className="text-center px-4">
               <h1
-                className={`text-6xl md:text-7xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
+                className={`text-6xl md:text-7xl  text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
                   showTitle
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+                <span className="font-semibold">
                   Υπηρεσίες
                 </span>
               </h1>
             </div>
           </div>
-          {/* <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50 to-transparent z-2 opacity-50"></div> */}
         </div>
 
         <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 space-y-16">

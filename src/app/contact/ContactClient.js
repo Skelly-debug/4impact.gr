@@ -106,7 +106,7 @@ export default function ContactClient() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 selection:bg-blue-500 selection:text-white">
-      <div className="font-playfair-display bg-gray-100 overflow-hidden">
+      <div className="bg-gray-100 overflow-hidden">
         <Navbar />
         <div className="relative h-[100vh] overflow-hidden">
           <div className="absolute w-full h-full">
@@ -116,7 +116,8 @@ export default function ContactClient() {
               alt="Background Image"
             />
           </div>
-          <div className="absolute inset-0 bg-black bg-opacity-60 z-1"></div>
+          {/* Overlay with gradient effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
           <div className="flex justify-center items-center h-full">
             <h1
               className={`text-6xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
@@ -125,7 +126,7 @@ export default function ContactClient() {
                   : "opacity-0 translate-y-8"
               }`}
             >
-              <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+              <span>
                 Επικοινωνία
               </span>
             </h1>

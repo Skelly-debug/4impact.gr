@@ -1,9 +1,10 @@
-import portfolioClient from "./portfolioClient";
+import PortfolioClient from "./portfolioClient";
 
 export const metadata = {
   title: "Portfolio",
 };
 
-export default function Home() {
-  return <portfolioClient />;
+export default function Portfolio() {
+  return <PortfolioClient />;
 }
+

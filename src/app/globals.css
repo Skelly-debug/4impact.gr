@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -63,10 +59,35 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  html, body {
+    font-family: 'Cera GR', Arial, Helvetica, sans-serif;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+}
+
+@font-face {
+  font-family: 'Cera GR';
+  src: url('/fonts/CeraGR/cera-gr-regular-italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Cera GR';
+  src: url('/fonts/CeraGR/Cera GR_0.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cera GR';
+  src: url('/fonts/CeraGR/Cera GR Bold_0.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cera GR';
+  src: url('/fonts/CeraGR/Cera GR Black_0.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
 }

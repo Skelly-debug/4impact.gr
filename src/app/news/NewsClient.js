@@ -36,7 +36,7 @@ function NewsClient() {
   }, []);
 
   return (
-    <div className="font-playfair-display bg-gray-100 min-h-screen overflow-hidden">
+    <div className="bg-gray-100 min-h-screen overflow-hidden">
       <Navbar />
       <div className="relative h-screen">
         <img
@@ -44,7 +44,8 @@ function NewsClient() {
           src="images/NEWS.jpg"
           alt="Background Image"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-1"></div>
+        {/* Overlay with gradient effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
         <div className="flex justify-center items-center h-full">
           <h1
             className={`text-6xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
@@ -53,7 +54,7 @@ function NewsClient() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+            <span>
               Νέα
             </span>
           </h1>

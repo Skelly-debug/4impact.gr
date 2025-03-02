@@ -1,9 +1,16 @@
+"use client"
 import React from "react";
+import Navbar from "@/components/NavBar/Navbar";
 
 function portfolioClient() {
   return (
     <div>
-      <h1>Portfolio</h1>
+      <Navbar />
+      <div className="h-screen flex flex-col justify-center items-center">
+        <p className="text-2xl text-center">
+          🚧 This section is currently not accessible. Under Construction.  
+        </p>
+      </div>
     </div>
   );
 }
