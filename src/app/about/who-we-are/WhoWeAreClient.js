@@ -97,39 +97,32 @@ export default function WhoWeArePage() {
             {[
               {
                 title: "Άνθρωπος",
-                description: "Description",
                 icon: "👤"
               },
               {
                 title: "Αντίκτυπος",
-                description: "Description",
                 icon: "💡"
               },
               {
                 title: "Αλλαγή / εξέλιξη",
-                description: "Description",
                 icon: "🚀"
               },
               {
                 title: "Συνέπεια",
-                description: "Description",
                 icon: "✨"
               },
               {
                 title: "Συνδιαμόρφωση",
-                description: "Description",
                 icon: "🤝"
               },
               {
                 title: "Συμπερίληψη",
-                description: "Description",
                 icon: "🌈"
               },
             ].map((value, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg p-8 text-center transform transition-transform duration-300 hover:scale-105">
                 <div className="text-4xl mb-4">{value.icon}</div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
