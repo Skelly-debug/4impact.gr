@@ -23,104 +23,86 @@ const CompanyForm = ({ onSubmit, onCancel, initialData }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4">
-        {initialData ? 'Edit Company' : 'Add New Company'}
-      </h2>
+    <div>
+      <form onSubmit={handleSubmit} className="max-w-[100%] mx-auto mt-8 bg-white p-5">
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          {initialData ? 'Edit Company' : 'Add New Company'}
+        </h2>
+        
+        <div className="mb-4">
+          <input
+            type="text"
+            name="name"
+            value={companyData.name}
+            onChange={handleChange}
+            placeholder="Company Name"
+            required
+            className="w-full px-3 py-2 border rounded-md"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Company Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={companyData.name}
-          onChange={handleChange}
-          placeholder="Enter company name"
-          className="mt-1 block w-full p-2 border rounded"
-          required
-        />
-      </div>
+        <div className="mb-4">
+          <input
+            type="text"
+            name="industry"
+            value={companyData.industry}
+            onChange={handleChange}
+            placeholder="Industry"
+            required
+            className="w-full px-3 py-2 border rounded-md"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="industry" className="block text-sm font-medium text-gray-700">
-          Industry
-        </label>
-        <input
-          type="text"
-          id="industry"
-          name="industry"
-          value={companyData.industry}
-          onChange={handleChange}
-          placeholder="Enter industry"
-          className="mt-1 block w-full p-2 border rounded"
-          required
-        />
-      </div>
+        <div className="mb-4">
+          <input
+            type="text"
+            name="location"
+            value={companyData.location}
+            onChange={handleChange}
+            placeholder="Location"
+            required
+            className="w-full px-3 py-2 border rounded-md"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-          Location
-        </label>
-        <input
-          type="text"
-          id="location"
-          name="location"
-          value={companyData.location}
-          onChange={handleChange}
-          placeholder="Enter company location"
-          className="mt-1 block w-full p-2 border rounded"
-          required
-        />
-      </div>
+        <div className="mb-4">
+          <input
+            type="url"
+            name="logoUrl"
+            value={companyData.logoUrl}
+            onChange={handleChange}
+            placeholder="Logo URL (optional)"
+            className="w-full px-3 py-2 border rounded-md"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700">
-          Logo URL (Optional)
-        </label>
-        <input
-          type="url"
-          id="logoUrl"
-          name="logoUrl"
-          value={companyData.logoUrl}
-          onChange={handleChange}
-          placeholder="Enter logo URL"
-          className="mt-1 block w-full p-2 border rounded"
-        />
-      </div>
+        <div className="mb-6">
+          <textarea
+            name="description"
+            value={companyData.description}
+            onChange={handleChange}
+            placeholder="Company Description (optional)"
+            className="w-full px-3 py-2 border rounded-md h-32"
+          />
+        </div>
 
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-          Company Description (Optional)
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          value={companyData.description}
-          onChange={handleChange}
-          placeholder="Enter company description"
-          className="mt-1 block w-full p-2 border rounded h-32"
-        />
-      </div>
-
-      <div className="flex justify-end space-x-2">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-4 py-2 border rounded hover:bg-gray-100"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          {initialData ? 'Update Company' : 'Add Company'}
-        </button>
-      </div>
-    </form>
+        <div className="flex justify-end space-x-2">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="px-4 py-2 border rounded hover:bg-gray-100"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+          >
+            {initialData ? 'Update Company' : 'Add Company'}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

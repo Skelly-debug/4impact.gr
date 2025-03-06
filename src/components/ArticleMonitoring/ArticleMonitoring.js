@@ -172,7 +172,7 @@ const ArticleMonitoring = () => {
   if (status === "unauthenticated") return null;
 
   return (
-    <div className="max-w-[98%] mx-auto pt-[6rem]">
+    <div className="max-w-[98%] mx-auto mt-8 pt-[6rem]">
       <div className="w-full bg-white shadow-md rounded-lg">
         <div className="p-4 border-b flex justify-between items-center">
           <h2 className="text-xl font-semibold">Article Management</h2>

@@ -70,16 +70,15 @@ const CompanyMonitoring = () => {
     }
   };
 
-  const handleUpdateCompany = async (e) => {
-    e.preventDefault();
+  const handleUpdateCompany = async (updatedCompany) => {
     try {
       const response = await fetch("/api/companies", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: editingCompany.id,
-          ...editingCompany,
-          logoUrl: editingCompany.logoUrl || null,
+          ...updatedCompany,
+          logoUrl: updatedCompany.logoUrl || null,
         }),
       });
   
@@ -88,10 +87,10 @@ const CompanyMonitoring = () => {
         throw new Error(`Update failed: ${errorText}`);
       }
   
-      const updatedCompany = await response.json();
+      const result = await response.json();
       setCompanies(
         companies.map((company) =>
-          company.id === updatedCompany.id ? updatedCompany : company
+          company.id === result.id ? result : company
         )
       );
   
@@ -146,7 +145,7 @@ const CompanyMonitoring = () => {
   if (status === "unauthenticated") return null;
 
   return (
-    <div className="max-w-[98%] mx-auto pt-[6rem]">
+    <div className="max-w-[98%] mx-auto mt-8">
       <div className="w-full bg-white shadow-md rounded-lg">
         <div className="p-4 border-b flex justify-between items-center">
           <h2 className="text-xl font-semibold">Company Management</h2>
@@ -157,17 +156,13 @@ const CompanyMonitoring = () => {
             >
               <Plus className="h-4 w-4" />
             </button>
-            <button
-              onClick={() => signOut({ callbackUrl: "/auth/signin" })}
-              className="p-[0.4rem] bg-red-500 text-white rounded hover:bg-white hover:text-red-500 border border-red-500 transition ease-in-out duration-300"
-            >
-              Logout
-            </button>
           </div>
         </div>
 
         <div className="p-4">
-          {companies.length === 0 ? (
+          {isLoading ? (
+            <p className="text-center">Loading companies...</p>
+          ) : companies.length === 0 ? (
             <p className="text-center text-gray-500">No companies found</p>
           ) : (
             <div className="space-y-4">
@@ -188,6 +183,9 @@ const CompanyMonitoring = () => {
                       <h3 className="font-bold text-lg">{company.name}</h3>
                       <p className="text-sm text-gray-600">{company.industry}</p>
                       <p className="text-sm text-gray-600">{company.location}</p>
+                      {company.description && (
+                        <p className="text-sm text-gray-600 mt-2">{company.description}</p>
+                      )}
                     </div>
                   </div>
                   <div className="flex space-x-2">
@@ -211,100 +209,22 @@ const CompanyMonitoring = () => {
         </div>
       </div>
 
+      {/* Edit Company Modal - Only shown when editingCompany is not null */}
       {editingCompany && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg max-h-[80vh] w-[80vw] overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">Edit Company</h2>
-            <form onSubmit={handleUpdateCompany} className="space-y-4">
-              <input
-                type="text"
-                value={editingCompany.name}
-                onChange={(e) =>
-                  setEditingCompany((prev) => ({
-                    ...prev,
-                    name: e.target.value,
-                  }))
-                }
-                placeholder="Company Name"
-                className="w-full p-2 border rounded"
-                required
-              />
-
-              <input
-                type="text"
-                value={editingCompany.industry}
-                onChange={(e) =>
-                  setEditingCompany((prev) => ({
-                    ...prev,
-                    industry: e.target.value,
-                  }))
-                }
-                placeholder="Industry"
-                className="w-full p-2 border rounded"
-                required
-              />
-
-              <input
-                type="text"
-                value={editingCompany.location}
-                onChange={(e) =>
-                  setEditingCompany((prev) => ({
-                    ...prev,
-                    location: e.target.value,
-                  }))
-                }
-                placeholder="Location"
-                className="w-full p-2 border rounded"
-                required
-              />
-
-              <input
-                type="url"
-                value={editingCompany.logoUrl || ""}
-                onChange={(e) =>
-                  setEditingCompany((prev) => ({
-                    ...prev,
-                    logoUrl: e.target.value,
-                  }))
-                }
-                placeholder="Logo URL (optional)"
-                className="w-full p-2 border rounded"
-              />
-
-              <textarea
-                value={editingCompany.description || ""}
-                onChange={(e) =>
-                  setEditingCompany((prev) => ({
-                    ...prev,
-                    description: e.target.value,
-                  }))
-                }
-                placeholder="Company Description (optional)"
-                className="w-full p-2 border rounded h-32"
-              />
-
-              <div className="flex justify-end space-x-2">
-                <button
-                  type="button"
-                  onClick={() => setEditingCompany(null)}
-                  className="px-4 py-2 border rounded hover:bg-gray-100"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
+            <CompanyForm
+              onSubmit={handleUpdateCompany}
+              onCancel={() => setEditingCompany(null)}
+              initialData={editingCompany}
+            />
           </div>
         </div>
       )}
 
+      {/* Add Company Modal - Only shown when isAddModalOpen is true */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg max-h-[80vh] w-[80vw] overflow-y-auto">
             <CompanyForm
               onSubmit={handleAddCompany}

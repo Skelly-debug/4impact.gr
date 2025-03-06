@@ -3,7 +3,7 @@
 import React from "react";
 import Navbar from "@/components/NavBar/Navbar";
 import ArticleMonitoring from "@/components/ArticleMonitoring/ArticleMonitoring";
-import CompanyForm from "@/components/CompanyForm/CompanyForm";
+import CompanyMonitoring from "@/components/CompanyMonitoring/CompanyMonitoring";
 
 function AdminClient() {
   return (
@@ -11,7 +11,7 @@ function AdminClient() {
       <div className="font-playfair-display min-h-screen text-gray-800">
         <Navbar />
         <ArticleMonitoring />
-        <CompanyForm />
+        <CompanyMonitoring />
       </div>
     </div>
   );
