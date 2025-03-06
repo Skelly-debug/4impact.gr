@@ -4,7 +4,7 @@ import Link from "next/link";
 const ServicesGrid = () => {
   const images = [
     {
-      src: "../images/service1.jpg",
+      src: "../images/service3.jpg",
       text: "Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο",
       url: "/services",
     },
@@ -14,7 +14,7 @@ const ServicesGrid = () => {
       url: "/services",
     },
     {
-      src: "../images/service3.jpg",
+      src: "../images/service1.jpg",
       text: "Σχέσεις με ΜΜΕ",
       url: "/services",
     },
@@ -24,12 +24,12 @@ const ServicesGrid = () => {
       url: "/services",
     },
     {
-      src: "../images/service5.jpg",
+      src: "../images/service6.jpg",
       text: "Συμβουλευτική επικοινωνίας και διαχείρισης κρίσεων",
       url: "/services",
     },
     {
-      src: "../images/service6.jpg",
+      src: "../images/service5.jpg",
       text: "Εκπαιδευτικά πακέτα",
       url: "/services",
     },

@@ -27,14 +27,14 @@ function Navbar() {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full p-[1rem] bg-white z-50">
+    <div className="fixed top-0 left-0 w-full p-[1rem] bg-white z-50 shadow-sm">
       <div className="flex justify-between items-center">
         <a
           href="/"
           className="flex items-center justify-end space-x-4 ml-0 lg:ml-[10rem] hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
         >
           <img
-            className="w-36 h-16 object-cover text-black"
+            className="w-24 h-24 object-contain text-black"
             src="../images/logo.png"
             alt="Logo"
           />
@@ -64,7 +64,7 @@ function Navbar() {
             </div>
           </button>
           {isMobileMenuOpen && (
-            <nav className="absolute top-24 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
+            <nav className="absolute top-28 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
               <ul className="space-y-4">
                 <li>
                   <a

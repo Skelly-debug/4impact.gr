@@ -9,17 +9,24 @@ export const CompanyProvider = ({ children }) => {
   const [companies, setCompanies] = useState([
     {
       id: '1',
-      imgSrc: "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
+      imgSrc: "https://i.ibb.co/wZw2rFQs/PXSOS.jpg",
       companyName: "Παιδικά Χωριά SOS",
       description: "Supporting children's welfare and community development.",
-      websiteUrl: "#"
+      websiteUrl: "https://sos-villages.gr/"
     },
     {
       id: '2',
-      imgSrc: "https://cdn.sender.net/email_images/301244/images/all/logo_ikkb_final_rgb_gr_logo.jpg",
+      imgSrc: "https://i.ibb.co/KYbBGHF/IKBKK-1.jpg",
       companyName: "ΙΚΒΚΚ",
       description: "Committed to social impact and community support.",
-      websiteUrl: "#"
+      websiteUrl: "https://www.cvf.gr/"
+    },
+    {
+      id: '2',
+      imgSrc: "https://i.ibb.co/h1Mxbccc/OTPM.jpg",
+      companyName: "Οδηγός της Πόλης μας",
+      description: "Guiding our community to a brighter future.",
+      websiteUrl: "https://www.facebook.com/odigostispolis"
     }
   ]);
 

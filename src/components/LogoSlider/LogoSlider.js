@@ -3,14 +3,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const defaultLogos = [
   {
-    src: "https://sos-villages.gr/wp-content/uploads/2019/11/Emblem.jpg",
+    src: "https://i.ibb.co/wZw2rFQs/PXSOS.jpg",
     alt: "Paidika Xwria SOS",
     name: "Παιδικά Χωριά SOS",
+    url: "https://sos-villages.gr/",
   },
   {
-    src: "https://cdn.sender.net/email_images/301244/images/all/logo_ikkb_final_rgb_gr_logo.jpg",
+    src: "https://i.ibb.co/KYbBGHF/IKBKK-1.jpg",
     alt: "ΙΚΒΚΚ",
     name: "ΙΚΒΚΚ",
+    url: "https://www.cvf.gr/",
+  },
+  {
+    src: "https://i.ibb.co/h1Mxbccc/OTPM.jpg",
+    alt: "Οδηγός της Πόλης μας",
+    name: "Οδηγός της Πόλης μας",
+    url: "https://www.facebook.com/odigostispolis",
   },
 ];
 
@@ -112,8 +120,11 @@ const LogoSlider = ({ logos = defaultLogos }) => {
             }}
           >
             {logos.map((logo, index) => (
-              <div
+              <a
                 key={`${logo.name}-${index}`}
+                href={logo.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="
                   flex-shrink-0 
                   w-60 sm:w-64 
@@ -129,6 +140,9 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   justify-center 
                   p-4
                   min-w-[240px]
+                  transition-transform duration-200
+                  hover:shadow-md
+                  cursor-pointer
                 "
               >
                 <img
@@ -140,7 +154,7 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                 <span className="text-sm font-semibold text-gray-600 text-center">
                   {logo.name}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
         </div>
