@@ -4,6 +4,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Bio from "@/components/CV/bio";
 import Link from "next/link";
+import LogoSlider from "@/components/LogoSlider/LogoSlider";
 
 export default function WhoWeArePage() {
   const [showTitle, setShowTitle] = useState(false);
@@ -36,6 +37,28 @@ export default function WhoWeArePage() {
     //   bio: "Η Μαρία είναι ειδική στο να μετατρέπει πολύπλοκες ψηφιακές στρατηγικές σε απτά αποτελέσματα για τους πελάτες μας.",
     //   image: "/images/team/team-3.jpg"
     // },
+  ];
+
+  // Partners logos
+  const partnerLogos = [
+    {
+      src: "https://i.ibb.co/wZw2rFQs/PXSOS.jpg",
+      alt: "Paidika Xwria SOS",
+      name: "Παιδικά Χωριά SOS",
+      url: "https://sos-villages.gr/",
+    },
+    {
+      src: "https://i.ibb.co/KYbBGHF/IKBKK-1.jpg",
+      alt: "ΙΚΒΚΚ",
+      name: "ΙΚΒΚΚ",
+      url: "https://www.cvf.gr/",
+    },
+    {
+      src: "https://i.ibb.co/h1Mxbccc/OTPM.jpg",
+      alt: "Οδηγός της Πόλης μας",
+      name: "Οδηγός της Πόλης μας",
+      url: "https://www.facebook.com/odigostispolis",
+    },
   ];
 
   return (
@@ -74,17 +97,17 @@ export default function WhoWeArePage() {
       {/* Our Story Section */}
       <div className="container mx-auto px-4 py-16 md:py-20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Η Ιστορία μας</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Η αποστολή μας</h2>
           <div className="bg-white rounded-lg shadow-xl p-8 md:p-10">
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Η 4Impact Communications ιδρύθηκε το 2010 με ένα απλό όραμα: να δημιουργήσουμε επικοινωνιακές στρατηγικές που δεν απλά μιλούν, αλλά μεταμορφώνουν. Πιστεύουμε ότι η αποτελεσματική επικοινωνία έχει τη δύναμη να αλλάξει αντιλήψεις, να εμπνεύσει δράση και να δημιουργήσει ουσιαστικό αντίκτυπο.
+            Η επικοινωνία που πετυχαίνει πραγματικό αντίκτυπο και αλλαγή. Η επικοινωνία που καταφέρνει να συγκινεί, να προκαλεί αλλαγές συμπεριφοράς, να συνδέει ουσιαστικά τους οργανισμούς με τα κοινά τους.
             </p>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Ξεκινήσαμε ως μια μικρή ομάδα παθιασμένων επαγγελματιών και εξελιχθήκαμε σε έναν πολύπλευρο οργανισμό που εξυπηρετεί πελάτες από διάφορους τομείς - από μη κερδοσκοπικούς οργανισμούς και κοινωνικές επιχειρήσεις μέχρι καθιερωμένες εταιρείες που επιθυμούν να επαναπροσδιορίσουν την παρουσία τους.
+            Η επικοινωνία που διαμορφώνει τάσεις και αντιλήψεις, με συναίσθηση της ευθύνης της απέναντι στον κόσμο μας. Αυτή η επικοινωνία είναι η δική μας αποστολή και κάθε μας συνεργασία έχει στον πυρήνα της την αλλαγή που θέλουμε να πετύχουμε «εκεί έξω», μαζί με όσους μας εμπιστεύονται.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
+            {/* <p className="text-lg text-gray-700 leading-relaxed">
               Αυτό που μας διαφοροποιεί είναι η προσέγγισή μας με γνώμονα τον σκοπό. Κάθε στρατηγική, κάθε καμπάνια, κάθε μήνυμα που δημιουργούμε έχει έναν ξεκάθαρο στόχο: να δημιουργήσει ουσιαστικό αντίκτυπο που ευθυγραμμίζεται με τις αξίες και τους στόχους των συνεργατών μας.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -104,7 +127,7 @@ export default function WhoWeArePage() {
                 icon: "💡"
               },
               {
-                title: "Αλλαγή / εξέλιξη",
+                title: "Αποτελεσματικότητα",
                 icon: "🚀"
               },
               {
@@ -129,34 +152,49 @@ export default function WhoWeArePage() {
         </div>
       </div>
 
-      {/* Founder Bio Section */}
-      <div className="container mx-auto px-4 py-16 md:py-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">Ο Ιδρυτής μας</h2>
-        <Bio />
-      </div>
-
-      {/* Our Team Section
-      <div className="container mx-auto px-4 py-16 md:py-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">Η Ομάδα μας</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src={member.image} 
-                  alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
-                <p className="text-cyan-600 font-medium mb-4">{member.role}</p>
-                <p className="text-gray-600">{member.bio}</p>
-              </div>
+      {/* Our Partners Section */}
+      <div className="bg-gradient-to-r from-gray-100 to-gray-200 mx-auto px-4 py-16 md:py-20">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Συνεργασίες</h2>
+        <p className="text-lg text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto text-center">
+          Είμαστε περήφανοι για τις συνεργασίες που έχουμε αναπτύξει με οργανισμούς που μοιράζονται το όραμά μας για θετικό κοινωνικό αντίκτυπο.
+        </p>
+        
+        {/* Logo Slider */}
+        <LogoSlider logos={partnerLogos} />
+        
+        {/* Additional Info
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Κοινός Σκοπός",
+              icon: "🎯",
+              description: "Συνεργαζόμαστε με οργανισμούς που μοιράζονται τις αξίες μας για θετικό κοινωνικό αντίκτυπο."
+            },
+            {
+              title: "Μακροχρόνιες Σχέσεις",
+              icon: "⏱️",
+              description: "Χτίζουμε σχέσεις εμπιστοσύνης και συνεργασίες που αντέχουν στο χρόνο."
+            },
+            {
+              title: "Αμοιβαία Ανάπτυξη",
+              icon: "🌱",
+              description: "Πιστεύουμε στην αμοιβαία ανάπτυξη μέσα από τις συνεργασίες μας."
+            },
+          ].map((item, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-lg p-8 text-center transform transition-transform duration-300 hover:scale-105">
+              <div className="text-4xl mb-4">{item.icon}</div>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">{item.title}</h3>
+              <p className="text-gray-600">{item.description}</p>
             </div>
           ))}
-        </div>
-      </div> */}
+        </div> */}
+      </div>
+      
+      {/* Bio Section */}
+      <div className="container mx-auto px-4 py-16 md:py-20">
+        {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">Τιτλος ατομου</h2> */}
+        <Bio />
+      </div>
 
       {/* Call to Action Section */}
       <div className="bg-gray-100 py-16 md:py-20">

@@ -14,7 +14,7 @@ const ServicesGrid = () => {
       url: "/services",
     },
     {
-      src: "../images/service1.jpg",
+      src: "../images/service7.jpg",
       text: "Σχέσεις με ΜΜΕ",
       url: "/services",
     },

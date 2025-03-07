@@ -151,9 +151,9 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   className="max-w-full max-h-16 object-contain mb-2"
                   draggable="false"
                 />
-                <span className="text-sm font-semibold text-gray-600 text-center">
+                {/* <span className="text-sm font-semibold text-gray-600 text-center">
                   {logo.name}
-                </span>
+                </span> */}
               </a>
             ))}
           </div>

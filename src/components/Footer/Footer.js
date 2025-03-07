@@ -35,7 +35,7 @@ function Footer() {
         </nav>
         <div className="flex items-center justify-end">
           <img
-            className="w-28 h-12 object-cover text-black m-auto"
+            className="w-24 h-24 object-cover text-black m-auto"
             src="../images/logo.png"
             alt="Logo"
           />
