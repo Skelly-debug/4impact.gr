@@ -161,17 +161,17 @@ export default function ContactClient() {
                     ΤΗΛΕΦΩΝΟ
                   </p>
                   <p className="text-xl text-gray-800 font-medium">
-                    +30 210 1234567
+                  +30 697 185 9632
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <p className="text-sm font-semibold text-gray-500 mb-2">
                     ΔΙΕΥΘΥΝΣΗ
                   </p>
                   <p className="text-lg text-gray-800">
                     Λεωφ. Συγγρού 123, Αθήνα
                   </p>
-                </div>
+                </div> */}
               </div>
             </motion.div>
 
