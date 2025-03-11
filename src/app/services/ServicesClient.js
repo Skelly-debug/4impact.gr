@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
+import ServicesCards from "@/components/ServicesCards/ServicesCards";
 import Footer from "@/components/Footer/Footer";
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
 
@@ -142,9 +143,10 @@ function ServicesClient() {
       {/* Main Content */}
       <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Two Column Layout */}
+          <ServicesCards />
+          {/* Two Column Layout
           <div className="flex flex-col lg:flex-row gap-12 mb-20">
-            {/* Left Column - Introduction */}
+            {/* Left Column - Introduction
             <AnimatedSection className="lg:w-2/5">
               <div className="bg-white rounded-2xl shadow-md p-8 border-l-4 border-blue-500 h-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <p className="text-lg text-gray-800 leading-relaxed">
@@ -178,7 +180,7 @@ function ServicesClient() {
               </div>
             </AnimatedSection>
 
-            {/* Right Column - Services Accordion */}
+            Right Column - Services Accordion
             <AnimatedSection className="lg:w-3/5">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Οι υπηρεσίες μας</h2>
               <div className="w-16 h-1 bg-blue-500 mb-6"></div>
@@ -295,7 +297,7 @@ function ServicesClient() {
                 </p>
               </ServiceAccordion>
             </AnimatedSection>
-          </div>
+          </div> */}
 
           {/* Call to Action Section */}
           <AnimatedSection className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 shadow-md">

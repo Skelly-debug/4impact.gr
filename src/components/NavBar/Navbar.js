@@ -52,14 +52,14 @@ function Navbar() {
                     Υπηρεσίες
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="/news"
                     className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
                   >
                     Blog
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a
                     href="/about/who-we-are"
@@ -87,12 +87,12 @@ function Navbar() {
           >
             Υπηρεσίες
           </a>
-          <a
+          {/* <a
             href="/news"
             className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
           >
-            Νέα
-          </a>
+            Blog
+          </a> */}
           <a
             href="/about/who-we-are"
             className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
