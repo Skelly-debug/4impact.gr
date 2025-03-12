@@ -44,9 +44,8 @@ const ServicesCards = () => {
       image: "/images/service2.jpg",
       altText: "User-centered design diagram with wireframes",
       details: [
-        "Omnichannel optimization ensures your customers experience a seamless journey across all touchpoints. We integrate your digital and physical channels for a cohesive brand experience.",
-        "Our approach focuses on creating consistent messaging and design while leveraging the unique strengths of each platform, from social media to email, website, and in-store experiences.",
-        "We implement tracking systems to measure performance across channels and continuously refine your strategy based on real customer interaction data."
+        "Όσο κι αν ζούμε σε ένα ταχύτατα μεταβαλλόμενο επικοινωνιακό σύμπαν, με το AI να αλλάζει δραματικά τα δεδομένα, το αυθεντικό, ελκυστικό και ουσιωδώς ανθρώπινο περιεχόμενο συνεχίζει και θα συνεχίσει να είναι το Α και το Ω της αποτελεσματικής επικοινωνίας.",
+        "Μαζί μπορούμε να σχεδιάσουμε στρατηγικά το περιεχόμενο που θα σας κάνει να ξεχωρίσετε και να δημιουργήσουμε για εσάς videos, key visuals και κείμενα για όλα τα μέσα που θα αφήσουν το δικό σας μοναδικό αποτύπωμα και θα σας φέρουν σε ουσιαστική επαφή και σύνδεση με τα κοινά σας.",
       ]
     },
     {
@@ -56,9 +55,7 @@ const ServicesCards = () => {
       image: "/images/service7.jpg",
       altText: "Person arranging sticky notes on a brand positioning board",
       details: [
-        "Our brand positioning mapping helps you identify your unique place in the market. We analyze competitor positioning and find the perfect spot for your brand to stand out.",
-        "Through workshops and market research, we help articulate your value proposition and develop messaging that resonates with your target audience while differentiating from competitors.",
-        "The resulting brand positioning map becomes a strategic tool for marketing decisions, product development, and communication strategies."
+        "Οι σχέσεις με τα ΜΜΕ είναι πάνω και πέρα από όλα σχέσεις με ανθρώπους. Έτσι, όπως κάθε ανθρώπινη σχέση, βασίζονται στην εμπιστοσύνη, την αυθεντικότητα και τη συνέχεια. Με περισσότερα από 10 χρόνια διαχείρισης γραφείων τύπου και δημοσιογραφική εμπειρία, προσεγγίζουμε τις σχέσεις με τους δημοσιογράφους ως σχέσεις ουσίας.",
       ]
     },
     {
@@ -68,9 +65,9 @@ const ServicesCards = () => {
       image: "/images/service4.jpg",
       altText: "Content calendar and blog posts",
       details: [
-        "Our content marketing services help you tell your brand story effectively across multiple platforms. We develop strategic content plans aligned with your business objectives.",
-        "From blog posts and social media content to videos and podcasts, we create engaging materials that attract, inform, and convert your target audience.",
-        "We focus on creating valuable content that positions your brand as an authority in your industry while driving organic traffic and generating leads."
+        "Η επιχείρησή μας ειδικεύεται στη δημιουργία καινοτόμων projects εταιρικής κοινωνικής υπευθυνότητας (ΕΚΕ) και καμπανιών κοινωνικής ευαισθητοποίησης που προσφέρουν πραγματική αξία στην κοινωνία και ενισχύουν το κύρος της εταιρείας σας",
+        "Αναλαμβάνουμε τη σχεδίαση και υλοποίηση προγραμμάτων ΕΚΕ, όπως δράσεις για το περιβάλλον, την εκπαίδευση ή την υγεία, που ενσωματώνονται άψογα στη στρατηγική της εταιρείας σας.",
+        "Ελάτε να συν-δημιουργήσουμε ένα καλύτερο αύριο, μέσα από δράσεις που κάνουν τη διαφορά."
       ]
     },
     {
@@ -80,9 +77,8 @@ const ServicesCards = () => {
       image: "/images/service6.jpg",
       altText: "Digital ad campaign analytics dashboard",
       details: [
-        "Our digital advertising services maximize your online presence through strategic paid campaigns. We develop targeted ads that reach your ideal customers at the right time and place.",
-        "Using advanced targeting techniques and continuous optimization, we ensure your advertising budget delivers the highest possible return on investment.",
-        "From Google Ads and social media advertising to programmatic display campaigns, we manage the entire process from strategy to implementation and reporting."
+        "Μέσα από τη μακρόχρονη εμπειρία μας στους τομείς της επικοινωνίας, του marketing και της ανάπτυξης οργανώσεων της Κοινωνίας των Πολιτών και όχι μόνο, έχουμε κατακτήσει το προνόμιο της «μεγάλης εικόνας» των πραγμάτων που τόσο απαραίτητη είναι σήμερα για την αποτελεσματική τοποθέτηση κάθε οργανισμού. ",
+        "Μια «μεγάλη εικόνα» που μας επιτρέπει να μπορούμε να συμβουλέψουμε οποιονδήποτε συνεργάτη – είτε σε επίπεδο συγκεκριμένων projects είτε σε επίπεδο συνολικής επικοινωνιακής ανάπτυξης. Επιπλέον, σε συνδυασμό και με την άριστη γνώση του τοπίου των ΜΜΕ και των μηχανισμών τους, βρισκόμαστε στη διάθεσή σας για τη διαχείριση οποιασδήποτε μορφής κρίσης και την κατάρτιση ανάλογου πλάνου και στρατηγικής.",
       ]
     },
     {
@@ -92,9 +88,9 @@ const ServicesCards = () => {
       image: "/images/service5.jpg",
       altText: "Market research data visualization",
       details: [
-        "Our market research services provide the insights you need to make informed business decisions. We conduct comprehensive analyses of your industry, competitors, and target audience.",
-        "Using a combination of qualitative and quantitative research methods, we identify market opportunities, consumer preferences, and emerging trends that impact your business.",
-        "Our research findings translate into actionable recommendations that drive product development, marketing strategies, and overall business growth."
+        "Προσφέρουμε εκπαιδεύσεις ειδικά σχεδιασμένες για τους ανθρώπους του οργανισμού σας. Σκοπός μας είναι να ενδυναμώσουμε άτομα και οργανισμούς, παρέχοντάς σας τις γνώσεις  και τις δεξιότητες που χρειάζονται για να αναπτύξετε στρατηγικές επικοινωνίας και  marketing που ξεχωρίζουν.",
+        "Μέσα από διαδραστικά σεμινάρια και προγράμματα κατάρτισης, θα εξερευνήσουμε τις τελευταίες τάσεις και τεχνικές στον τομέα της επικοινωνίας και του marketing. Θα μάθετε πώς να δημιουργείτε περιεχόμενο που προσελκύει το κοινό σας, να αναπτύσσετε αποτελεσματικές στρατηγικές digital marketing και να χτίζετε ισχυρές σχέσεις με τους πελάτες σας.",
+        "Είτε είστε επαγγελματίας που θέλει να εξελίξει τις δεξιότητές του, είτε ένας οργανισμός που επιθυμεί να ενισχύσει την παρουσία του στην αγορά, τα εκπαιδευτικά μας πακέτα είναι στη διάθεσή σας!"
       ]
     },
   ];
@@ -157,12 +153,7 @@ const ServicesCards = () => {
               <h4 className="text-lg font-semibold text-gray-800 mb-2">{step.title}</h4>
               <p className="text-gray-600">{step.description}</p>
               
-              {/* Add arrows between steps (except after the last one) */}
-              {index < service.process.length - 1 && (
-                <div className="hidden md:block absolute right-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                  <ArrowRight className="w-6 h-6 text-blue-300" />
-                </div>
-              )}
+            
             </div>
           ))}
         </div>
@@ -214,7 +205,7 @@ const ServicesCards = () => {
               >
                 {service.title}
               </h2>
-              <p className="text-gray-600">{service.description}</p>
+              {/* <p className="text-gray-600">{service.description}</p> */}
               <div className="mt-auto pt-6">
                 <button 
                   className="flex items-center font-semibold transition-all duration-300"

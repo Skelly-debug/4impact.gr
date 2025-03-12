@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/NavBar/Navbar";
 import LogoSlider from "@/components/LogoSlider/LogoSlider";
-import ServicesGrid from "@/components/ServicesGrid/ServicesGrid";
+import ServicesGrid from "@/components/ServicesSection/ServicesSection";
 import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
 

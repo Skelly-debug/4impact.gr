@@ -143,11 +143,7 @@ function ServicesClient() {
       {/* Main Content */}
       <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <ServicesCards />
-          {/* Two Column Layout
-          <div className="flex flex-col lg:flex-row gap-12 mb-20">
-            {/* Left Column - Introduction
-            <AnimatedSection className="lg:w-2/5">
+          <AnimatedSection>
               <div className="bg-white rounded-2xl shadow-md p-8 border-l-4 border-blue-500 h-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <p className="text-lg text-gray-800 leading-relaxed">
                 <span className="font-semibold text-4xl text-blue-600 leading-none mr-2 float-left mt-1">Μ</span>ε έμφαση στο{" "}
@@ -179,125 +175,7 @@ function ServicesClient() {
               </p>
               </div>
             </AnimatedSection>
-
-            Right Column - Services Accordion
-            <AnimatedSection className="lg:w-3/5">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Οι υπηρεσίες μας</h2>
-              <div className="w-16 h-1 bg-blue-500 mb-6"></div>
-              
-              <ServiceAccordion title="Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Προσφέρουμε ολοκληρωμένες υπηρεσίες στρατηγικής επικοινωνίας, σχεδιασμένες για να κάνουν πραγματική διαφορά στον κόσμο. Κατανοούμε ότι κάθε επιχείρηση και οργανισμός έχει μοναδικές προκλήσεις και ευκαιρίες, και στόχος μας είναι να τις αξιοποιήσουμε στο έπακρο.
-                </p>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Είτε είστε μια επιχείρηση που θέλει να εδραιώσει την παρουσία της στην αγορά, είτε μια μεγάλη οργάνωση που επιθυμεί να ανανεώσει τη στρατηγική της, είμαστε εδώ για να σας καθοδηγήσουμε. Εστιάζουμε στην ανάπτυξη και υλοποίηση στρατηγικών που όχι μόνο ενισχύουν την εικόνα και φήμη σας, αλλά δημιουργούν ουσιαστική σύνδεση με το κοινό σας.
-                </p>
-                
-                <h4 className="text-lg font-semibold text-gray-800 mt-6 mb-4">Πώς δουλεύουμε;</h4>
-                <div className="flex flex-col md:flex-row justify-between gap-4 mt-6">
-                  <ProcessStep 
-                    number={1} 
-                    title="Ανάλυση και Έρευνα" 
-                    description="Κατανοούμε εις βάθος τον οργανισμό σας, το περιβάλλον, το κοινό σας και τους στόχους σας, ώστε να δημιουργήσουμε μια στρατηγική που να ανταποκρίνεται μόνο στις δικές σας ανάγκες."
-                  />
-                  <ProcessStep 
-                    number={2} 
-                    title="Στρατηγικός Σχεδιασμός" 
-                    description="Σχεδιάζουμε προσμαρμοσμένες στρατηγικές επικοινωνίας με έμφαση στους στόχους σας και την αποτελεσματικότητα."
-                  />
-                  <ProcessStep 
-                    number={3} 
-                    title="Αξιολόγηση, Βελτίωση και προσαρμογή" 
-                    description="Παρακολοθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, προσαρμόζοντας τις τακτικές μας για τη μέγιστη δυνατή αποτελεσματικότητα."
-                  />
-                </div>
-              </ServiceAccordion>
-
-              <ServiceAccordion title="Στρατηγικός σχεδιασμός και παραγωγή περιεχομένου">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="flex-1">
-                    <p className="text-gray-700 leading-relaxed mb-4">
-                    Όσο κι αν ζούμε σε ένα ταχύτατα μεταβαλλόμενο επικοινωνιακό σύμπαν, με το AI να αλλάζει δραματικά τα δεδομένα, το αυθεντικό, ελκυστικό και ουσιωδώς ανθρώπινο περιεχόμενο συνεχίζει και θα συνεχίσει να είναι το Α και το Ω της αποτελεσματικής επικοινωνίας.
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                    Μαζί μπορούμε να σχεδιάσουμε στρατηγικά το περιεχόμενο που θα σας κάνει να ξεχωρίσετε και να δημιουργήσουμε για εσάς videos, key visuals και κείμενα για όλα τα μέσα που θα αφήσουν το δικό σας μοναδικό αποτύπωμα και θα σας φέρουν σε ουσιαστική επαφή και σύνδεση με τα κοινά σας.
-                    </p>
-                  </div>
-                  <div className="md:w-1/3 rounded-lg overflow-hidden shadow-md">
-                    <img src="/api/placeholder/400/300" alt="Content Strategy" className="w-full h-full object-cover" />
-                  </div>
-                </div>
-              </ServiceAccordion>
-
-              <ServiceAccordion title="Σχέσεις με ΜΜΕ">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="md:w-1/3 rounded-lg overflow-hidden shadow-md order-2 md:order-1">
-                    <img src="/api/placeholder/400/300" alt="Media Relations" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1 order-1 md:order-2">
-                    <p className="text-gray-700 leading-relaxed">
-                    Οι σχέσεις με τα ΜΜΕ είναι πάνω και πέρα από όλα σχέσεις με ανθρώπους. Έτσι, όπως κάθε ανθρώπινη σχέση, βασίζονται στην εμπιστοσύνη, την αυθεντικότητα και τη συνέχεια. Με περισσότερα από 10 χρόνια διαχείρισης γραφείων τύπου και δημοσιογραφική εμπειρία, προσεγγίζουμε τις σχέσεις με τους δημοσιογράφους ως σχέσεις ουσίας.
-                    </p>
-                  </div>
-                </div>
-              </ServiceAccordion>
-
-              <ServiceAccordion title="Στήριξη επιχειρήσεων για ένα κοινωνικά υπεύθυνο μέλλον">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Η επιχείρησή μας ειδικεύεται στη δημιουργία καινοτόμων projects εταιρικής 
-                κοινωνικής υπευθυνότητας (ΕΚΕ) και καμπανιών κοινωνικής ευαισθητοποίησης που 
-                προσφέρουν πραγματική αξία στην κοινωνία και ενισχύουν το κύρος της εταιρείας σας
-                </p>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Αναλαμβάνουμε τη σχεδίαση και υλοποίηση προγραμμάτων ΕΚΕ, όπως δράσεις για το περιβάλλον, 
-                την εκπαίδευση ή την υγεία, που ενσωματώνονται άψογα στη στρατηγική της εταιρείας σας.
-                </p>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Ελάτε να συν-δημιουργήσουμε ένα καλύτερο αύριο, μέσα από δράσεις που κάνουν τη διαφορά.
-                </p>
-              </ServiceAccordion>
-
-              <ServiceAccordion title="Συμβουλευτική επικοινωνίας και διαχείρισης κρίσης">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Μέσα από τη μακρόχρονη εμπειρία μας στους τομείς της επικοινωνίας, 
-                του marketing και της ανάπτυξης οργανώσεων της Κοινωνίας των Πολιτών 
-                και όχι μόνο, έχουμε κατακτήσει το προνόμιο της «μεγάλης εικόνας» των
-                 πραγμάτων που τόσο απαραίτητη είναι σήμερα για την αποτελεσματική 
-                 τοποθέτηση κάθε οργανισμού. 
-                 </p>
-                 <p className="text-gray-700 leading-relaxed mb-4">
-                 Μια «μεγάλη εικόνα» που μας επιτρέπει να 
-                 μπορούμε να συμβουλέψουμε οποιονδήποτε συνεργάτη – είτε σε επίπεδο 
-                 συγκεκριμένων projects είτε σε επίπεδο συνολικής επικοινωνιακής ανάπτυξης. 
-                 Επιπλέον, σε συνδυασμό και με την άριστη γνώση του τοπίου των ΜΜΕ και 
-                 των μηχανισμών τους, βρισκόμαστε στη διάθεσή σας για τη διαχείριση 
-                 οποιασδήποτε μορφής κρίσης και την κατάρτιση ανάλογου πλάνου και στρατηγικής.
-                </p>
-              </ServiceAccordion>
-
-              <ServiceAccordion title="Εκπαιδευτικά πακέτα">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Προσφέρουμε εκπαιδεύσεις ειδικά σχεδιασμένες για τους ανθρώπους του οργανισμού σας.
-                Σκοπός μας είναι να ενδυναμώσουμε άτομα και οργανισμούς, παρέχοντάς σας τις γνώσεις 
-                και τις δεξιότητες που χρειάζονται για να αναπτύξετε στρατηγικές επικοινωνίας και 
-                marketing που ξεχωρίζουν.
-                </p>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Μέσα από διαδραστικά σεμινάρια και προγράμματα κατάρτισης, 
-                θα εξερευνήσουμε τις τελευταίες τάσεις και τεχνικές στον τομέα της 
-                επικοινωνίας και του marketing. Θα μάθετε πώς να δημιουργείτε 
-                περιεχόμενο που προσελκύει το κοινό σας, να αναπτύσσετε 
-                αποτελεσματικές στρατηγικές digital marketing και να χτίζετε 
-                ισχυρές σχέσεις με τους πελάτες σας.
-                </p>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                Είτε είστε επαγγελματίας που θέλει να εξελίξει τις δεξιότητές του, 
-                είτε ένας οργανισμός που επιθυμεί να ενισχύσει την παρουσία του στην 
-                αγορά, τα εκπαιδευτικά μας πακέτα είναι στη διάθεσή σας!
-                </p>
-              </ServiceAccordion>
-            </AnimatedSection>
-          </div> */}
+            <ServicesCards />
 
           {/* Call to Action Section */}
           <AnimatedSection className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 shadow-md">
