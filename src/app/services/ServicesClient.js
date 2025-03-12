@@ -143,38 +143,6 @@ function ServicesClient() {
       {/* Main Content */}
       <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <AnimatedSection>
-              <div className="bg-white rounded-2xl shadow-md p-8 border-l-4 border-blue-500 h-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-              <p className="text-lg text-gray-800 leading-relaxed">
-                <span className="font-semibold text-4xl text-blue-600 leading-none mr-2 float-left mt-1">Μ</span>ε έμφαση στο{" "}
-                <span className="font-semibold text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600 inline-block">
-                  impact
-                  </span>
-                , την{" "}
-                <span className="font-semibold text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600 inline-block">
-                  αυθεντικότητα
-                </span>
-                , τη{" "}
-                <span className="font-semibold text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600 inline-block">
-                  συνδιαμόρφωση
-                </span>
-                , και τη{" "}
-                <span className="font-semibold text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600 inline-block">
-                  συνέπεια
-                </span>
-                , βοηθάμε τον οργανισμό σας να επικοινωνήσει το όραμα και τις
-                αξίες του με ουσιαστική απήχηση και μετρήσιμα αποτελέσματα.
-              </p>
-
-              <p className="text-lg text-gray-800 leading-relaxed mt-4">
-                Στοχευμένες στρατηγικές επικοινωνίας για το σύνολο του brand σας ή για συγκεκριμένα projects, 
-                ανάπτυξη και διαχείριση digital και offline περιεχομένου, διαχείριση σχέσεων με τα ΜΜΕ, 
-                σχεδιασμός έργων εταιρικής κοινωνικής ευθύνης, συμβουλευτική επικοινωνίας και διαχείρισης κρίσης, 
-                καθώς και εκπαιδευτικά πακέτα. Αυτές είναι οι βασικές υπηρεσίες που προσφέρουμε και ανυπομονούμε 
-                να καλύψουμε και τις δικές σας ανάγκες με καινοτόμες ιδέες και προσήλωση στην επίτευξη των στόχων σας.
-              </p>
-              </div>
-            </AnimatedSection>
             <ServicesCards />
 
           {/* Call to Action Section */}

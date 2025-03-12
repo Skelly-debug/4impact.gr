@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const ServicesCards = () => {
   const [hoveredId, setHoveredId] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState(null);
   const [visibleCards, setVisibleCards] = useState({});
   const cardsRef = useRef([]);
+  const router = useRouter();
   
   const services = [
     {
@@ -126,39 +127,9 @@ const ServicesCards = () => {
     };
   }, []);
 
-  const openModal = (service) => {
-    setSelectedService(service);
-    setModalOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    document.body.style.overflow = 'auto';
-  };
-
-  // Function to render process steps if they exist
-  const renderProcessSteps = (service) => {
-    if (!service.process) return null;
-    
-    return (
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6">Πώς δουλεύουμε;</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {service.process.map((step, index) => (
-            <div key={index} className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">
-                {step.step}
-              </div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">{step.title}</h4>
-              <p className="text-gray-600">{step.description}</p>
-              
-            
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  // Function to navigate to service detail page
+  const navigateToService = (serviceId) => {
+    router.push(`/services/${serviceId}`);
   };
 
   return (
@@ -205,83 +176,29 @@ const ServicesCards = () => {
               >
                 {service.title}
               </h2>
-              {/* <p className="text-gray-600">{service.description}</p> */}
               <div className="mt-auto pt-6">
-                <button 
-                  className="flex items-center font-semibold transition-all duration-300"
-                  style={{
-                    color: '#3182ce',
-                    transform: hoveredId === service.id ? 'translateX(4px)' : 'translateX(0)'
-                  }}
-                  onClick={() => openModal(service)}
-                >
-                  Learn More
-                  <ArrowRight 
-                    className="ml-2 h-4 w-4 transition-transform duration-300"
+                <Link href={`/services/service${service.id}`}>
+                  <button 
+                    className="flex items-center font-semibold transition-all duration-300"
                     style={{
+                      color: '#3182ce',
                       transform: hoveredId === service.id ? 'translateX(4px)' : 'translateX(0)'
                     }}
-                  />
-                </button>
+                  >
+                    Learn More
+                    <ArrowRight 
+                      className="ml-2 h-4 w-4 transition-transform duration-300"
+                      style={{
+                        transform: hoveredId === service.id ? 'translateX(4px)' : 'translateX(0)'
+                      }}
+                    />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Enhanced Modal */}
-      {modalOpen && selectedService && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={closeModal}>
-          <div 
-            className="bg-white rounded-xl max-w-3xl w-full max-h-90vh overflow-auto"
-            onClick={e => e.stopPropagation()}
-            style={{
-              animation: 'modalFadeIn 0.3s ease forwards'
-            }}
-          >
-            <div className="relative">
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={selectedService.image}
-                  alt={selectedService.altText}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              </div>
-              <button 
-                className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md transition-all hover:bg-gray-100"
-                onClick={closeModal}
-              >
-                <X size={16} />
-              </button>
-              <div className="absolute bottom-4 left-6">
-                <h2 className="text-2xl font-bold text-white">{selectedService.title}</h2>
-              </div>
-            </div>
-            <div className="p-6">
-              {selectedService.details.map((paragraph, i) => (
-                <p key={i} className="text-gray-700 mb-4">{paragraph}</p>
-              ))}
-              
-              {/* Render process steps if they exist */}
-              {renderProcessSteps(selectedService)}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        @keyframes modalFadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 };
