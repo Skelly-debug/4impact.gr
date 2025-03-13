@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import Bio from "@/components/CV/bio";
 import Link from "next/link";
 import LogoSlider from "@/components/LogoSlider/LogoSlider";
+import { AnimatedElement, AnimatedContainer } from "@/components/Animations/Animations";
 
 export default function WhoWeArePage() {
   const [showTitle, setShowTitle] = useState(false);
@@ -82,86 +83,65 @@ export default function WhoWeArePage() {
 
         {/* Hero Title */}
         <div className="flex justify-center items-center h-full px-4">
-          <h1
-            className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
-              showTitle
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
+        <AnimatedElement animation="fade-up" delay={300}>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10">
             Ποιοι Είμαστε
           </h1>
+        </AnimatedElement>
         </div>
       </div>
 
       {/* Our Story Section */}
-      <div className="container mx-auto px-4 py-16 md:py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Η αποστολή μας</h2>
-          <div className="bg-white rounded-lg shadow-xl p-8 md:p-10">
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Η επικοινωνία που πετυχαίνει πραγματικό αντίκτυπο και αλλαγή. Η επικοινωνία που καταφέρνει να συγκινεί, να προκαλεί αλλαγές συμπεριφοράς, να συνδέει ουσιαστικά τους οργανισμούς με τα κοινά τους.
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Η επικοινωνία που διαμορφώνει τάσεις και αντιλήψεις, με συναίσθηση της ευθύνης της απέναντι στον κόσμο μας. Αυτή η επικοινωνία είναι η δική μας αποστολή και κάθε μας συνεργασία έχει στον πυρήνα της την αλλαγή που θέλουμε να πετύχουμε «εκεί έξω», μαζί με όσους μας εμπιστεύονται.
-            </p>
-            {/* <p className="text-lg text-gray-700 leading-relaxed">
-              Αυτό που μας διαφοροποιεί είναι η προσέγγισή μας με γνώμονα τον σκοπό. Κάθε στρατηγική, κάθε καμπάνια, κάθε μήνυμα που δημιουργούμε έχει έναν ξεκάθαρο στόχο: να δημιουργήσει ουσιαστικό αντίκτυπο που ευθυγραμμίζεται με τις αξίες και τους στόχους των συνεργατών μας.
-            </p> */}
+      <AnimatedElement animation="fade-in" delay={500}>
+        <div className="container mx-auto px-4 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Η αποστολή μας</h2>
+            <div className="bg-white rounded-lg shadow-xl p-8 md:p-10">
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Η επικοινωνία που πετυχαίνει πραγματικό αντίκτυπο και αλλαγή. Η επικοινωνία που καταφέρνει να συγκινεί, να προκαλεί αλλαγές συμπεριφοράς, να συνδέει ουσιαστικά τους οργανισμούς με τα κοινά τους.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Η επικοινωνία που διαμορφώνει τάσεις και αντιλήψεις, με συναίσθηση της ευθύνης της απέναντι στον κόσμο μας. Αυτή η επικοινωνία είναι η δική μας αποστολή και κάθε μας συνεργασία έχει στον πυρήνα της την αλλαγή που θέλουμε να πετύχουμε «εκεί έξω», μαζί με όσους μας εμπιστεύονται.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </AnimatedElement>
 
       {/* Our Values Section */}
       <div className="bg-gradient-to-r from-cyan-500 to-cyan-700 py-16 md:py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">Οι Αξίες μας</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Άνθρωπος",
-                icon: "👤"
-              },
-              {
-                title: "Αντίκτυπος",
-                icon: "💡"
-              },
-              {
-                title: "Αποτελεσματικότητα",
-                icon: "🚀"
-              },
-              {
-                title: "Συνέπεια",
-                icon: "✨"
-              },
-              {
-                title: "Συνδιαμόρφωση",
-                icon: "🤝"
-              },
-              {
-                title: "Συμπερίληψη",
-                icon: "🌈"
-              },
-            ].map((value, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-8 text-center transform transition-transform duration-300 hover:scale-105">
-                <div className="text-4xl mb-4">{value.icon}</div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-4">{value.title}</h3>
-              </div>
-            ))}
-          </div>
+          <AnimatedContainer animation="slide-in-left" staggerDelay={200} initialDelay={300}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { title: "Άνθρωπος", icon: "👤" },
+                { title: "Αντίκτυπος", icon: "💡" },
+                { title: "Αποτελεσματικότητα", icon: "🚀" },
+                { title: "Συνέπεια", icon: "✨" },
+                { title: "Συνδιαμόρφωση", icon: "🤝" },
+                { title: "Συμπερίληψη", icon: "🌈" },
+              ].map((value, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-8 text-center transform transition-transform duration-300 hover:scale-105">
+                  <div className="text-4xl mb-4">{value.icon}</div>
+                  <h3 className="text-2xl font-semibold text-gray-800 mb-4">{value.title}</h3>
+                </div>
+              ))}
+            </div>
+          </AnimatedContainer>
         </div>
       </div>
 
       {/* Our Partners Section */}
-      <div className="bg-gradient-to-r from-gray-100 to-gray-200 mx-auto px-4 py-16 md:py-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Συνεργασίες</h2>
-        <p className="text-lg text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto text-center">
-          Είμαστε περήφανοι για τις συνεργασίες που έχουμε αναπτύξει με οργανισμούς που μοιράζονται το όραμά μας για θετικό κοινωνικό αντίκτυπο.
-        </p>
-        
-        {/* Logo Slider */}
-        <LogoSlider logos={partnerLogos} />
-        
+      <AnimatedElement animation="slide-in-right" delay={300}>
+        <div className="bg-gradient-to-r from-gray-100 to-gray-200 mx-auto px-4 py-16 md:py-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">Συνεργασίες</h2>
+          <p className="text-lg text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto text-center">
+            Είμαστε περήφανοι για τις συνεργασίες που έχουμε αναπτύξει με οργανισμούς που μοιράζονται το όραμά μας για θετικό κοινωνικό αντίκτυπο.
+          </p>
+          <LogoSlider logos={partnerLogos} />
+        </div>
+      </AnimatedElement>
         {/* Additional Info
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
@@ -188,32 +168,31 @@ export default function WhoWeArePage() {
             </div>
           ))}
         </div> */}
-      </div>
       
       {/* Bio Section */}
-      <div className="container mx-auto px-4 py-16 md:py-20">
-        {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center">Τιτλος ατομου</h2> */}
-        <Bio />
-      </div>
+      <AnimatedElement animation="fade-in" delay={300}>
+        <div className="container mx-auto px-4 py-16 md:py-20">
+          <Bio />
+        </div>
+      </AnimatedElement>
 
       {/* Call to Action Section */}
-      <div className="bg-gray-100 py-16 md:py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να Συνεργαστούμε;</h2>
-          <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-            Ελάτε να μοιραστείτε το όραμά σας μαζί μας και να ανακαλύψουμε πώς μπορούμε να δημιουργήσουμε τον αντίκτυπο που θέλετε να έχετε.
-          </p>
-          <Link
-            className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl 
-            font-semibold py-4 px-8 rounded-lg shadow-lg 
-            hover:from-cyan-600 
-            hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
-            href="/contact"
-          >
-            Επικοινωνήστε μαζί μας
-          </Link>
+      <AnimatedElement animation="fade-up" delay={300}>
+        <div className="bg-gray-100 py-16 md:py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να Συνεργαστούμε;</h2>
+            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+              Ελάτε να μοιραστείτε το όραμά σας μαζί μας και να ανακαλύψουμε πώς μπορούμε να δημιουργήσουμε τον αντίκτυπο που θέλετε να έχετε.
+            </p>
+            <Link
+              className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl font-semibold py-4 px-8 rounded-lg shadow-lg hover:from-cyan-600 hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
+              href="/contact"
+            >
+              Επικοινωνήστε μαζί μας
+            </Link>
+          </div>
         </div>
-      </div>
+      </AnimatedElement>
 
       {/* Footer */}
       <Footer />

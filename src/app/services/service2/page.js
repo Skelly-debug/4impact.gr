@@ -1,10 +1,9 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
-
 
 function Service2() {
     const [showTitle, setShowTitle] = useState(false);
@@ -20,15 +19,6 @@ function Service2() {
     // Custom hook for detecting when an element is in viewport
     function useInView(ref, options = { threshold: 0.1 }) {
       const [isInView, setIsInView] = useState(false);
-      const [showTitle, setShowTitle] = useState(false);
-    
-      useEffect(() => {
-        const timer = setTimeout(() => {
-          setShowTitle(true);
-        }, 300);
-    
-        return () => clearTimeout(timer);
-      }, []);
     
       useEffect(() => {
         const observer = new IntersectionObserver(([entry]) => {
@@ -46,11 +36,11 @@ function Service2() {
         };
       }, [ref, options]);
     
-      return { isInView, showTitle };
+      return { isInView };
     }
     
     // Animated component that fades in when scrolled into view
-    function AnimatedSection({ children, className = "" }) {
+    function AnimatedSection({ children, className = "", delay = 0 }) {
       const ref = useRef(null);
       const { isInView } = useInView(ref);
     
@@ -60,6 +50,7 @@ function Service2() {
           className={`transform transition-all duration-700 ${
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           } ${className}`}
+          style={{ transitionDelay: `${delay}ms` }}
         >
           {children}
         </div>
@@ -87,40 +78,68 @@ function Service2() {
   
           {/* Hero Title */}
           <div className="flex justify-center items-center h-full px-4">
-            <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
-                showTitle
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
-            >
-              service1
-            </h1>
+            <div className="text-center max-w-5xl">
+              <h1
+                className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+                  showTitle
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                }`}
+              >
+                Στρατηγικός σχεδιασμός και παραγωγή περιεχομένου
+              </h1>
+              <p className={`mt-6 text-lg text-gray-200 max-w-3xl mx-auto transition-all duration-1000 ease-out ${
+                showTitle ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-8"
+              }`}>
+                Δημιουργούμε στρατηγικές που ξεπερνούν τις προσδοκίες και συνδέουν το κοινό σας με το όραμά σας
+              </p>
+            </div>
+          </div>
+
+          {/* Hero Scroll Indicator */}
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
+              <ArrowRight className="text-white transform rotate-90" size={20} />
+            </div>
           </div>
         </div>
-        {/* Content Section */}
-      <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
-            <p>
-              test
-            </p>
-      </div>
 
-                {/* Call to Action Section */}
-                <AnimatedSection className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 mx-64 shadow-md">
-            <div className="text-center max-w-3xl mx-auto px-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Έτοιμοι να κάνουμε τη διαφορά;</h2>
-              <p className="text-lg text-gray-700 mb-8">
-                Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
+        {/* Overview Section */}
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <AnimatedSection className="max-w-4xl mx-auto">
+            
+            {/* Featured content panel */}
+            <div className="bg-white rounded-xl p-8 mb-12 shadow-sm border border-gray-100 relative overflow-hidden">
+              {/* Decorative accent */}
+              <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+              
+              <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
+              Όσο κι αν ζούμε σε ένα ταχύτατα μεταβαλλόμενο επικοινωνιακό σύμπαν, με το AI να αλλάζει δραματικά τα δεδομένα, το αυθεντικό, ελκυστικό και ουσιωδώς ανθρώπινο περιεχόμενο συνεχίζει και θα συνεχίσει να είναι το Α και το Ω της αποτελεσματικής επικοινωνίας.
               </p>
-              <button
-                className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center mx-auto group"
-                onClick={() => (window.location.href = "/contact")}
-              >
-                Ας συνεργαστούμε
-                <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform duration-300" size={20} />
-              </button>
+              
+              <p className="text-lg leading-relaxed text-gray-700 pl-6">
+              Μαζί μπορούμε να σχεδιάσουμε στρατηγικά το περιεχόμενο που θα σας κάνει να ξεχωρίσετε και να δημιουργήσουμε για εσάς videos, key visuals και κείμενα για όλα τα μέσα που θα αφήσουν το δικό σας μοναδικό αποτύπωμα και θα σας φέρουν σε ουσιαστική επαφή και σύνδεση με τα κοινά σας.
+              </p>
             </div>
           </AnimatedSection>
+        </div>
+
+        {/* Call to Action Section */}
+        <AnimatedSection className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-20 mx-8 md:mx-16 lg:mx-64 shadow-md">
+          <div className="text-center max-w-3xl mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Έτοιμοι να κάνουμε τη διαφορά;</h2>
+            <p className="text-lg text-gray-700 mb-8">
+              Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
+            </p>
+            <button
+              className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center mx-auto group"
+              onClick={() => (window.location.href = "/contact")}
+            >
+              Ας συνεργαστούμε
+              <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform duration-300" size={20} />
+            </button>
+          </div>
+        </AnimatedSection>
         <Footer />
     </div>
 )}
