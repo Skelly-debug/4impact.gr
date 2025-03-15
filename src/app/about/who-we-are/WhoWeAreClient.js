@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import Bio from "@/components/CV/bio";
 import Link from "next/link";
 import LogoSlider from "@/components/LogoSlider/LogoSlider";
+import { ChevronRight } from "lucide-react";
 import { AnimatedElement, AnimatedContainer } from "@/components/Animations/Animations";
 
 export default function WhoWeArePage() {
@@ -78,17 +79,28 @@ export default function WhoWeArePage() {
           />
         </div>
 
-        {/* Overlay with gradient effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
-
-        {/* Hero Title */}
-        <div className="flex justify-center items-center h-full px-4">
-        <AnimatedElement animation="fade-up" delay={300}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10">
-            Ποιοι Είμαστε
-          </h1>
-        </AnimatedElement>
-        </div>
+                {/* Overlay with gradient effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div> 
+          {/* Hero Title */}
+            <div className="flex justify-center items-center h-full px-4">
+              <div className="text-center max-w-4xl">
+                <h1
+                  className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+                    showTitle
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-8"
+                  }`}
+                >
+                Ποιοί ειμάστε
+                </h1>
+              </div>
+            </div>
+          </div>
+          {/* Hero Scroll Indicator */}
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+          <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
+            <ChevronRight className="text-white transform rotate-90" size={20} />
+          </div>
       </div>
 
       {/* Our Story Section */}

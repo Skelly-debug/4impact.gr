@@ -120,7 +120,7 @@ export default function HomeClient() {
       {/* Call to Action Section */}
       <AnimatedElement 
         animation="fade-up" 
-        className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 mx-64 shadow-md"
+        className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-64 shadow-md"
       >
         <div className="text-center max-w-3xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Έτοιμοι να κάνουμε τη διαφορά;</h2>
@@ -128,7 +128,7 @@ export default function HomeClient() {
             Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
           </p>
           <button
-            className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center mx-auto group"
+            className="bg-blue-600 text-white px-6 sm:px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center mx-auto group"
             onClick={() => (window.location.href = "/contact")}
           >
             Ας συνεργαστούμε
