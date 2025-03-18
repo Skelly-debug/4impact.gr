@@ -1,69 +1,55 @@
-// src/utils/rate-limiter.js
+// Simple in-memory rate limiter
+// For production, consider using Redis or another persistent store
 
-// Simple in-memory store for rate limiting
-// In production, consider using Redis or another persistent store
-const ipRequestMap = new Map();
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour window
+const MAX_REQUESTS_PER_WINDOW = 5; // 5 requests per hour
+
+// Store IP addresses and their request counts
+const ipRequests = new Map();
 
 /**
  * Rate limits requests based on IP address
- * @param {string} ip - The IP address to check
- * @param {number} limit - Maximum number of requests allowed in the window
- * @param {number} windowMs - Time window in milliseconds
- * @returns {Object} - Result of the rate limit check
+ * @param {string} ip - The IP address to rate limit
+ * @returns {Promise<{success: boolean, remaining: number}>} - Whether the request is allowed and how many requests remain
  */
-export async function rateLimit(ip, limit = 5, windowMs = 60000) {
+export async function rateLimit(ip) {
   const now = Date.now();
   
-  // Get or create record for this IP
-  if (!ipRequestMap.has(ip)) {
-    ipRequestMap.set(ip, []);
+  // Clean up old entries every 100 requests
+  if (Math.random() < 0.01) {
+    for (const [storedIp, data] of ipRequests.entries()) {
+      if (now - data.timestamp > WINDOW_MS) {
+        ipRequests.delete(storedIp);
+      }
+    }
   }
   
-  // Get request timestamps for this IP
-  const requests = ipRequestMap.get(ip);
+  // Get or create entry for this IP
+  const ipData = ipRequests.get(ip) || { 
+    count: 0, 
+    timestamp: now 
+  };
   
-  // Filter out requests outside the current time window
-  const recentRequests = requests.filter(timestamp => now - timestamp < windowMs);
+  // Reset count if window has passed
+  if (now - ipData.timestamp > WINDOW_MS) {
+    ipData.count = 0;
+    ipData.timestamp = now;
+  }
   
   // Check if rate limit is exceeded
-  if (recentRequests.length >= limit) {
-    return {
-      success: false,
-      remaining: 0,
-      resetTime: Math.min(...recentRequests) + windowMs
+  if (ipData.count >= MAX_REQUESTS_PER_WINDOW) {
+    return { 
+      success: false, 
+      remaining: 0 
     };
   }
   
-  // Add current request timestamp
-  recentRequests.push(now);
-  ipRequestMap.set(ip, recentRequests);
+  // Increment count and update timestamp
+  ipData.count++;
+  ipRequests.set(ip, ipData);
   
-  // Clean up old entries periodically
-  if (Math.random() < 0.01) { // 1% chance to clean up on each request
-    cleanupOldEntries(windowMs);
-  }
-  
-  return {
-    success: true,
-    remaining: limit - recentRequests.length,
-    resetTime: now + windowMs
+  return { 
+    success: true, 
+    remaining: MAX_REQUESTS_PER_WINDOW - ipData.count 
   };
-}
-
-/**
- * Cleans up old entries from the rate limiter
- * @param {number} windowMs - Time window in milliseconds
- */
-function cleanupOldEntries(windowMs) {
-  const now = Date.now();
-  
-  for (const [ip, timestamps] of ipRequestMap.entries()) {
-    const validTimestamps = timestamps.filter(time => now - time < windowMs);
-    
-    if (validTimestamps.length === 0) {
-      ipRequestMap.delete(ip);
-    } else if (validTimestamps.length !== timestamps.length) {
-      ipRequestMap.set(ip, validTimestamps);
-    }
-  }
 }

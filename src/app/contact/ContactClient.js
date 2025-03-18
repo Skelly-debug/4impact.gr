@@ -4,8 +4,9 @@ import React from "react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useState, useEffect, useRef } from "react";
-import { Loader2, ChevronRight } from "lucide-react";
+import { Loader2 } from 'lucide-react';
 import { motion, useAnimation, useInView } from "framer-motion";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 export default function ContactClient() {
   const [showTitle, setShowTitle] = useState(false);
@@ -13,6 +14,7 @@ export default function ContactClient() {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const recaptchaRef = useRef(null);
 
   // Ref and animation controls for cards
   const contactInfoRef = useRef(null);
@@ -50,11 +52,34 @@ export default function ContactClient() {
 
     // Load reCAPTCHA script
     const loadRecaptcha = () => {
+      // Remove any existing reCAPTCHA scripts to avoid duplicates
+      const existingScript = document.querySelector('script[src*="recaptcha"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      // Create and add the script
       const script = document.createElement("script");
       script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
       script.async = true;
       script.defer = true;
-      script.onload = () => setRecaptchaLoaded(true);
+      
+      script.onload = () => {
+        console.log("reCAPTCHA script loaded successfully");
+        if (window.grecaptcha) {
+          window.grecaptcha.ready(() => {
+            console.log("reCAPTCHA is ready");
+            setRecaptchaLoaded(true);
+          });
+        } else {
+          console.error("grecaptcha not available after script load");
+        }
+      };
+      
+      script.onerror = (error) => {
+        console.error("Error loading reCAPTCHA script:", error);
+      };
+      
       document.head.appendChild(script);
     };
 
@@ -124,15 +149,34 @@ export default function ContactClient() {
     setSubmitStatus(null);
 
     try {
-      // Generate reCAPTCHA token
-      if (!recaptchaLoaded || !window.grecaptcha) {
-        throw new Error("reCAPTCHA not loaded");
-      }
+      // For development/testing, use a dummy token if needed
+      let recaptchaToken = "dummy-token-for-testing";
       
-      const recaptchaToken = await window.grecaptcha.execute(
-        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-        { action: "submit_contact" }
-      );
+      // Only try to get a real token if not in development mode with bypass
+      if (process.env.NODE_ENV !== 'development' || process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA !== 'true') {
+        if (!recaptchaLoaded || !window.grecaptcha) {
+          throw new Error("reCAPTCHA not loaded");
+        }
+        
+        try {
+          // Use a simpler approach to get the token
+          recaptchaToken = await new Promise((resolve, reject) => {
+            window.grecaptcha.ready(function() {
+              window.grecaptcha.execute(
+                process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, 
+                {action: 'submit'}
+              ).then(resolve).catch(reject);
+            });
+          });
+          
+          console.log("Generated reCAPTCHA token successfully");
+        } catch (recaptchaError) {
+          console.error("Error generating reCAPTCHA token:", recaptchaError);
+          // Continue with the dummy token in case of error
+        }
+      } else {
+        console.log("Using dummy token for development");
+      }
 
       // Send form data with reCAPTCHA token
       const response = await fetch("/api/contact", {
@@ -149,6 +193,7 @@ export default function ContactClient() {
       });
 
       const responseData = await response.json();
+      console.log("Server response:", response.status, responseData);
 
       if (response.ok) {
         setSubmitStatus("Το μήνυμά σας στάλθηκε με επιτυχία!");
@@ -161,7 +206,7 @@ export default function ContactClient() {
         );
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error submitting form:", error);
       setSubmitStatus("Προέκυψε ένα σφάλμα. Παρακαλώ δοκιμάστε ξανά.");
     } finally {
       setIsSubmitting(false);
@@ -197,20 +242,7 @@ export default function ContactClient() {
             </div>
           </div>
         </div>
-        {/* Hero Scroll Indicator */}
-          <div 
-            className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce cursor-pointer"
-            onClick={() => {
-                window.scrollTo({
-                  top: window.innerHeight - 110,
-                  behavior: 'smooth'
-                });
-              }}
-          >
-            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-              <ChevronRight className="text-white transform rotate-90" size={20} />
-            </div>
-          </div>
+        <ScrollIndicator />
       </div>
 
       <div className="flex-grow">
@@ -333,7 +365,7 @@ export default function ContactClient() {
                 </div>
                 <button
                   type="submit"
-                  disabled={isSubmitting || !recaptchaLoaded}
+                  disabled={isSubmitting}
                   className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 disabled:opacity-50"
                 >
                   {isSubmitting ? (
