@@ -60,11 +60,19 @@ export default function HomeClient() {
       </div>
 
       {/* Hero Scroll Indicator */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-        <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-          <ChevronRight className="text-white transform rotate-90" size={20} />
+        <div 
+          className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce cursor-pointer"
+          onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight - 110,
+                behavior: 'smooth'
+              });
+            }}
+        >
+          <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
+            <ChevronRight className="text-white transform rotate-90" size={20} />
+          </div>
         </div>
-      </div>
 
       {/* Content Section */}
       <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
@@ -87,7 +95,7 @@ export default function HomeClient() {
           ))}
         </div>
 
-        <AnimatedElement animation="scale-up" delay={900}>
+        {/* <AnimatedElement animation="scale-up" delay={900}>
           <div className="text-center my-6 md:my-6">
             <Link
               className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl 
@@ -101,7 +109,7 @@ export default function HomeClient() {
               Ελάτε να δημιουργήσουμε μαζί το impact που θα ξεχωρίσει το Brand σας!
             </Link>
           </div>
-        </AnimatedElement>
+        </AnimatedElement> */}
       </div>
 
       <div className="mt-12">

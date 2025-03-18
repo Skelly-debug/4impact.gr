@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 function Service1() {
     const [showTitle, setShowTitle] = useState(false);
@@ -95,13 +96,8 @@ function Service1() {
               </p>
             </div>
           </div>
-
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-              <ArrowRight className="text-white transform rotate-90" size={20} />
-            </div>
-          </div>
+           <ScrollIndicator/>   
+    
         </div>
 
         {/* Overview Section */}
@@ -134,7 +130,7 @@ function Service1() {
         <div className="bg-gray-100 py-16 mb-16">
           <div className="container mx-auto px-4">
             <AnimatedSection className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Πως δουλευούμε</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">Πώς δουλευούμε</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Εφαρμόζουμε μια δοκιμασμένη μεθοδολογία για να επιτύχουμε τους στόχους σας</p>
             </AnimatedSection>
             
@@ -168,8 +164,8 @@ function Service1() {
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto -mt-16 pb-1 mb-6 shadow-md relative z-10">
                     <span className="text-white text-xl font-bold">3</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Αξιολόγηση, Βελτίωση και προσαρμογή</h3>
-                  <p className="text-gray-600">Παρακολοθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, 
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Αξιολόγηση, Βελτίωση και Προσαρμογή</h3>
+                  <p className="text-gray-600">Παρακολουθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, 
                     προσαρμόζοντας τις τακτικές μας για τη μέγιστη δυνατή αποτελεσματικότητα.</p>
                 </div>
               </AnimatedSection>

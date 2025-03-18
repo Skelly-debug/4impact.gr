@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
+
 
 function Service5() {
     const [showTitle, setShowTitle] = useState(false);
@@ -86,7 +88,7 @@ function Service5() {
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                Συμβουλευτική επικοινωνίας και διαχείρισης κρίσης
+                Συμβουλευτική επικοινωνίας και διαχείρισης κρίσεων
               </h1>
               <p className={`mt-6 text-lg text-gray-200 max-w-3xl mx-auto transition-all duration-1000 ease-out ${
                 showTitle ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-8"
@@ -95,13 +97,7 @@ function Service5() {
               </p>
             </div>
           </div>
-
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-              <ArrowRight className="text-white transform rotate-90" size={20} />
-            </div>
-          </div>
+          <ScrollIndicator />
         </div>
 
         {/* Overview Section */}
@@ -113,7 +109,7 @@ function Service5() {
               <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
               
               <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
-                Μέσα από τη μακρόχρονη εμπειρία μας στους τομείς της επικοινωνίας, του marketing και της ανάπτυξης οργανώσεων της Κοινωνίας των Πολιτών και όχι μόνο, έχουμε κατακτήσει το προνόμιο της «μεγάλης εικόνας» των πραγμάτων που τόσο απαραίτητη είναι σήμερα για την αποτελεσματική τοποθέτηση κάθε οργανισμού. 
+                Μέσα από τη μακρόχρονη εμπειρία μας στους τομείς της επικοινωνίας, του marketing και της ανάπτυξης οργανώσεων της Κοινωνίας των Πολιτών και όχι μόνο, έχουμε κατακτήσει το προνόμιο της «μεγάλης εικόνας» των πραγμάτων, που τόσο απαραίτητη είναι σήμερα για την αποτελεσματική τοποθέτηση κάθε οργανισμού. 
               </p>
               <p className="text-lg leading-relaxed text-gray-700 pl-6">
                 Μια «μεγάλη εικόνα» που μας επιτρέπει να μπορούμε να συμβουλέψουμε οποιονδήποτε συνεργάτη – είτε σε επίπεδο συγκεκριμένων projects είτε σε επίπεδο συνολικής επικοινωνιακής ανάπτυξης. Επιπλέον, σε συνδυασμό και με την άριστη γνώση του τοπίου των ΜΜΕ και των μηχανισμών τους, βρισκόμαστε στη διάθεσή σας για τη διαχείριση οποιασδήποτε μορφής κρίσης και την κατάρτιση ανάλογου πλάνου και στρατηγικής.

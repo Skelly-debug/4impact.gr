@@ -5,8 +5,9 @@ import Footer from "@/components/Footer/Footer";
 import Bio from "@/components/CV/bio";
 import Link from "next/link";
 import LogoSlider from "@/components/LogoSlider/LogoSlider";
-import { ChevronRight } from "lucide-react";
+// import { ChevronRight } from "lucide-react";
 import { AnimatedElement, AnimatedContainer } from "@/components/Animations/Animations";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 export default function WhoWeArePage() {
   const [showTitle, setShowTitle] = useState(false);
@@ -91,17 +92,13 @@ export default function WhoWeArePage() {
                       : "opacity-0 translate-y-8"
                   }`}
                 >
-                Ποιοί ειμάστε
+                Σχετικά με εμάς
                 </h1>
               </div>
             </div>
           </div>
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-          <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-            <ChevronRight className="text-white transform rotate-90" size={20} />
-          </div>
-      </div>
+          <ScrollIndicator/>
+
 
       {/* Our Story Section */}
       <AnimatedElement animation="fade-in" delay={500}>

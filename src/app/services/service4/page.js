@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 function Service4() {
     const [showTitle, setShowTitle] = useState(false);
@@ -95,13 +96,7 @@ function Service4() {
               </p>
             </div>
           </div>
-
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-              <ArrowRight className="text-white transform rotate-90" size={20} />
-            </div>
-          </div>
+          <ScrollIndicator />
         </div>
 
         {/* Overview Section */}
@@ -113,7 +108,7 @@ function Service4() {
               <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
               
               <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
-              Η επιχείρησή μας ειδικεύεται στη δημιουργία καινοτόμων projects εταιρικής κοινωνικής υπευθυνότητας (ΕΚΕ) και καμπανιών κοινωνικής ευαισθητοποίησης που προσφέρουν πραγματική αξία στην κοινωνία και ενισχύουν το κύρος της εταιρείας σας
+              Η επιχείρησή μας ειδικεύεται στη δημιουργία καινοτόμων projects εταιρικής κοινωνικής υπευθυνότητας (ΕΚΕ) και καμπανιών κοινωνικής ευαισθητοποίησης που προσφέρουν πραγματική αξία στην κοινωνία και ενισχύουν το κύρος της εταιρείας σας.
               </p>
               <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
               Αναλαμβάνουμε τη σχεδίαση και υλοποίηση προγραμμάτων ΕΚΕ, όπως δράσεις για το περιβάλλον, την εκπαίδευση ή την υγεία, που ενσωματώνονται άψογα στη στρατηγική της εταιρείας σας.

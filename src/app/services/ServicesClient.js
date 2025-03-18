@@ -5,6 +5,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import ServicesCards from "@/components/ServicesCards/ServicesCards";
 import Footer from "@/components/Footer/Footer";
 import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 // Custom hook for detecting when an element is in viewport
 function useInView(ref, options = { threshold: 0.1 }) {
@@ -137,14 +138,8 @@ function ServicesClient() {
           </div>
         </div>
       </div>
-
-      {/* Hero Scroll Indicator */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-        <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-          <ChevronRight className="text-white transform rotate-90" size={20} />
-        </div>
-          </div>
-        </div>
+      <ScrollIndicator/>
+      </div>
 
 
       {/* Main Content */}

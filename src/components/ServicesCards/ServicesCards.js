@@ -160,14 +160,17 @@ const ServicesCards = () => {
                   transform: hoveredId === service.id ? 'scale(1.07)' : 'scale(1)'
                 }}
               />
+              <Link href={`/services/service${service.id}`}>
               <div 
                 className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent transition-opacity duration-500"
                 style={{
                   opacity: hoveredId === service.id ? 0.7 : 0
                 }}
               ></div>
+              </Link>
             </div>
             <div className="p-6 flex flex-col flex-grow">
+            <Link href={`/services/service${service.id}`}>
               <h2 
                 className="text-2xl font-bold mb-3 transition-colors duration-300"
                 style={{
@@ -176,6 +179,7 @@ const ServicesCards = () => {
               >
                 {service.title}
               </h2>
+              </Link>
               <div className="mt-auto pt-6">
                 <Link href={`/services/service${service.id}`}>
                   <button 

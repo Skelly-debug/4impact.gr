@@ -44,6 +44,14 @@ function Navbar() {
           {isMobileMenuOpen && (
             <nav className="absolute top-28 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
               <ul className="space-y-4">
+              <li>
+                  <a
+                    href="/"
+                    className="text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                  >
+                    Αρχική
+                  </a>
+                </li>
                 <li>
                   <a
                     href="/services"
@@ -81,6 +89,12 @@ function Navbar() {
           )}
         </div>
         <nav className="hidden lg:flex mr-0 md:mr-[10rem]">
+          <a
+            href="/"
+            className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+          >
+            Αρχική
+          </a>
           <a
             href="/services"
             className="text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"

@@ -5,6 +5,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
 import { ChevronRight } from "lucide-react";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
 function NewsClient() {
   const [showTitle, setShowTitle] = useState(false);
@@ -62,12 +63,7 @@ function NewsClient() {
               </div>
             </div>
           </div>
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-          <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-            <ChevronRight className="text-white transform rotate-90" size={20} />
-          </div>
-        </div>
+          <ScrollIndicator />
 
       {/* Article Creation Form */}
       <div className="container mx-auto px-4 py-10 text-black">

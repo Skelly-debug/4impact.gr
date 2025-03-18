@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
+
 
 function Service3() {
     const [showTitle, setShowTitle] = useState(false);
@@ -95,13 +97,7 @@ function Service3() {
               </p>
             </div>
           </div>
-
-          {/* Hero Scroll Indicator */}
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-            <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-              <ArrowRight className="text-white transform rotate-90" size={20} />
-            </div>
-          </div>
+          <ScrollIndicator/>
         </div>
 
         {/* Overview Section */}
