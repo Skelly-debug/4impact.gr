@@ -5,6 +5,7 @@ import { ChevronRight, ArrowRight, Target } from "lucide-react";
 import Navbar from "@/components/NavBar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
+import ServiceGrid from "@/components/ServiceGrid/ServiceGrid";
 
 function Service2() {
     const [showTitle, setShowTitle] = useState(false);
@@ -92,7 +93,7 @@ function Service2() {
               <p className={`mt-6 text-lg text-gray-200 max-w-3xl mx-auto transition-all duration-1000 ease-out ${
                 showTitle ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-8"
               }`}>
-                Δημιουργούμε στρατηγικές που ξεπερνούν τις προσδοκίες και συνδέουν το κοινό σας με το όραμά σας
+                Στοχευμένο περιεχόμενο για ουσιαστική σύνδεση με τα κοινά σας
               </p>
             </div>
           </div>
@@ -118,6 +119,8 @@ function Service2() {
             </div>
           </AnimatedSection>
         </div>
+
+        <ServiceGrid currentSlug="service2" />
 
         {/* Call to Action Section */}
         <AnimatedSection className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-20 mx-8 md:mx-16 lg:mx-64 shadow-md">
