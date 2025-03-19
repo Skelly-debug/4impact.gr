@@ -122,7 +122,7 @@ const ServicesSection = () => {
         <AnimatedElement animation="scale-up" delay="900">
           <Link href="/services">
             <button className="bg-cyan-400 hover:bg-cyan-500 text-cyan-900 px-10 py-5 rounded-md font-medium text-lg transition duration-300 transform hover:scale-105">
-              Δες πώς μπορούμε να σε βοηθήσουμε!
+              Δείτε πώς μπορούμε να σας βοηθήσουμε!
             </button>
           </Link>
         </AnimatedElement>

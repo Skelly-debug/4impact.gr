@@ -13,7 +13,7 @@ function Footer() {
             >
               <Mail className="h-5 w-5 md:h-6 md:w-6" />
             </a>
-            <a
+            {/* <a
               href="https://www.instagram.com/4impact/"
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
             >
@@ -24,7 +24,7 @@ function Footer() {
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
             >
               <Facebook className="h-5 w-5 md:h-6 md:w-6" />
-            </a>
+            </a> */}
             <a
               href="https://gr.linkedin.com/in/iasonkantas"
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
