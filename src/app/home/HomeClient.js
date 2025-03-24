@@ -6,8 +6,7 @@ import LogoSlider from "@/components/LogoSlider/LogoSlider";
 import ServicesGrid from "@/components/ServicesSection/ServicesSection";
 import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
-import { AnimatedElement } from "@/components/Animations/Animations"; // Import your animation components
-
+import { AnimatedElement } from "@/components/Animations/Animations";
 export default function HomeClient() {
   const [showTitle, setShowTitle] = useState(false);
 
@@ -126,22 +125,20 @@ export default function HomeClient() {
       </AnimatedElement>
 
       {/* Call to Action Section */}
-      <AnimatedElement 
-        animation="fade-up" 
-        className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl my-12 mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-64 shadow-md"
-      >
-        <div className="text-center max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Έτοιμοι να κάνουμε τη διαφορά;</h2>
-          <p className="text-lg text-gray-700 mb-8">
+        <AnimatedElement animation="fade-up" delay={300}>
+        <div className="bg-gray-100 py-16 md:py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να κάνουμε τη διαφορά;</h2>
+            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
             Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
-          </p>
-          <button
-            className="bg-blue-600 text-white px-6 sm:px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center mx-auto group"
-            onClick={() => (window.location.href = "/contact")}
-          >
-            Ας συνεργαστούμε
-            <ChevronRight className="ml-1 group-hover:translate-x-1 transition-transform duration-300" size={20} />
-          </button>
+            </p>
+            <Link
+              className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl font-semibold py-4 px-8 rounded-lg shadow-lg hover:from-cyan-600 hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
+              href="/contact"
+            >
+              Ας συνεργαστούμε
+            </Link>
+          </div>
         </div>
       </AnimatedElement>
 

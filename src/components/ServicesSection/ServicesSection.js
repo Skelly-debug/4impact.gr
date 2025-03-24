@@ -98,9 +98,9 @@ const ServicesSection = () => {
             </span>
             , τη{" "}
             <span className="font-semibold text-gray-200 transition-all duration-300 ease-in-out hover:text-cyan-600 inline-block">
-              συνδιαμόρφωση
+              συνδιαμόρφωση 
             </span>
-            , και τη{" "}
+            {" "}και τη{" "}
             <span className="font-semibold text-gray-200 transition-all duration-300 ease-in-out hover:text-cyan-600 inline-block">
               συνέπεια
             </span>
@@ -111,7 +111,7 @@ const ServicesSection = () => {
 
         <AnimatedElement animation="fade-up" delay="600">
           <p className="text-lg text-gray-200 leading-relaxed my-8">
-            Στοχευμένες στρατηγικές επικοινωνίας για το σύνολο του brand σας ή για συγκεκριμένα projects, 
+            Στοχευμένες στρατηγικές επικοινωνίας για το σύνολο του Brand σας ή για συγκεκριμένα projects, 
             ανάπτυξη και διαχείριση digital και offline περιεχομένου, διαχείριση σχέσεων με τα ΜΜΕ, 
             σχεδιασμός έργων εταιρικής κοινωνικής ευθύνης, συμβουλευτική επικοινωνίας και διαχείρισης κρίσης, 
             καθώς και εκπαιδευτικά πακέτα. Αυτές είναι οι βασικές υπηρεσίες που προσφέρουμε και ανυπομονούμε 

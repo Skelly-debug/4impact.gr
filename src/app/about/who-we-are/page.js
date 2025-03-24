@@ -1,7 +1,7 @@
 import WhoWeAreClient from "./WhoWeAreClient";
 
 export const metadata = {
-  title: "Ποιοί Είμαστε",
+  title: "Σχετικά με εμάς",
 };
 
 export default function Home() {
