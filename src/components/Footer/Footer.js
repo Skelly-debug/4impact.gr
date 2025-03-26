@@ -19,12 +19,13 @@ function Footer() {
             >
               <Instagram className="h-5 w-5 md:h-6 md:w-6" />
             </a>
+            */}
             <a
-              href="https://www.facebook.com/4impact/"
+              href="https://www.facebook.com/profile.php?id=61574461771626"
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
             >
               <Facebook className="h-5 w-5 md:h-6 md:w-6" />
-            </a> */}
+            </a>
             <a
               href="https://www.linkedin.com/company/4impact-communications/"
               className="text-lg text-neutral-900 font-semibold hover:text-neutral-400 transition ease-in-out duration-300"
