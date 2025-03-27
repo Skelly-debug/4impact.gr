@@ -10,10 +10,10 @@ Welcome to the **4Impact.gr** repository! This project is a modern, feature-rich
 
 ---
 
-## 🚀 Live Demo
+## 🚀 Live Website
 
-Check out the development version of the website hosted on Vercel:  
-👉 [https://4impact-gr.vercel.app/](https://4impact-gr.vercel.app/)
+Check out the website hosted on Vercel:  
+👉 [4impact.gr](https://4impact.gr)
 
 ---
 
