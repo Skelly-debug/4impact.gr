@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import nodemailer from 'nodemailer';
 
 // Improved reCAPTCHA validation function
 async function validateRecaptcha(token) {
@@ -59,7 +60,6 @@ async function validateRecaptcha(token) {
         console.log(`reCAPTCHA score: ${data.score}`)
         // You can adjust this threshold based on your needs
         if (data.score < 0.3) {
-          // Lowered threshold for testing
           console.warn(`reCAPTCHA score too low: ${data.score}`)
           return false
         }
@@ -75,9 +75,98 @@ async function validateRecaptcha(token) {
   }
 }
 
-// Simplified route handler for debugging
+// Create a nodemailer transporter
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_EMAIL_APP_PASSWORD
+    }
+  });
+}
+
+// Send email function
+const sendEmail = async (name, email, message) => {
+  const transporter = createTransporter();
+
+  try {
+    // Email to the company
+    await transporter.sendMail({
+      from: process.env.USER_EMAIL,
+      to: process.env.RECIPIENT_EMAIL,
+      subject: `New Contact Form Submission from ${name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        </div>
+      `,
+      replyTo: email
+    });
+
+    // Optional: Send confirmation email to the sender
+    await transporter.sendMail({
+      from: process.env.USER_EMAIL,
+      to: email,
+      subject: 'We received your message',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Thank you for contacting us!</h2>
+          <p>We have received your message and will get back to you soon.</p>
+          <p>Best regards,<br>4Impact Team</p>
+        </div>
+      `
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return false;
+  }
+}
+
+// Rate limiting mechanism
+const requestCache = new Map();
+
+const isRateLimited = (ip) => {
+  const now = Date.now();
+  const requestInfo = requestCache.get(ip) || { count: 0, lastRequestTime: now };
+  
+  // Reset count if more than 1 hour has passed
+  if (now - requestInfo.lastRequestTime > 3600000) {
+    requestInfo.count = 0;
+    requestInfo.lastRequestTime = now;
+  }
+
+  // Limit to 5 requests per hour
+  if (requestInfo.count >= 5) {
+    return true;
+  }
+
+  requestInfo.count += 1;
+  requestInfo.lastRequestTime = now;
+  requestCache.set(ip, requestInfo);
+
+  return false;
+}
+
 export async function POST(request) {
   try {
+    // Get client IP (works with Vercel)
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+
+    // Check rate limiting
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { message: "Έχετε στείλει πολλά μηνύματα. Παρακαλώ δοκιμάστε αργότερα." }, 
+        { status: 429 }
+      );
+    }
+
     // Parse the request body
     const body = await request.json()
     console.log("Received form submission:", {
@@ -94,7 +183,7 @@ export async function POST(request) {
         hasEmail: !!body.email,
         hasMessage: !!body.message,
       })
-      return NextResponse.json({ message: "Name, email, and message are required" }, { status: 400 })
+      return NextResponse.json({ message: "Όλα τα πεδία είναι υποχρεωτικά" }, { status: 400 })
     }
 
     // Validate reCAPTCHA token (if not bypassed)
@@ -109,21 +198,21 @@ export async function POST(request) {
 
     if (!recaptchaValid) {
       console.error("reCAPTCHA validation failed")
-      // For now, let's continue anyway to get the form working
-      console.log("Continuing despite reCAPTCHA failure (temporary)")
-      // return NextResponse.json(
-      //   { message: "reCAPTCHA validation failed" },
-      //   { status: 400 }
-      // );
+      return NextResponse.json(
+        { message: "Αποτυχία επαλήθευσης. Παρακαλώ δοκιμάστε ξανά." },
+        { status: 400 }
+      );
     }
 
-    // Here you would typically send the email
-    // For now, we'll just log it and return success
-    console.log("Would send email with:", {
-      name: body.name,
-      email: body.email,
-      message: body.message,
-    })
+    // Send email
+    const emailSent = await sendEmail(body.name, body.email, body.message);
+
+    if (!emailSent) {
+      return NextResponse.json(
+        { message: "Προέκυψε σφάλμα κατά την αποστολή του μηνύματος." }, 
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ message: "Το μήνυμά σας στάλθηκε με επιτυχία!" }, { status: 200 })
   } catch (error) {
@@ -131,4 +220,3 @@ export async function POST(request) {
     return NextResponse.json({ message: "Προέκυψε ένα σφάλμα. Παρακαλώ δοκιμάστε ξανά." }, { status: 500 })
   }
 }
-
