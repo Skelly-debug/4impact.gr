@@ -194,26 +194,25 @@ const ArticleMonitoring = () => {
           {feedback.message}
         </div>
       )}
-
-      <div className="w-full bg-white shadow-md rounded-lg">
-        <div className="p-4 border-b flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Article Management</h2>
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-            >
-              <Plus className="h-4 w-4" />
-              Add Article
-            </button>
-            <button
-              onClick={() => signOut({ callbackUrl: "/auth" })}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-            >
-              Logout
-            </button>
+        <div className="w-full bg-white/60 backdrop-blur-lg shadow-xl rounded-xl border border-white/20">
+          <div className="px-6 py-4 border-b border-white/30 flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-900">Article Management</h2>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsAddModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-colors shadow-sm"
+              >
+                <Plus className="h-4 w-4" />
+                Add Article
+              </button>
+              <button
+                onClick={() => signOut({ callbackUrl: "/auth" })}
+                className="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 active:bg-red-700 transition-colors shadow-sm"
+              >
+                Logout
+              </button>
+            </div>
           </div>
-        </div>
 
         <div className="p-4">
           {isLoading ? (

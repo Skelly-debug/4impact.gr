@@ -7,6 +7,9 @@ import ServicesGrid from "@/components/ServicesSection/ServicesSection";
 import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
 import { AnimatedElement } from "@/components/Animations/Animations";
+import HiddenAdminButton from "@/components/HiddenAdminButton/HiddenAdminButton";
+
+
 export default function HomeClient() {
   const [showTitle, setShowTitle] = useState(false);
 
@@ -20,6 +23,7 @@ export default function HomeClient() {
 
   return (
     <div className="bg-gray-50 overflow-hidden">
+      <HiddenAdminButton />
       {/* Navbar */}
       <Navbar />
 
