@@ -46,6 +46,59 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
     }
   };
 
+  const handleAddLink = () => {
+    const selection = window.getSelection();
+    
+    // Guard: Ensure there is a selection
+    if (!selection.rangeCount) return;
+    
+    // 1. Save the Range immediately before the Prompt steals focus
+    const range = selection.getRangeAt(0);
+    
+    // Guard: Ensure we are editing inside the actual editor, not somewhere else
+    if (editorRef.current && !editorRef.current.contains(range.commonAncestorContainer)) {
+      return;
+    }
+
+    const selectedText = selection.toString().trim();
+    
+    // The prompt blocks execution, but we saved 'range' above so it's safe
+    const url = prompt("Enter URL:", "https://");
+    if (!url) return; 
+
+    const displayText = prompt("Display text:", selectedText || "Link");
+    if (!displayText) return;
+
+    // Create the link element
+    const link = document.createElement("a");
+    link.href = url;
+    link.textContent = displayText;
+    link.target = "_blank"; // Optional: Open in new tab
+    link.rel = "noopener noreferrer"; // Security best practice
+    link.className = "text-blue-600 underline hover:text-blue-800"; // Tailwind styling
+
+    // 2. Perform the swap
+    range.deleteContents();
+    range.insertNode(link);
+
+    // 3. Fix the Cursor: Move it to *after* the new link
+    // Without this, the cursor gets stuck inside the link or disappears
+    range.setStartAfter(link);
+    range.setEndAfter(link); 
+    selection.removeAllRanges();
+    selection.addRange(range);
+    
+    // 4. Force React State Update
+    // Since we manipulated the DOM manually, 'onInput' didn't fire.
+    // We must manually call the input handler to save the link to state.
+    handleEditorInput();
+    
+    // 5. Return focus to editor
+    if (editorRef.current) {
+      editorRef.current.focus();
+    }
+  };
+
   const validateForm = () => {
     const newErrors = {};
     
@@ -231,7 +284,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Article Content *
           </label>
-          <Toolbar editorRef={editorRef} onAddImage={handleAddImage} />
+          <Toolbar editorRef={editorRef} onAddImage={handleAddImage} onAddLink={handleAddLink} />
           
           <div
             ref={editorRef}
