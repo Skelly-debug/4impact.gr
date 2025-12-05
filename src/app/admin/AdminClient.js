@@ -6,10 +6,14 @@ import ArticleMonitoring from "@/components/ArticleMonitoring/ArticleMonitoring"
 
 function AdminClient() {
   return (
-    <div className=" bg-gray-300">
-      <div className="font-playfair-display min-h-screen text-gray-800">
+    <div className="bg-gray-300 min-h-screen">
+      <div className="font-playfair-display text-gray-800">
         <Navbar />
-        <ArticleMonitoring />
+        
+        {/* Added a main wrapper with top padding/margin */}
+        <main className="pt-24 pb-10 px-4">
+          <ArticleMonitoring />
+        </main>
       </div>
     </div>
   );
