@@ -3,7 +3,9 @@ import "./globals.css";
 export const metadata = {
   title: "4Impact",
   description: "test",
-  icons: { icon: "/favicon.ico" },
+    icons: {
+    icon: "/favicon.ico"
+  }
 };
 
 import SessionProvider from "../components/SessionProvider";
