@@ -232,6 +232,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
             Article Content *
           </label>
           <Toolbar editorRef={editorRef} onAddImage={handleAddImage} />
+          
           <div
             ref={editorRef}
             contentEditable
@@ -245,7 +246,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
               outline: "none",
               lineHeight: "1.6"
             }}
-            dangerouslySetInnerHTML={{ __html: newArticle.content }}
+            // dangerouslySetInnerHTML={{ __html: newArticle.content }}
           />
           {errors.content && (
             <p className="text-red-500 text-sm mt-1">{errors.content}</p>
