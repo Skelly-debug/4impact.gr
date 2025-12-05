@@ -5,7 +5,17 @@ const ARTICLE_UPDATES = "article-updates";
 
 export async function getAllArticles() {
   const { rows } = await sql`
-    SELECT * FROM articles 
+    SELECT 
+      id,
+      title,
+      content,
+      preview_text as "previewText",
+      author,
+      image_url as "imageUrl",
+      hero_image as "heroImage",
+      thumbnail,
+      published_date as "publishedDate"
+    FROM articles 
     ORDER BY published_date DESC
   `;
   return rows;

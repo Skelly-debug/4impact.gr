@@ -2,20 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "../NavBar/Navbar";
+import Footer from "../Footer/Footer";
 
 export default function ArticleTemplate({
   id,
   title,
   content,
   publishedDate,
-  imageUrl,
+  heroImage,
   author,
 }) {
   const [articleData, setArticleData] = useState({
     title,
     content,
     publishedDate,
-    imageUrl,
+    heroImage,
     author,
   });
 
@@ -23,65 +24,97 @@ export default function ArticleTemplate({
     const parsedDate = new Date(date);
     return isNaN(parsedDate.getTime())
       ? "Unknown Date"
-      : parsedDate.toLocaleString();
+      : parsedDate.toLocaleDateString('el-GR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
   };
 
   useEffect(() => {
-    const eventSource = new EventSource("/api/articles/stream");
-
-    eventSource.onmessage = (event) => {
-      const update = JSON.parse(event.data);
-
-      if (update.article.id === id) {
-        const normalizedArticle = {
-          ...update.article,
-          publishedDate: update.article.publishedDate
-            ? new Date(update.article.publishedDate).toLocaleString()
-            : null,
-        };
-
-        switch (update.type) {
-          case "update":
-            setArticleData(normalizedArticle);
-            break;
-          case "delete":
-            window.location.href = "/articles";
-            break;
+    // Poll for updates every 5 seconds (optional)
+    // Remove this if you don't need real-time updates
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch('/api/articles');
+        const articles = await response.json();
+        const updatedArticle = articles.find(a => a.id === id);
+        
+        if (updatedArticle) {
+          setArticleData({
+            title: updatedArticle.title,
+            content: updatedArticle.content,
+            publishedDate: updatedArticle.publishedDate,
+            heroImage: updatedArticle.heroImage,
+            author: updatedArticle.author,
+          });
         }
+      } catch (error) {
+        console.error('Error checking for updates:', error);
       }
-    };
+    }, 5000);
 
-    return () => eventSource.close();
+    return () => clearInterval(interval);
   }, [id]);
 
   return (
-    <div className="font-playfair-display bg-gray-100 min-h-screen overflow-hidden">
+    <div className="font-sans bg-gray-50 min-h-screen overflow-hidden">
       <Navbar />
-      <div className="pt-[4.5rem]">
-        {articleData.imageUrl ? (
-          <div className="w-full">
-            <img
-              src={articleData.imageUrl}
-              alt={articleData.title}
-              className="w-full max-h-[70vh] object-cover"
-            />
-          </div>
-        ) : null}
-        <article className="max-w-[95%] mx-auto my-8 p-6 bg-white rounded-lg shadow-md">
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">
+      
+      {/* Hero Image Section - Only if heroImage exists */}
+      {articleData.heroImage && (
+        <div className="w-full h-[60vh] relative mt-[4.5rem]">
+          <img
+            src={articleData.heroImage}
+            alt={articleData.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        </div>
+      )}
+
+      {/* Article Content */}
+      <article className={`max-w-4xl mx-auto px-6 ${articleData.heroImage ? '-mt-32' : 'mt-24'} mb-16 relative z-10`}>
+        <div className="bg-white rounded-xl shadow-xl p-8 md:p-12">
+          {/* Title */}
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
             {articleData.title}
           </h1>
-          <p className="text-gray-400 mb-8 font-semibold italic">
-            {articleData.author} {formatDate(articleData.publishedDate)}
-          </p>
+
+          {/* Author and Date */}
+          <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
+            <span className="text-gray-600 font-medium">{articleData.author}</span>
+            <span className="text-gray-400">•</span>
+            <span className="text-gray-500">{formatDate(articleData.publishedDate)}</span>
+          </div>
+
+          {/* Article Content - Strip out any images that might be in the content */}
           <div
-            className="prose text-gray-800 break-words"
-            dangerouslySetInnerHTML={{ __html: articleData.content }}
+            className="prose prose-lg max-w-none text-gray-800 
+                       prose-headings:text-gray-900 
+                       prose-a:text-blue-600 hover:prose-a:text-blue-800
+                       prose-strong:text-gray-900
+                       prose-img:rounded-lg prose-img:shadow-md"
+            dangerouslySetInnerHTML={{ 
+              __html: articleData.content 
+            }}
           />
-        </article>
-      </div>
+        </div>
+
+        {/* Back to Blog Button */}
+        <div className="mt-8 text-center">
+          <a
+            href="/news"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium"
+          >
+            ← Πίσω στο Blog
+          </a>
+        </div>
+      </article>
+
+      <Footer />
     </div>
   );
 }
-
-

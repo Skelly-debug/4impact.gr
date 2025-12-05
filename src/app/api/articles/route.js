@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
-import { publishUpdate } from "@/lib/db";
 
 export async function GET() {
   try {
@@ -84,9 +83,6 @@ export async function POST(request) {
         published_date as "publishedDate"
     `;
 
-    // Publish real-time update
-    await publishUpdate("create", rows[0]);
-
     return NextResponse.json(rows[0], { status: 201 });
   } catch (error) {
     console.error("Error adding article:", error);
@@ -135,9 +131,6 @@ export async function PUT(request) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }
 
-    // Publish real-time update
-    await publishUpdate("update", rows[0]);
-
     return NextResponse.json(rows[0], { status: 200 });
   } catch (error) {
     console.error("Error updating article:", error);
@@ -178,9 +171,6 @@ export async function DELETE(request) {
     if (rows.length === 0) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }
-
-    // Publish real-time update
-    await publishUpdate("delete", rows[0]);
 
     return NextResponse.json(
       { message: "Article deleted successfully", success: true },
