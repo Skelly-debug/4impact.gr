@@ -163,7 +163,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Title */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Article Title *
           </label>
           <input
@@ -183,7 +183,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Preview Text */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Preview Text * (shown on blog listing page)
           </label>
           <textarea
@@ -197,7 +197,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
               errors.previewText ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 mt-1 italic">
             {newArticle.previewText.length}/200 characters
           </p>
           {errors.previewText && (
@@ -207,7 +207,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Author */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Author Name *
           </label>
           <input
@@ -227,7 +227,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Hero Image */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Hero Image URL (displayed at top of article)
           </label>
           <input
@@ -254,7 +254,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Thumbnail */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Thumbnail URL (displayed on blog listing page)
           </label>
           <input
@@ -281,7 +281,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
         {/* Rich Text Editor */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
             Article Content *
           </label>
           <Toolbar editorRef={editorRef} onAddImage={handleAddImage} onAddLink={handleAddLink} />
@@ -305,7 +305,10 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
             <p className="text-red-500 text-sm mt-1">{errors.content}</p>
           )}
         </div>
-
+        {/* PS */}
+        <div className="text-xs text-gray-400 italic">
+          * Required Fields
+        </div>
         {/* Form Actions */}
         <div className="flex justify-end space-x-2 pt-4">
           <button
