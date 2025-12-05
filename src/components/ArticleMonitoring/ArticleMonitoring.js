@@ -6,6 +6,7 @@ import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import DOMPurify from "dompurify";
 import AdminForm from "../AdminForm/AdminForm";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 const ArticleMonitoring = () => {
   const { data: session, status } = useSession({
@@ -19,7 +20,11 @@ const ArticleMonitoring = () => {
   const [editingArticle, setEditingArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [feedback, setFeedback] = useState({ message: '', type: '' });
+  const [feedback, setFeedback] = useState({ message: "", type: "" });
+  
+  // 2. NEW STATE FOR CONFIRMATION MODAL
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [articleToDeleteId, setArticleToDeleteId] = useState(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -43,17 +48,29 @@ const ArticleMonitoring = () => {
     fetchArticles();
   }, [session]);
 
-  const showFeedback = (message, type = 'success') => {
+  const showFeedback = (message, type = "success") => {
     setFeedback({ message, type });
     setTimeout(() => {
-      setFeedback({ message: '', type: '' });
+      setFeedback({ message: "", type: "" });
     }, 5000);
   };
 
-  const handleDeleteArticle = async (articleId) => {
-    if (!confirm("Are you sure you want to delete this article?")) {
-      return;
-    }
+  // 3. MODIFIED HANDLER: Only sets state to open the modal
+  const handleDeleteArticle = (articleId) => {
+    // Instead of confirm(), save the ID and open the modal
+    setArticleToDeleteId(articleId);
+    setIsConfirmModalOpen(true);
+  };
+  
+  // 4. NEW HANDLER: Executes the deletion logic
+  const confirmDeletion = async () => {
+    const articleId = articleToDeleteId;
+    
+    // Close the modal immediately
+    setIsConfirmModalOpen(false);
+    setArticleToDeleteId(null);
+    
+    if (!articleId) return;
 
     try {
       const response = await fetch(`/api/articles?id=${articleId}`, {
@@ -69,7 +86,7 @@ const ArticleMonitoring = () => {
       setArticles((current) =>
         current.filter((article) => article.id !== articleId)
       );
-      
+
       showFeedback("Article deleted successfully!", "success");
     } catch (error) {
       console.error("Error deleting article:", error);
@@ -154,8 +171,14 @@ const ArticleMonitoring = () => {
       </div>
     );
   }
-  
+
   if (status === "unauthenticated") return null;
+
+  // Handler to close the confirmation modal without deleting
+  const cancelDeletion = () => {
+    setIsConfirmModalOpen(false);
+    setArticleToDeleteId(null);
+  };
 
   return (
     <div className="max-w-[98%] mx-auto mt-8 pt-[6rem]">
@@ -288,6 +311,16 @@ const ArticleMonitoring = () => {
             />
           </div>
         </div>
+      )}
+
+      {/* 5. CONFIRMATION MODAL RENDERING */}
+      {isConfirmModalOpen && (
+        <ConfirmationModal
+          title="Confirm Article Deletion"
+          message={`Are you absolutely sure you want to delete this article? This action cannot be undone.`}
+          onConfirm={confirmDeletion} // Calls the function that executes the API call
+          onCancel={cancelDeletion}   // Simply closes the modal
+        />
       )}
     </div>
   );
