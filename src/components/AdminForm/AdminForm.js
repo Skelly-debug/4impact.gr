@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Toolbar from "../Toolbar/toolbar";
+import { X } from "lucide-react";
 
 function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
   const [newArticle, setNewArticle] = useState({
@@ -152,14 +153,25 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
   };
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-full mx-auto bg-white p-5 space-y-4"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {initialArticle ? 'Edit Article' : 'Add New Article'}
-        </h2>
+    <div className="fixed inset-0 flex items-start justify-center z-50 px-4 py-8 sm:py-12 overflow-y-auto">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onCancel} />
+        <form
+          onSubmit={handleSubmit}
+          className="relative w-full max-w-3xl bg-blue-50 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar"
+        >
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold text-gray-900">
+            {initialArticle ? 'Edit Article' : 'Add New Article'}
+          </h2>
+          <button
+            type="button"
+            onClick={onCancel}
+            aria-label="Close"
+            className="p-2 rounded-md text-red-500 hover:bg-red-100 hover:text-red-900 transition"
+          >
+            <X className="w-7 h-7" />
+          </button>
+        </div>
 
         {/* Title */}
         <div>
@@ -290,7 +302,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
             ref={editorRef}
             contentEditable
             onInput={handleEditorInput}
-            className={`w-full px-3 py-2 border rounded-md min-h-[300px] overflow-y-auto text-left ${
+            className={`w-full px-3 py-2  min-h-[300px] overflow-y-auto text-left bg-white ${
               errors.content ? 'border-red-500' : 'border-gray-300'
             }`}
             style={{ 
@@ -299,7 +311,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
               outline: "none",
               lineHeight: "1.6"
             }}
-            // dangerouslySetInnerHTML={{ __html: newArticle.content }}
+
           />
           {errors.content && (
             <p className="text-red-500 text-sm mt-1">{errors.content}</p>
@@ -310,17 +322,17 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
           * Required Fields
         </div>
         {/* Form Actions */}
-        <div className="flex justify-end space-x-2 pt-4">
+        <div className="flex justify-end space-x-3 pt-2">
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition"
+            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 transition"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+            className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
           >
             {initialArticle ? 'Update Article' : 'Add Article'}
           </button>

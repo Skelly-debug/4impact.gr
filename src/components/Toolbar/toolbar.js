@@ -14,7 +14,7 @@ const Toolbar = ({ editorRef, onAddLink, onAddImage }) => {
   };
 
   return (
-    <div className="flex gap-2 p-2 bg-gray-100 border-b">
+    <div className="flex gap-2 p-2 bg-gray-200 border-b">
       <button
         type="button"
         onMouseDown={(e) => { e.preventDefault(); handleFormat("bold"); }}

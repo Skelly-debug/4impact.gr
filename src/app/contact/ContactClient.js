@@ -349,12 +349,12 @@ export default function ContactClient() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    maxLength="5000"
+                    maxLength="2000"
                     rows="4"
                     className={`w-full px-4 py-3 border ${
                       formErrors.message ? "border-red-500" : "border-gray-300"
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300`}
-                    placeholder="Πληκτρολογήστε το μήνυμά σας"
+                    placeholder="Πληκτρολογήστε το μήνυμά σας (μέχρι 2000 χαρακτήρες)"
                   ></textarea>
                   {formErrors.message && (
                     <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>
