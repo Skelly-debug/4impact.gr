@@ -1,8 +1,11 @@
+// Toolbar/toolbar.js
 "use client";
 
 import React from "react";
 
-const Toolbar = ({ editorRef }) => {
+const Toolbar = ({ editorRef, onAddLink, onAddImage }) => {
+  
+  // This handles simple formatting (Bold, Italic, Underline)
   const handleFormat = (command, value = null) => {
     if (editorRef.current) {
       editorRef.current.focus();
@@ -10,63 +13,52 @@ const Toolbar = ({ editorRef }) => {
     }
   };
 
-  const handleAddImage = () => {
-    const imageUrl = prompt("Enter image URL:");
-    if (imageUrl) handleFormat("insertImage", imageUrl);
-  };
-
-  const handleAddLink = () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    const url = prompt("Enter URL:", "https://");
-    const displayText = prompt("Display text:", selectedText || "Link");
-
-    if (url && displayText) {
-      const link = document.createElement("a");
-      link.href = url;
-      link.textContent = displayText;
-      const range = selection.getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(link);
-    }
-  };
-
   return (
     <div className="flex gap-2 p-2 bg-gray-100 border-b">
       <button
         type="button"
-        onClick={() => handleFormat("bold")}
-        className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
+        onMouseDown={(e) => { e.preventDefault(); handleFormat("bold"); }}
+        className="px-3 py-1 bg-white border rounded hover:bg-gray-200 font-bold"
       >
-        <strong>B</strong>
+        B
       </button>
       <button
         type="button"
-        onClick={() => handleFormat("italic")}
-        className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
+        onMouseDown={(e) => { e.preventDefault(); handleFormat("italic"); }}
+        className="px-3 py-1 bg-white border rounded hover:bg-gray-200 italic"
       >
-        <em>I</em>
+        I
       </button>
       <button
         type="button"
-        onClick={() => handleFormat("underline")}
-        className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
+        onMouseDown={(e) => { e.preventDefault(); handleFormat("underline"); }}
+        className="px-3 py-1 bg-white border rounded hover:bg-gray-200 underline"
       >
-        <u>U</u>
+        U
       </button>
+      
+      {/* LINK BUTTON: Uses the prop from AdminForm */}
       <button
         type="button"
-        onClick={handleAddLink}
+        onMouseDown={(e) => {
+          e.preventDefault(); // Prevents editor from losing focus
+          if (onAddLink) onAddLink();
+        }}
         className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
       >
-        🔗Link
+        🔗 Link
       </button>
+
+      {/* IMAGE BUTTON: Uses the prop from AdminForm */}
       <button
         type="button"
-        onClick={handleAddImage}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          if (onAddImage) onAddImage();
+        }}
         className="px-3 py-1 bg-white border rounded hover:bg-gray-200"
       >
-        📷 Add Image
+        📷 Image
       </button>
     </div>
   );
