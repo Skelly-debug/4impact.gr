@@ -101,3 +101,23 @@
   font-weight: 900;
   font-style: normal;
 }
+
+.underline-80 {
+  position: relative;
+  display: inline-block;
+}
+.underline-80::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transform: none;
+  transform-origin: left;
+  bottom: 0.15rem;
+  height: 2px;
+  background: currentColor;
+  width: 0;
+  transition: width .18s ease;
+}
+.underline-80:hover::after {
+  width: 85%;
+}

@@ -8,7 +8,7 @@ export async function GET() {
         id, 
         title, 
         content, 
-        preview_text,
+        preview_text as "previewText",
         author, 
         image_url as "imageUrl",
         hero_image as "heroImage",
