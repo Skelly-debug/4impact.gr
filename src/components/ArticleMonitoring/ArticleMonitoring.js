@@ -196,7 +196,7 @@ const ArticleMonitoring = () => {
       )}
         <div className="w-full bg-white/60 backdrop-blur-lg shadow-xl rounded-xl border border-white/20">
           <div className="px-6 py-4 border-b border-white/30 flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-gray-900">Article Management</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 ">Article Management:</h2>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsAddModalOpen(true)}
