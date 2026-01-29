@@ -42,28 +42,6 @@ export default function WhoWeArePage() {
     // },
   ];
 
-  // Partners logos
-  const partnerLogos = [
-    {
-      src: "https://i.ibb.co/wZw2rFQs/PXSOS.jpg",
-      alt: "Paidika Xwria SOS",
-      name: "Παιδικά Χωριά SOS",
-      url: "https://sos-villages.gr/",
-    },
-    {
-      src: "https://i.ibb.co/KYbBGHF/IKBKK-1.jpg",
-      alt: "ΙΚΒΚΚ",
-      name: "ΙΚΒΚΚ",
-      url: "https://www.cvf.gr/",
-    },
-    {
-      src: "https://i.ibb.co/h1Mxbccc/OTPM.jpg",
-      alt: "Οδηγός της Πόλης μας",
-      name: "Οδηγός της Πόλης μας",
-      url: "https://www.facebook.com/odigostispolis",
-    },
-  ];
-
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* Navbar */}
@@ -79,9 +57,8 @@ export default function WhoWeArePage() {
             alt="Our Team"
           />
         </div>
-
-                {/* Overlay with gradient effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div> 
+          {/* Overlay with gradient effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div> 
           {/* Hero Title */}
             <div className="flex justify-center items-center h-full px-4">
               <div className="text-center max-w-4xl">
@@ -117,29 +94,55 @@ export default function WhoWeArePage() {
         </div>
       </AnimatedElement>
 
-      {/* Our Values Section */}
-      <div className="bg-gradient-to-r from-cyan-500 to-cyan-700 py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">Οι Αξίες μας</h2>
-          <AnimatedContainer animation="slide-in-left" staggerDelay={200} initialDelay={300}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { title: "Άνθρωπος", icon: "👤" },
-                { title: "Αντίκτυπος", icon: "💡" },
-                { title: "Αποτελεσματικότητα", icon: "🚀" },
-                { title: "Συνέπεια", icon: "✨" },
-                { title: "Συνδιαμόρφωση", icon: "🤝" },
-                { title: "Συμπερίληψη", icon: "🌈" },
-              ].map((value, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-lg p-8 text-center transform transition-transform duration-300 hover:scale-105">
-                  <div className="text-4xl mb-4">{value.icon}</div>
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-4">{value.title}</h3>
-                </div>
-              ))}
+{/* Our Values Section */}
+<div className="relative bg-gradient-to-br from-cyan-600 via-cyan-500 to-teal-600 py-20 md:py-28 overflow-hidden">
+  {/* Subtle background pattern */}
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+      backgroundSize: '32px 32px'
+    }}></div>
+  </div>
+  
+  <div className="container mx-auto px-4 relative z-10">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        Οι Αξίες μας
+      </h2>
+      <div className="w-24 h-1 bg-white/40 mx-auto rounded-full"></div>
+    </div>
+    
+    <AnimatedContainer animation="slide-in-left" staggerDelay={50} initialDelay={100}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+        {[
+          { title: "Άνθρωπος", icon: "👤", gradient: "from-blue-50 to-cyan-50" },
+          { title: "Αντίκτυπος", icon: "💡", gradient: "from-amber-50 to-yellow-50" },
+          { title: "Αποτελεσματικότητα", icon: "🚀", gradient: "from-violet-50 to-purple-50" },
+          { title: "Συνέπεια", icon: "✨", gradient: "from-pink-50 to-rose-50" },
+          { title: "Συνδιαμόρφωση", icon: "🤝", gradient: "from-emerald-50 to-teal-50" },
+          { title: "Συμπερίληψη", icon: "🌈", gradient: "from-indigo-50 to-blue-50" },
+        ].map((value, index) => (
+          <div 
+            key={index} 
+            className={`group relative bg-gradient-to-br ${value.gradient} rounded-2xl shadow-xl p-8 text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20`}
+          >
+            {/* Subtle shine effect on hover */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div className="relative z-10">
+              <div className="text-5xl mb-5 transform group-hover:scale-110 transition-transform duration-300 inline-block">
+                {value.icon}
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-800 leading-tight">
+                {value.title}
+              </h3>
             </div>
-          </AnimatedContainer>
-        </div>
+          </div>
+        ))}
       </div>
+    </AnimatedContainer>
+  </div>
+</div>
 
       {/* Our Partners Section */}
       <AnimatedElement animation="slide-in-right" delay={300}>
