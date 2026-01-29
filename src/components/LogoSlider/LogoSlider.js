@@ -105,9 +105,9 @@ const LogoSlider = ({ logos = defaultLogos }) => {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-12">
       {/* Header */}
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+        {/* <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
           Οι Συνεργάτες μας
-        </h2>
+        </h2> */}
         <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
       </div>
 
