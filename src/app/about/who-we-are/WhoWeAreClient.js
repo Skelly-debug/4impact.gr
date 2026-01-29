@@ -148,7 +148,7 @@ export default function WhoWeArePage() {
           <p className="text-lg text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto text-center">
             Είμαστε περήφανοι για τις συνεργασίες που έχουμε αναπτύξει με οργανισμούς που μοιράζονται το όραμά μας για θετικό κοινωνικό αντίκτυπο.
           </p>
-          <LogoSlider logos={partnerLogos} />
+          <LogoSlider />
         </div>
       </AnimatedElement>
         {/* Additional Info
