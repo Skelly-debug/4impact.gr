@@ -20,13 +20,25 @@ const defaultLogos = [
     name: "Οδηγός της Πόλης μας",
     url: "https://www.facebook.com/odigostispolis",
   },
+  {
+    src: "https://mindworkslab.org/wp-content/uploads/2022/11/site-logo.jpg",
+    alt: "Mindwroks Lab",
+    name: "Mindworks Lab",
+    url: "https://mindworkslab.org/",
+  },
+  {
+    src: "https://sege.gr/wp-content/uploads/2023/05/logo-1.png",
+    alt: "Σύνδεσμος Επιχειριματιών Γυναικών Ελλάδος",
+    name: "ΣΕΓΕ",
+    url: "https://sege.gr/",
+  }
 ];
 
 const LogoSlider = ({ logos = defaultLogos }) => {
-  const [translateX, setTranslateX] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [translateX, setTranslateX] = useState(0);
 
   // Check for mobile screen size
   useEffect(() => {
@@ -39,125 +51,185 @@ const LogoSlider = ({ logos = defaultLogos }) => {
     return () => window.removeEventListener("resize", checkMobileSize);
   }, []);
 
-  const itemWidth = isMobile ? 240 : 272; // Slightly smaller on mobile
-  const visibleLogos = isMobile ? 1 : 4; // Show one logo at a time on mobile
+  const visibleLogos = isMobile ? 1 : 4;
+  const itemWidth = 280; // Card width (256px) + gap (24px)
+
+  // Create extended array for infinite loop effect
+  const extendedLogos = [...logos, ...logos, ...logos];
+
+  useEffect(() => {
+    // Start at the middle set
+    setCurrentIndex(logos.length);
+    setTranslateX(logos.length * itemWidth);
+  }, [logos.length, itemWidth]);
 
   const handleNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-
-    const nextIndex = (currentIndex + 1) % logos.length;
-    const nextTranslate = nextIndex * itemWidth;
-
-    if (nextIndex >= logos.length - visibleLogos + 1) {
-      setTranslateX(0);
-      setCurrentIndex(0);
-    } else {
-      setTranslateX(nextTranslate);
-      setCurrentIndex(nextIndex);
-    }
-    setTimeout(() => setIsAnimating(false), 500);
+    
+    const nextIndex = currentIndex + 1;
+    setCurrentIndex(nextIndex);
+    setTranslateX(nextIndex * itemWidth);
+    
+    // Reset to middle set after animation
+    setTimeout(() => {
+      if (nextIndex >= logos.length * 2) {
+        setCurrentIndex(logos.length);
+        setTranslateX(logos.length * itemWidth);
+      }
+      setIsAnimating(false);
+    }, 500);
   };
 
   const handlePrev = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-
-    const nextIndex = (currentIndex - 1 + logos.length) % logos.length;
-    const nextTranslate = nextIndex * itemWidth;
-
-    setTranslateX(nextTranslate);
+    
+    const nextIndex = currentIndex - 1;
     setCurrentIndex(nextIndex);
-    setTimeout(() => setIsAnimating(false), 500);
+    setTranslateX(nextIndex * itemWidth);
+    
+    // Reset to middle set after animation
+    setTimeout(() => {
+      if (nextIndex < logos.length) {
+        setCurrentIndex(logos.length * 2 - 1);
+        setTranslateX((logos.length * 2 - 1) * itemWidth);
+      }
+      setIsAnimating(false);
+    }, 500);
   };
 
-  // Show navigation if there are more logos than visible slots AND not on mobile
-  const showNavigation = !isMobile && logos.length > visibleLogos;
+  const showNavigation = logos.length > visibleLogos;
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-8 my-12">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-12">
+      {/* Header */}
+      <div className="text-center mb-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          Οι Συνεργάτες μας
+        </h2>
+        <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+      </div>
+
       <div className="relative">
-        {showNavigation && (
+        {/* Navigation Buttons - Desktop Only */}
+        {showNavigation && !isMobile && (
           <>
             <button
               onClick={handlePrev}
-              className="absolute -left-8 sm:-left-[3.5rem] top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+              className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 z-10 disabled:opacity-50 group"
               disabled={isAnimating}
+              aria-label="Previous"
             >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+              <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-transform" />
             </button>
 
             <button
               onClick={handleNext}
-              className="absolute -right-8 sm:-right-[2.5rem] top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10 disabled:opacity-50"
+              className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 z-10 disabled:opacity-50 group"
               disabled={isAnimating}
+              aria-label="Next"
             >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+              <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-transform" />
             </button>
           </>
         )}
 
-        <div
-          className={`
-            ${isMobile ? "overflow-x-auto" : "overflow-hidden"}
-          `}
+        {/* Slider Container */}
+        <div 
+          className={`${isMobile ? 'overflow-x-auto' : 'overflow-hidden'} py-4`}
         >
           <div
             className={`
-              flex gap-4 
-              ${
-                isMobile
-                  ? "w-max"
-                  : "transition-transform duration-500 ease-in-out " +
-                    (logos.length < 4 ? "justify-center" : "")
-              }
+              flex gap-6 
+              ${isMobile ? 'w-max' : logos.length < visibleLogos ? 'justify-center' : ''}
             `}
             style={{
-              transform:
-                !isMobile && showNavigation
-                  ? `translateX(-${translateX}px)`
-                  : "none",
+              transform: !isMobile && showNavigation ? `translateX(-${translateX}px)` : 'none',
+              transition: isAnimating ? 'transform 500ms ease-out' : 'none',
             }}
           >
-            {logos.map((logo, index) => (
+            {(isMobile ? logos : extendedLogos).map((logo, index) => (
               <a
                 key={`${logo.name}-${index}`}
                 href={logo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
+                className={`
                   flex-shrink-0 
-                  w-60 sm:w-64 
-                  h-32 
-                  bg-white 
-                  rounded-lg 
-                  shadow-sm 
-                  border 
-                  border-black 
+                  ${isMobile ? 'w-60 sm:w-64' : 'w-64'} 
+                  h-40
+                  my-4
+                  bg-gradient-to-br from-white to-gray-50
+                  rounded-2xl 
+                  shadow-md
+                  hover:shadow-xl
+                  border-2
+                  border-gray-100
+                  hover:border-blue-200
                   flex 
                   flex-col 
                   items-center 
                   justify-center 
-                  p-4
-                  min-w-[240px]
-                  transition-transform duration-200
-                  hover:shadow-md
+                  p-6
+                  ${isMobile ? 'min-w-[240px]' : ''}
+                  transition-all 
+                  duration-300
+                  hover:scale-105
+                  hover:-translate-y-1
                   cursor-pointer
-                "
+                  group
+                  relative
+                  overflow-hidden
+                `}
               >
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="max-w-full max-h-16 object-contain mb-2"
-                  draggable="false"
-                />
-                {/* <span className="text-sm font-semibold text-gray-600 text-center">
-                  {logo.name}
-                </span> */}
+                {/* Subtle gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-300 rounded-2xl"></div>
+                
+                <div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="max-w-full max-h-20 object-contain transition-transform duration-300 group-hover:scale-110"
+                    draggable="false"
+                  />
+                </div>
+
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </a>
             ))}
           </div>
         </div>
+
+        {/* Desktop Indicators */}
+        {!isMobile && showNavigation && (
+          <div className="flex justify-center gap-2 mt-8">
+            {logos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (!isAnimating) {
+                    setIsAnimating(true);
+                    const targetIndex = logos.length + index;
+                    setCurrentIndex(targetIndex);
+                    setTranslateX(targetIndex * itemWidth);
+                    setTimeout(() => setIsAnimating(false), 500);
+                  }
+                }}
+                className={`
+                  h-2 rounded-full transition-all duration-300
+                  ${
+                    currentIndex % logos.length === index
+                      ? 'w-8 bg-blue-500'
+                      : 'w-2 bg-gray-300 hover:bg-gray-400'
+                  }
+                `}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
