@@ -6,7 +6,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
 import ScrollIndicator from "@/components/ScrollIndicator/ScrollIndicator";
 
-function NewsClient() {
+function BlogClient() {
   const [showTitle, setShowTitle] = useState(false);
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -144,4 +144,4 @@ function NewsClient() {
   );
 }
 
-export default NewsClient;
+export default BlogClient;
