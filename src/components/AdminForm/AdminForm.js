@@ -1,17 +1,62 @@
 import React, { useState, useRef, useEffect } from "react";
 import Toolbar from "../Toolbar/toolbar";
-import { X } from "lucide-react";
+import { ImageIcon, Type, AlignLeft, User, FileText, Link2 } from "lucide-react";
+
+const cx = (...classes) => classes.filter(Boolean).join(" ");
+
+const Field = ({ label, hint, error, required, icon: Icon, children }) => (
+  <div className="space-y-1.5">
+    <div className="flex items-center justify-between">
+      <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+        {Icon && <Icon className="h-3.5 w-3.5" />}
+        {label}
+        {required && <span className="text-[#1A9EDB]">*</span>}
+      </label>
+      {hint && <span className="text-xs text-slate-400 italic">{hint}</span>}
+    </div>
+    {children}
+    {error && (
+      <p className="text-xs text-red-400 flex items-center gap-1">
+        <span className="w-1 h-1 rounded-full bg-red-400 inline-block" />
+        {error}
+      </p>
+    )}
+  </div>
+);
+
+const inputClass = (hasError) =>
+  cx(
+    "w-full px-3.5 py-2.5 rounded-lg text-sm text-slate-800 bg-white border transition",
+    "placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1A9EDB]/30 focus:border-[#1A9EDB]",
+    hasError ? "border-red-400" : "border-slate-200"
+  );
+
+const ImagePreview = ({ src, alt }) => {
+  const [visible, setVisible] = useState(true);
+  if (!src || !visible) return null;
+  return (
+    <div className="mt-2 relative inline-block">
+      <img
+        src={src}
+        alt={alt}
+        className="h-24 rounded-lg border border-slate-200 object-cover"
+        onError={() => setVisible(false)}
+      />
+      <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/5" />
+    </div>
+  );
+};
 
 function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
   const [newArticle, setNewArticle] = useState({
-    id: initialArticle?.id || null, // Preserve the ID
+    id: initialArticle?.id || null,
     title: initialArticle?.title || "",
     content: initialArticle?.content || "",
     previewText: initialArticle?.previewText || "",
     author: initialArticle?.author || "",
     heroImage: initialArticle?.heroImage || "",
     thumbnail: initialArticle?.thumbnail || "",
-    imageUrl: initialArticle?.imageUrl || "", // Keep for backward compatibility
+    imageUrl: initialArticle?.imageUrl || "",
   });
 
   const [errors, setErrors] = useState({});
@@ -19,14 +64,8 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewArticle((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear error for this field
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: null }));
-    }
+    setNewArticle((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
   const handleEditorInput = () => {
@@ -34,9 +73,7 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
       ...prev,
       content: editorRef.current?.innerHTML || "",
     }));
-    if (errors.content) {
-      setErrors(prev => ({ ...prev, content: null }));
-    }
+    if (errors.content) setErrors((prev) => ({ ...prev, content: null }));
   };
 
   const handleAddImage = () => {
@@ -49,87 +86,44 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
 
   const handleAddLink = () => {
     const selection = window.getSelection();
-    
-    // Guard: Ensure there is a selection
     if (!selection.rangeCount) return;
-    
-    // 1. Save the Range immediately before the Prompt steals focus
     const range = selection.getRangeAt(0);
-    
-    // Guard: Ensure we are editing inside the actual editor, not somewhere else
-    if (editorRef.current && !editorRef.current.contains(range.commonAncestorContainer)) {
-      return;
-    }
-
+    if (editorRef.current && !editorRef.current.contains(range.commonAncestorContainer)) return;
     const selectedText = selection.toString().trim();
-    
-    // The prompt blocks execution, but we saved 'range' above so it's safe
     const url = prompt("Enter URL:", "https://");
-    if (!url) return; 
-
+    if (!url) return;
     const displayText = prompt("Display text:", selectedText || "Link");
     if (!displayText) return;
-
-    // Create the link element
     const link = document.createElement("a");
     link.href = url;
     link.textContent = displayText;
-    link.target = "_blank"; // Optional: Open in new tab
-    link.rel = "noopener noreferrer"; // Security best practice
-    link.className = "text-blue-600 underline hover:text-blue-800"; // Tailwind styling
-
-    // 2. Perform the swap
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.className = "text-blue-600 underline hover:text-blue-800";
     range.deleteContents();
     range.insertNode(link);
-
-    // 3. Fix the Cursor: Move it to *after* the new link
-    // Without this, the cursor gets stuck inside the link or disappears
     range.setStartAfter(link);
-    range.setEndAfter(link); 
+    range.setEndAfter(link);
     selection.removeAllRanges();
     selection.addRange(range);
-    
-    // 4. Force React State Update
-    // Since we manipulated the DOM manually, 'onInput' didn't fire.
-    // We must manually call the input handler to save the link to state.
     handleEditorInput();
-    
-    // 5. Return focus to editor
-    if (editorRef.current) {
-      editorRef.current.focus();
-    }
+    if (editorRef.current) editorRef.current.focus();
   };
 
   const validateForm = () => {
     const newErrors = {};
-    
-    if (!newArticle.title.trim()) {
-      newErrors.title = "Title is required";
-    }
-    
-    if (!newArticle.content.trim() || newArticle.content === '<br>') {
+    if (!newArticle.title.trim()) newErrors.title = "Title is required";
+    if (!newArticle.content.trim() || newArticle.content === "<br>")
       newErrors.content = "Content is required";
-    }
-    
-    if (!newArticle.previewText.trim()) {
-      newErrors.previewText = "Preview text is required";
-    }
-    
-    if (!newArticle.author.trim()) {
-      newErrors.author = "Author name is required";
-    }
-    
+    if (!newArticle.previewText.trim()) newErrors.previewText = "Preview text is required";
+    if (!newArticle.author.trim()) newErrors.author = "Author name is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+    if (!validateForm()) return;
     onSubmit(newArticle);
   };
 
@@ -137,204 +131,157 @@ function AdminForm({ onSubmit, onCancel, initialArticle = null }) {
     if (editorRef.current) {
       editorRef.current.innerHTML = newArticle.content;
       editorRef.current.focus();
-      placeCaretAtEnd(editorRef.current);
-    }
-  }, []);
-
-  const placeCaretAtEnd = (element) => {
-    if (element) {
       const range = document.createRange();
       const selection = window.getSelection();
-      range.selectNodeContents(element);
+      range.selectNodeContents(editorRef.current);
       range.collapse(false);
       selection.removeAllRanges();
       selection.addRange(range);
     }
-  };
+  }, []);
+
+  const isEditing = !!initialArticle;
 
   return (
-    <div className="fixed inset-0 flex items-start justify-center z-50 px-4 py-8 sm:py-12 overflow-y-auto">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onCancel} />
-        <form
-          onSubmit={handleSubmit}
-          className="relative w-full max-w-3xl bg-blue-50 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar"
-        >
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            {initialArticle ? 'Edit Article' : 'Add New Article'}
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between px-7 py-5 border-b border-slate-100">
+        <div>
+          <h2 className="text-lg font-bold text-slate-800 tracking-tight">
+            {isEditing ? "Edit Article" : "New Article"}
           </h2>
-          <button
-            type="button"
-            onClick={onCancel}
-            aria-label="Close"
-            className="p-2 rounded-md text-red-500 hover:bg-red-100 hover:text-red-900 transition"
-          >
-            <X className="w-7 h-7" />
-          </button>
-        </div>
-
-        {/* Title */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Article Title *
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={newArticle.title}
-            onChange={handleInputChange}
-            placeholder="Enter article title"
-            className={`w-full px-3 py-2 border rounded-md ${
-              errors.title ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.title && (
-            <p className="text-red-500 text-sm mt-1">{errors.title}</p>
-          )}
-        </div>
-
-        {/* Preview Text */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Preview Text * (shown on blog listing page)
-          </label>
-          <textarea
-            name="previewText"
-            value={newArticle.previewText}
-            onChange={handleInputChange}
-            placeholder="Write a short preview (1-2 sentences)"
-            rows="3"
-            maxLength="200"
-            className={`w-full px-3 py-2 border rounded-md ${
-              errors.previewText ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          <p className="text-xs text-gray-500 mt-1 italic">
-            {newArticle.previewText.length}/200 characters
+          <p className="text-xs text-slate-400 mt-0.5">
+            {isEditing
+              ? "Update the fields below and save your changes."
+              : "Fill in the details to publish a new article."}
           </p>
-          {errors.previewText && (
-            <p className="text-red-500 text-sm mt-1">{errors.previewText}</p>
-          )}
         </div>
+      </div>
 
-        {/* Author */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Author Name *
-          </label>
-          <input
-            type="text"
-            name="author"
-            value={newArticle.author}
-            onChange={handleInputChange}
-            placeholder="Author name"
-            className={`w-full px-3 py-2 border rounded-md ${
-              errors.author ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.author && (
-            <p className="text-red-500 text-sm mt-1">{errors.author}</p>
-          )}
-        </div>
+      {/* Body */}
+      <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto">
+        <div className="px-7 py-6 space-y-6">
 
-        {/* Hero Image */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Hero Image URL (displayed at top of article)
-          </label>
-          <input
-            type="url"
-            name="heroImage"
-            value={newArticle.heroImage}
-            onChange={handleInputChange}
-            placeholder="https://example.com/hero-image.jpg"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-          {newArticle.heroImage && (
-            <div className="mt-2">
-              <img 
-                src={newArticle.heroImage} 
-                alt="Hero preview" 
-                className="max-h-32 rounded border"
-                onError={(e) => {
-                  e.target.style.display = 'none';
+          {/* Two-col row: title + author */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <Field label="Title" required icon={Type} error={errors.title}>
+              <input
+                type="text"
+                name="title"
+                value={newArticle.title}
+                onChange={handleInputChange}
+                placeholder="Article title"
+                className={inputClass(errors.title)}
+              />
+            </Field>
+
+            <Field label="Author" required icon={User} error={errors.author}>
+              <input
+                type="text"
+                name="author"
+                value={newArticle.author}
+                onChange={handleInputChange}
+                placeholder="Author name"
+                className={inputClass(errors.author)}
+              />
+            </Field>
+          </div>
+
+          {/* Preview text */}
+          <Field
+            label="Preview Text"
+            required
+            icon={AlignLeft}
+            hint={`${newArticle.previewText.length}/200`}
+            error={errors.previewText}
+          >
+            <textarea
+              name="previewText"
+              value={newArticle.previewText}
+              onChange={handleInputChange}
+              placeholder="A short summary shown on the blog listing page…"
+              rows={3}
+              maxLength={200}
+              className={cx(inputClass(errors.previewText), "resize-none")}
+            />
+          </Field>
+
+          {/* Images row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <Field label="Hero Image URL" icon={ImageIcon}>
+              <input
+                type="url"
+                name="heroImage"
+                value={newArticle.heroImage}
+                onChange={handleInputChange}
+                placeholder="https://example.com/hero.jpg"
+                className={inputClass(false)}
+              />
+              <ImagePreview src={newArticle.heroImage} alt="Hero preview" />
+            </Field>
+
+            <Field label="Thumbnail URL" icon={ImageIcon}>
+              <input
+                type="url"
+                name="thumbnail"
+                value={newArticle.thumbnail}
+                onChange={handleInputChange}
+                placeholder="https://example.com/thumb.jpg"
+                className={inputClass(false)}
+              />
+              <ImagePreview src={newArticle.thumbnail} alt="Thumbnail preview" />
+            </Field>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-slate-100" />
+
+          {/* Rich text editor */}
+          <Field label="Content" required icon={FileText} error={errors.content}>
+            <div
+              className={cx(
+                "rounded-lg border overflow-hidden",
+                errors.content ? "border-red-400" : "border-slate-200"
+              )}
+            >
+              <div className="bg-slate-50 border-b border-slate-200">
+                <Toolbar
+                  editorRef={editorRef}
+                  onAddImage={handleAddImage}
+                  onAddLink={handleAddLink}
+                />
+              </div>
+              <div
+                ref={editorRef}
+                contentEditable
+                onInput={handleEditorInput}
+                className="w-full px-4 py-3 min-h-[280px] text-sm text-slate-700 bg-white focus:outline-none"
+                style={{
+                  textAlign: "left",
+                  direction: "ltr",
+                  lineHeight: "1.7",
                 }}
               />
             </div>
-          )}
+          </Field>
+
+          <p className="text-xs text-slate-300 italic">* Required fields</p>
         </div>
 
-        {/* Thumbnail */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Thumbnail URL (displayed on blog listing page)
-          </label>
-          <input
-            type="url"
-            name="thumbnail"
-            value={newArticle.thumbnail}
-            onChange={handleInputChange}
-            placeholder="https://example.com/thumbnail.jpg"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-          {newArticle.thumbnail && (
-            <div className="mt-2">
-              <img 
-                src={newArticle.thumbnail} 
-                alt="Thumbnail preview" 
-                className="max-h-32 rounded border"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Rich Text Editor */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 underline">
-            Article Content *
-          </label>
-          <Toolbar editorRef={editorRef} onAddImage={handleAddImage} onAddLink={handleAddLink} />
-          
-          <div
-            ref={editorRef}
-            contentEditable
-            onInput={handleEditorInput}
-            className={`w-full px-3 py-2  min-h-[300px] overflow-y-auto text-left bg-white ${
-              errors.content ? 'border-red-500' : 'border-gray-300'
-            }`}
-            style={{ 
-              textAlign: "left", 
-              direction: "ltr", 
-              outline: "none",
-              lineHeight: "1.6"
-            }}
-
-          />
-          {errors.content && (
-            <p className="text-red-500 text-sm mt-1">{errors.content}</p>
-          )}
-        </div>
-        {/* PS */}
-        <div className="text-xs text-gray-400 italic">
-          * Required Fields
-        </div>
-        {/* Form Actions */}
-        <div className="flex justify-end space-x-3 pt-2">
+        {/* Footer actions — sticky at bottom */}
+        <div className="sticky bottom-0 bg-white border-t border-slate-100 px-7 py-4 flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 transition"
+            className="px-5 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
+            className="px-6 py-2.5 rounded-lg bg-[#1A9EDB] text-white text-sm font-semibold hover:bg-[#1589c4] active:bg-[#1175aa] transition-colors shadow-sm"
           >
-            {initialArticle ? 'Update Article' : 'Add Article'}
+            {isEditing ? "Save changes" : "Publish article"}
           </button>
         </div>
       </form>
