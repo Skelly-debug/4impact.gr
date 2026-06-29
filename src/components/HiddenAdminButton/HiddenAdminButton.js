@@ -7,29 +7,31 @@ export default function HiddenAdminButton() {
   const router = useRouter();
   const keysRef = useRef([]);
 
-  // Change this to any key sequence you want
-  const secretSequence = ["a", "d", "m", "i", "n"];
+  const secretSequenceEN = ["a", "d", "m", "i", "n"];
+  const secretSequenceGR = ["α", "δ", "μ", "ι", "ν"];
+
+  // Use the longer sequence length so neither gets cut short
+  const maxLen = Math.max(secretSequenceEN.length, secretSequenceGR.length);
 
   useEffect(() => {
     const handler = (e) => {
       const key = e.key.toLowerCase();
 
-      // Store keys without triggering rerenders
       keysRef.current.push(key);
-      keysRef.current = keysRef.current.slice(-secretSequence.length);
+      keysRef.current = keysRef.current.slice(-maxLen); // single slice
 
       const match =
-        JSON.stringify(keysRef.current) === JSON.stringify(secretSequence);
+        JSON.stringify(keysRef.current) === JSON.stringify(secretSequenceEN) ||
+        JSON.stringify(keysRef.current) === JSON.stringify(secretSequenceGR); // || not ;
 
       if (match) {
-        // Redirect only AFTER the event, not during render
         router.push("/admin");
       }
     };
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [router]);
+  }, [router, maxLen]);
 
   return null;
 }
