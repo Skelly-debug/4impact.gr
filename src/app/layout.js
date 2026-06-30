@@ -1,9 +1,10 @@
 import "./globals.css";
+import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 
 export const metadata = {
   title: "4Impact",
   description: "test",
-    icons: {
+  icons: {
     icon: "/favicon.ico"
   }
 };
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="gr">
       <body className="font-sans">
         <SessionProvider>{children}</SessionProvider>
+        <GoogleAnalytics gaId="G-CRJNPG6ZPM" />
       </body>
     </html>
   );
