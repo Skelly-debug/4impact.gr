@@ -55,19 +55,19 @@ function BlogClient() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen overflow-hidden">
+    <div className="bg-paper text-ink min-h-screen overflow-hidden">
       <Navbar />
-      <div className="relative h-screen">
+      <div className="hero">
         <img
-          className="absolute w-full h-full object-cover"
+          className="hero-media"
           src="images/NEWS.jpg"
           alt="Background Image"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
-        <div className="flex justify-center items-center h-full px-4">
-          <div className="text-center max-w-4xl">
+        <div className="hero-shade"></div>
+        <div className="hero-inner">
+          <div className="hero-copy">
             <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+              className={`hero-title transition-all duration-1000 ease-out ${
                 showTitle
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -80,55 +80,55 @@ function BlogClient() {
       </div>
       <ScrollIndicator />
 
-      <div className="container mx-auto px-4 py-10 text-black">
+      <div className="wrap py-20 md:py-28 text-ink">
         {isLoading ? (
           <div className="text-center text-xl py-20">Loading articles...</div>
         ) : articles.length === 0 ? (
           <div className="text-center text-xl py-20">No articles found</div>
         ) : (
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-6xl space-y-8">
             {articles.map((article) => (
               <Link
                 key={article.id}
                 href={`/articles/${article.id}`}
-                className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                className="block bg-white rounded-none border border-ink/10 border-l-8 border-l-ink hover:border-l-brand transition-all duration-300 overflow-hidden group"
               >
                 <div className="flex flex-col md:flex-row">
                   {/* Thumbnail */}
                   {article.thumbnail && (
-                    <div className="md:w-64 h-48 md:h-auto flex-shrink-0 overflow-hidden">
+                    <div className="md:w-80 h-48 md:h-auto flex-shrink-0 overflow-hidden">
                       <img
                         src={article.thumbnail}
                         alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                       />
                     </div>
                   )}
 
                   {/* Content */}
-                  <div className="flex-1 p-6 flex flex-col justify-between">
+                  <div className="flex-1 p-8 md:p-10 flex flex-col justify-between">
                     <div>
-                      <h2 className="text-2xl font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                      <h2 className="text-2xl md:text-4xl font-black tracking-tight mb-3 text-ink group-hover:text-brand-deep transition-colors">
                         {article.title}
                       </h2>
                       
                       {/* Preview text */}
                       {article.previewText && (
-                        <p className="text-gray-600 mb-3 line-clamp-2">
+                        <p className="text-ink/70 text-lg mb-3 line-clamp-2">
                           {article.previewText}
                         </p>
                       )}
                       
                       {/* If no preview text, show content preview */}
                       {!article.previewText && (
-                        <p className="text-gray-600 mb-3 line-clamp-2">
+                        <p className="text-ink/70 text-lg mb-3 line-clamp-2">
                           {stripHtml(article.content).substring(0, 150)}...
                         </p>
                       )}
                     </div>
 
                     {/* Footer with author and date */}
-                    <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
+                    <div className="flex justify-between items-center text-sm text-ink/55 mt-6 pt-4 border-t border-ink/10">
                       <span className="font-medium">By {article.author}</span>
                       <span>{formatDate(article.publishedDate)}</span>
                     </div>

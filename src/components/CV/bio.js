@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Bio() {
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mb-16">
+    <div className="max-w-5xl mx-auto p-8 md:p-14 bg-white border border-ink/10 border-t-8 border-t-brand mb-16">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
         <div className="w-32 h-32 lg:w-40 lg:h-40 flex-shrink-0">
           <Image
@@ -10,20 +10,20 @@ export default function Bio() {
             alt="Ιάσονας Κάντας"
             width={160}
             height={160}
-            className="rounded-full border-4 border-cyan-500 object-cover w-full h-full shadow-lg"
+            className="rounded-none object-cover w-full h-full shadow-[10px_10px_0_0_#37C1DE] grayscale hover:grayscale-0 transition duration-500"
           />
         </div>
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-ink mb-2">
             Ιάσονας Κάντας
           </h2>
-          <p className="text-cyan-600 text-lg md:text-xl font-medium">
+          <p className="text-brand-deep text-lg md:text-xl font-bold">
             Communication Strategist – 4Impact Communications Founder
           </p>
         </div>
       </div>
 
-      <div className="space-y-6 text-gray-700 leading-relaxed text-lg">
+      <div className="space-y-6 text-ink/80 leading-relaxed text-lg md:text-xl">
         <p>
           Ο Ιάσονας Κάντας είναι ένας δυναμικός επαγγελματίας στον τομέα της
           επικοινωνίας και του marketing, με σημαντική εμπειρία στη στρατηγική

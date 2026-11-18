@@ -26,26 +26,26 @@ function AboutClient() {
   }, []);
 
   return (
-    <div className="font-playfair-display bg-gray-100 min-h-screen flex flex-col">
+    <div className="bg-paper text-ink min-h-screen flex flex-col">
       <Navbar />
-      <div className="relative h-[100vh] overflow-hidden">
+      <div className="hero">
         <div className="absolute w-full h-full">
           <img
-            className="absolute w-full h-full object-cover"
+            className="hero-media"
             src="images/IMPACT.jpg"
             alt="Background Image"
           />
         </div>
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-1"></div>
-        <div className="flex justify-center items-center h-full">
+        <div className="hero-shade"></div>
+        <div className="hero-inner">
           <h1
-            className={`text-6xl font-bold text-white text-center relative text-shadow shadow-black z-10 transition-all duration-1000 ease-out ${
+            className={`hero-title transition-all duration-1000 ease-out ${
               showTitle
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
           >
-            <span style={{ fontFamily: "Playwrite Netherland Guides" }}>
+            <span style={{ fontFamily: "inherit" }}>
               Σχετικά με εμάς
             </span>
           </h1>
@@ -59,7 +59,7 @@ function AboutClient() {
         >
           <Bio />
         </div>
-        <div className="text-gray-600 text-xl m-16">
+        <div className="text-ink/75 text-xl md:text-2xl m-6 md:m-16 max-w-4xl leading-relaxed">
           Για την 4Impact Communications τα καλύτερα αποτελέσματα έρχονται μέσα
           από τη συνεργασία και την ομαδική δουλειά. Για αυτό, μέσα στα χρόνια
           είμαστε περήφανοι για το δίκτυο συνεργατών μας, με τις οποίες και τους

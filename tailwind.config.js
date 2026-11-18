@@ -13,6 +13,9 @@ module.exports = {
 			'custom': ['Cera GR', 'sans-serif'],
 		  },
   		colors: {
+  			ink: { DEFAULT: '#0A1114', soft: '#121C21' },
+  			paper: { DEFAULT: '#F4F1EA', deep: '#EAE5D9' },
+  			brand: { DEFAULT: '#37C1DE', deep: '#0F8CA3', dark: '#0A4F5E', tint: '#D8F2F8' },
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

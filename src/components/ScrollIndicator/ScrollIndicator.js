@@ -6,7 +6,7 @@ function ScrollIndicator () {
         <div>
             {/* Hero Scroll Indicator */}
             <div 
-              className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce cursor-pointer"
+              className="absolute bottom-8 left-0 right-0 flex justify-end px-6 md:px-12 animate-bounce cursor-pointer z-20"
               onClick={() => {
                   window.scrollTo({
                     top: window.innerHeight - 110,
@@ -14,7 +14,7 @@ function ScrollIndicator () {
                   });
                 }}
             >
-              <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full border border-white/60 bg-ink/40 backdrop-blur-sm flex items-center justify-center hover:bg-brand hover:border-brand transition-colors">
                 <ChevronRight className="text-white transform rotate-90" size={20} />
               </div>
             </div>

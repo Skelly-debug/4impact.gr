@@ -111,25 +111,25 @@ function ServicesClient() {
   const { showTitle } = useInView(titleRef);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-paper text-ink min-h-screen">
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative h-screen flex flex-col">
+      <div className="hero flex flex-col">
         <div className="flex-grow relative">
           <img
-            className="absolute w-full h-full object-cover"
+            className="hero-media"
             src="images/SERVICES.jpg"
             alt="Background Image"
           />
         {/* Overlay with gradient effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
+        <div className="hero-shade"></div>
 
         {/* Hero Title */}
-        <div className="flex justify-center items-center h-full px-4">
-          <div className="text-center max-w-4xl">
+        <div className="hero-inner">
+          <div className="hero-copy">
             <h1
-              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+              className={`hero-title transition-all duration-1000 ease-out ${
                 showTitle
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -145,21 +145,21 @@ function ServicesClient() {
 
 
       {/* Main Content */}
-      <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="bg-paper py-20 md:py-28 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
             <ServicesCards />
         </div>
       </div>
             {/* Call to Action Section */}
             <AnimatedElement animation="fade-up" delay={300}>
-        <div className="bg-gray-100 py-16 md:py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να κάνουμε τη διαφορά;</h2>
-            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+        <div className="cta-band">
+          <div className="cta-inner">
+            <h2 className="cta-title">Έτοιμοι να κάνουμε τη διαφορά;</h2>
+            <p className="cta-text">
             Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
             </p>
             <Link
-              className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl font-semibold py-4 px-8 rounded-lg shadow-lg hover:from-cyan-600 hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
+              className="btn btn-ink"
               href="/contact"
             >
               Ας συνεργαστούμε

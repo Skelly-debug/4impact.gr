@@ -102,10 +102,10 @@ const LogoSlider = ({ logos = defaultLogos }) => {
   const showNavigation = logos.length > visibleLogos;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-12">
+    <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12">
       {/* Header */}
-      <div className="text-center mb-10">
-        <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+      <div className="mb-10">
+        <div className="w-full h-px bg-ink/15"></div>
       </div>
 
       <div className="relative">
@@ -114,7 +114,7 @@ const LogoSlider = ({ logos = defaultLogos }) => {
           <>
             <button
               onClick={handlePrev}
-              className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 z-10 disabled:opacity-50 group"
+              className="absolute -left-3 lg:-left-7 top-1/2 -translate-y-1/2 w-12 h-12 bg-ink text-white rounded-full flex items-center justify-center hover:bg-brand hover:text-ink transition-all duration-300 z-10 disabled:opacity-50 group"
               disabled={isAnimating}
               aria-label="Previous"
             >
@@ -123,7 +123,7 @@ const LogoSlider = ({ logos = defaultLogos }) => {
 
             <button
               onClick={handleNext}
-              className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-300 z-10 disabled:opacity-50 group"
+              className="absolute -right-3 lg:-right-7 top-1/2 -translate-y-1/2 w-12 h-12 bg-ink text-white rounded-full flex items-center justify-center hover:bg-brand hover:text-ink transition-all duration-300 z-10 disabled:opacity-50 group"
               disabled={isAnimating}
               aria-label="Next"
             >
@@ -157,13 +157,13 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   ${isMobile ? 'w-60 sm:w-64' : 'w-64'} 
                   h-40
                   my-4
-                  bg-gradient-to-br from-white to-gray-50
-                  rounded-2xl 
-                  shadow-md
-                  hover:shadow-xl
-                  border-2
-                  border-gray-100
-                  hover:border-blue-200
+                  bg-white
+                  rounded-none 
+                  shadow-none
+                  hover:shadow-[0_18px_40px_-20px_rgba(10,17,20,0.45)]
+                  border
+                  border-ink/15
+                  hover:border-ink
                   flex 
                   flex-col 
                   items-center 
@@ -172,7 +172,6 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   ${isMobile ? 'min-w-[240px]' : ''}
                   transition-all 
                   duration-300
-                  hover:scale-105
                   hover:-translate-y-1
                   cursor-pointer
                   group
@@ -181,19 +180,19 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                 `}
               >
                 {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-300 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-brand/0 to-brand/0 group-hover:from-brand/10 group-hover:to-brand/0 transition-all duration-300"></div>
                 
                 <div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="max-w-full max-h-20 object-contain transition-transform duration-300 group-hover:scale-110"
+                    className="max-w-full max-h-20 object-contain grayscale opacity-75 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
                     draggable="false"
                   />
                 </div>
 
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-0 right-0 w-8 h-8 bg-brand opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </a>
             ))}
           </div>
@@ -218,8 +217,8 @@ const LogoSlider = ({ logos = defaultLogos }) => {
                   h-2 rounded-full transition-all duration-300
                   ${
                     currentIndex % logos.length === index
-                      ? 'w-8 bg-blue-500'
-                      : 'w-2 bg-gray-300 hover:bg-gray-400'
+                      ? 'w-8 bg-brand'
+                      : 'w-2 bg-ink/25 hover:bg-ink/50'
                   }
                 `}
                 aria-label={`Go to slide ${index + 1}`}

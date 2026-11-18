@@ -133,14 +133,14 @@ const ServicesCards = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 bg-gray-50">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="w-full max-w-[1400px] mx-auto py-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
         {services.map((service, index) => (
           <div 
             key={service.id} 
             ref={el => cardsRef.current[index] = el}
             data-id={service.id}
-            className="flex flex-col bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl h-full"
+            className="group flex flex-col bg-white rounded-none overflow-hidden border-t-8 border-ink hover:border-brand transition-all duration-500 h-full"
             style={{
               transform: hoveredId === service.id ? 'translateY(-8px)' : 'translateY(0)',
               opacity: visibleCards[service.id] ? 1 : 0,
@@ -155,7 +155,7 @@ const ServicesCards = () => {
               <img
                 src={service.image}
                 alt={service.altText}
-                className="w-full h-full object-cover transition-transform duration-700"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                 style={{
                   transform: hoveredId === service.id ? 'scale(1.07)' : 'scale(1)'
                 }}
@@ -169,12 +169,12 @@ const ServicesCards = () => {
               ></div>
               </Link>
             </div>
-            <div className="p-6 flex flex-col flex-grow">
+            <div className="p-7 md:p-8 flex flex-col flex-grow">
             <Link href={`/services/service${service.id}`}>
               <h2 
-                className="text-2xl font-bold mb-3 transition-colors duration-300"
+                className="text-2xl font-black tracking-tight leading-tight mb-3 transition-colors duration-300"
                 style={{
-                  color: hoveredId === service.id ? '#3182ce' : '#1a202c'
+                  color: hoveredId === service.id ? '#0F8CA3' : '#0A1114'
                 }}
               >
                 {service.title}
@@ -183,9 +183,9 @@ const ServicesCards = () => {
               <div className="mt-auto pt-6">
                 <Link href={`/services/service${service.id}`}>
                   <button 
-                    className="flex items-center font-semibold transition-all duration-300"
+                    className="flex items-center font-bold transition-all duration-300"
                     style={{
-                      color: '#3182ce',
+                      color: '#0F8CA3',
                       transform: hoveredId === service.id ? 'translateX(4px)' : 'translateX(0)'
                     }}
                   >

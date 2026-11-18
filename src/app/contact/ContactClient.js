@@ -214,24 +214,24 @@ export default function ContactClient() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 selection:bg-blue-500 selection:text-white">
-      <div className="bg-gray-100 overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-paper selection:bg-brand selection:text-ink">
+      <div className="bg-paper overflow-hidden">
         <Navbar />
-        <div className="relative h-[100vh] overflow-hidden">
+        <div className="hero">
           <div className="absolute w-full h-full">
             <img
-              className="absolute w-full h-full object-cover"
+              className="hero-media"
               src="images/GIA_EPIKOINWNIA_MAYBE.jpg"
               alt="Background Image"
             />
           </div>
           {/* Overlay with gradient effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
+          <div className="hero-shade"></div>
           {/* Hero Title */}
-          <div className="flex justify-center items-center h-full px-4">
-            <div className="text-center max-w-4xl">
+          <div className="hero-inner">
+            <div className="hero-copy">
               <h1
-                className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+                className={`hero-title transition-all duration-1000 ease-out ${
                   showTitle
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -246,33 +246,33 @@ export default function ContactClient() {
       </div>
 
       <div className="flex-grow">
-        <div className="container mx-auto px-4 py-16 lg:py-20">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="wrap py-20 md:py-28">
+          <div className="grid md:grid-cols-2 gap-0 items-stretch">
             {/* Contact Info Column */}
             <motion.div
               ref={contactInfoRef}
               initial="hidden"
               animate={contactInfoControls}
               variants={cardVariants}
-              className="bg-white shadow-lg rounded-xl p-8 h-full flex flex-col justify-center"
+              className="bg-ink text-white p-10 md:p-14 h-full flex flex-col justify-center"
             >
-              <h2 className="text-3xl font-bold mb-6 text-blue-600 text-center">
+              <h2 className="text-4xl font-black tracking-tight mb-10 text-brand text-left">
                 Τρόποι Επικοινωνίας
               </h2>
-              <div className="space-y-4 text-center">
+              <div className="space-y-8 text-left">
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 mb-2">
+                  <p className="text-sm font-bold tracking-[0.2em] text-brand mb-2">
                     EMAIL
                   </p>
-                  <p className="text-xl text-gray-800 font-medium">
+                  <p className="text-2xl md:text-3xl text-white font-black tracking-tight break-words">
                     info@4impact.gr
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-500 mb-2">
+                  <p className="text-sm font-bold tracking-[0.2em] text-brand mb-2">
                     ΤΗΛΕΦΩΝΟ
                   </p>
-                  <p className="text-xl text-gray-800 font-medium">
+                  <p className="text-2xl md:text-3xl text-white font-black tracking-tight break-words">
                     +30 697 185 9632
                   </p>
                 </div>
@@ -285,16 +285,16 @@ export default function ContactClient() {
               initial="hidden"
               animate={formControls}
               variants={cardVariants}
-              className="bg-white shadow-lg rounded-xl p-8"
+              className="bg-white p-10 md:p-14 border border-ink/10"
             >
-              <h2 className="text-3xl font-bold mb-6 text-blue-600 text-center">
+              <h2 className="text-4xl font-black tracking-tight mb-10 text-ink text-left">
                 Επικοινωνία
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-bold text-ink mb-2"
                   >
                     Όνομα
                   </label>
@@ -305,9 +305,9 @@ export default function ContactClient() {
                     value={formData.name}
                     onChange={handleChange}
                     maxLength="100"
-                    className={`w-full px-4 py-3 border ${
-                      formErrors.name ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300`}
+                    className={`w-full px-4 py-4 border bg-paper/60 ${
+                      formErrors.name ? "border-red-500" : "border-ink/25"
+                    } rounded-none focus:outline-none focus:border-ink focus:ring-2 focus:ring-brand transition duration-300`}
                     placeholder="Εισάγετε το όνομά σας"
                   />
                   {formErrors.name && (
@@ -317,7 +317,7 @@ export default function ContactClient() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-bold text-ink mb-2"
                   >
                     Email
                   </label>
@@ -328,9 +328,9 @@ export default function ContactClient() {
                     value={formData.email}
                     onChange={handleChange}
                     maxLength="100"
-                    className={`w-full px-4 py-3 border ${
-                      formErrors.email ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300`}
+                    className={`w-full px-4 py-4 border bg-paper/60 ${
+                      formErrors.email ? "border-red-500" : "border-ink/25"
+                    } rounded-none focus:outline-none focus:border-ink focus:ring-2 focus:ring-brand transition duration-300`}
                     placeholder="Εισάγετε το email σας"
                   />
                   {formErrors.email && (
@@ -340,7 +340,7 @@ export default function ContactClient() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-bold text-ink mb-2"
                   >
                     Μήνυμα
                   </label>
@@ -351,22 +351,22 @@ export default function ContactClient() {
                     onChange={handleChange}
                     maxLength="2000"
                     rows="4"
-                    className={`w-full px-4 py-3 border ${
-                      formErrors.message ? "border-red-500" : "border-gray-300"
-                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300`}
+                    className={`w-full px-4 py-4 border bg-paper/60 ${
+                      formErrors.message ? "border-red-500" : "border-ink/25"
+                    } rounded-none focus:outline-none focus:border-ink focus:ring-2 focus:ring-brand transition duration-300`}
                     placeholder="Πληκτρολογήστε το μήνυμά σας (μέχρι 2000 χαρακτήρες)"
                   ></textarea>
                   {formErrors.message && (
                     <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>
                   )}
                 </div>
-                <div className="text-xs text-gray-500 mt-2">
+                <div className="text-xs text-ink/55 mt-2">
                   Αυτή η σελίδα προστατεύεται από το reCAPTCHA για την αποφυγή spam.
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 disabled:opacity-50"
+                  className="w-full bg-ink text-white py-4 rounded-full font-bold hover:bg-brand hover:text-ink focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-300 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>

@@ -60,7 +60,7 @@ export default function ArticleTemplate({
   }, [id]);
 
   return (
-    <div className="font-sans bg-gray-50 min-h-screen overflow-hidden">
+    <div className="font-sans bg-paper text-ink min-h-screen overflow-hidden">
       <Navbar />
       
       {/* Hero Image Section - Only if heroImage exists */}
@@ -71,32 +71,28 @@ export default function ArticleTemplate({
             alt={articleData.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"></div>
         </div>
       )}
 
       {/* Article Content */}
       <article className={`max-w-4xl mx-auto px-6 ${articleData.heroImage ? '-mt-32' : 'mt-24'} mb-16 relative z-10`}>
-        <div className="bg-white rounded-xl shadow-xl p-8 md:p-12">
+        <div className="bg-white p-8 md:p-14 border-t-8 border-brand shadow-[0_30px_60px_-30px_rgba(10,17,20,0.35)]">
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-8 text-ink leading-[1.05]">
             {articleData.title}
           </h1>
 
           {/* Author and Date */}
-          <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">{articleData.author}</span>
-            <span className="text-gray-400">•</span>
-            <span className="text-gray-500">{formatDate(articleData.publishedDate)}</span>
+          <div className="flex items-center gap-4 mb-8 pb-6 border-b border-ink/15">
+            <span className="text-ink/70 font-bold">{articleData.author}</span>
+            <span className="text-brand">•</span>
+            <span className="text-ink/55">{formatDate(articleData.publishedDate)}</span>
           </div>
 
           {/* Article Content - Strip out any images that might be in the content */}
           <div
-            className="prose prose-lg max-w-none text-gray-800 
-                       prose-headings:text-gray-900 
-                       prose-a:text-blue-600 hover:prose-a:text-blue-800
-                       prose-strong:text-gray-900
-                       prose-img:rounded-lg prose-img:shadow-md"
+            className="prose prose-lg max-w-none text-ink/85 prose-headings:text-ink prose-headings:font-black prose-headings:tracking-tight prose-a:text-brand-deep hover:prose-a:text-brand-dark prose-strong:text-ink prose-img:rounded-none prose-img:shadow-md"
             dangerouslySetInnerHTML={{ 
               __html: articleData.content 
             }}
@@ -107,7 +103,7 @@ export default function ArticleTemplate({
         <div className="mt-8 text-center">
           <a
             href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium"
+            className="btn btn-ink"
           >
             ← Πίσω στο Blog
           </a>

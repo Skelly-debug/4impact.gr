@@ -61,29 +61,29 @@ function Service6() {
     }
     
     return (
-      <div className="bg-gray-50 overflow-hidden">
+      <div className="bg-paper text-ink overflow-hidden">
         {/* Navbar */}
         <Navbar />
   
         {/* Hero Section */}
-        <div className="relative h-screen">
+        <div className="hero">
           {/* Background Image */}
           <div className="absolute w-full h-full">
             <img
-              className="absolute w-full h-full object-cover"
+              className="hero-media"
               src="/images/service5.jpg"
               alt="Background Image"
             />
           </div>
   
           {/* Overlay with gradient effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
+          <div className="hero-shade"></div>
   
           {/* Hero Title */}
-          <div className="flex justify-center items-center h-full px-4">
-            <div className="text-center max-w-4xl">
+          <div className="hero-inner">
+            <div className="hero-copy">
               <h1
-                className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+                className={`hero-title transition-all duration-1000 ease-out ${
                   showTitle
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -91,7 +91,7 @@ function Service6() {
               >
                 Εκπαιδευτικά πακέτα
               </h1>
-              <p className={`mt-6 text-lg text-gray-200 max-w-3xl mx-auto transition-all duration-1000 ease-out ${
+              <p className={`hero-sub transition-all duration-1000 ease-out ${
                 showTitle ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-8"
               }`}>
                 Ενδυναμώνουμε τον οργανισμό σας για να αλλάξει ριζικά την επικοινωνία του
@@ -102,23 +102,23 @@ function Service6() {
         </div>
 
         {/* Overview Section */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <AnimatedSection className="max-w-4xl mx-auto">
+        <div className="wrap py-20 md:py-28">
+          <AnimatedSection className="max-w-5xl mx-auto">
             
             {/* Featured content panel */}
-            <div className="bg-white rounded-xl p-8 mb-12 shadow-sm border border-gray-100 relative overflow-hidden">
+            <div className="bg-white p-8 md:p-14 mb-12 border border-ink/10 relative overflow-hidden">
               {/* Decorative accent */}
-              <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+              <div className="absolute top-0 left-0 w-3 h-full bg-brand"></div>
               
-              <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
+              <p className="mb-6 text-xl md:text-[1.35rem] leading-relaxed text-ink/80 pl-6 md:pl-8">
                 Προσφέρουμε εκπαιδεύσεις ειδικά σχεδιασμένες για τους ανθρώπους του οργανισμού σας. Σκοπός μας είναι να ενδυναμώσουμε άτομα και οργανισμούς, παρέχοντάς σας τις γνώσεις  και τις δεξιότητες που χρειάζονται για να αναπτύξετε στρατηγικές επικοινωνίας και  marketing που ξεχωρίζουν.
               </p>
 
-              <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
+              <p className="mb-6 text-xl md:text-[1.35rem] leading-relaxed text-ink/80 pl-6 md:pl-8">
                 Μέσα από διαδραστικά σεμινάρια και προγράμματα κατάρτισης, θα εξερευνήσουμε τις τελευταίες τάσεις και τεχνικές στον τομέα της επικοινωνίας και του marketing. Θα μάθετε πώς να δημιουργείτε περιεχόμενο που προσελκύει το κοινό σας, να αναπτύσσετε αποτελεσματικές στρατηγικές digital marketing και να χτίζετε ισχυρές σχέσεις με τους πελάτες σας.
               </p>
 
-              <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
+              <p className="mb-6 text-xl md:text-[1.35rem] leading-relaxed text-ink/80 pl-6 md:pl-8">
                 Είτε είστε επαγγελματίας που θέλει να εξελίξει τις δεξιότητές του, είτε ένας οργανισμός που επιθυμεί να ενισχύσει την παρουσία του στην αγορά, τα εκπαιδευτικά μας πακέτα είναι στη διάθεσή σας!
               </p>
             </div>
@@ -130,14 +130,14 @@ function Service6() {
 
             {/* Call to Action Section */}
             <AnimatedElement animation="fade-up" delay={300}>
-        <div className="bg-gray-100 py-16 md:py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να κάνουμε τη διαφορά;</h2>
-            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+        <div className="cta-band">
+          <div className="cta-inner">
+            <h2 className="cta-title">Έτοιμοι να κάνουμε τη διαφορά;</h2>
+            <p className="cta-text">
             Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
             </p>
             <Link
-              className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl font-semibold py-4 px-8 rounded-lg shadow-lg hover:from-cyan-600 hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
+              className="btn btn-ink"
               href="/contact"
             >
               Ας συνεργαστούμε

@@ -4,14 +4,14 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-0 left-0 w-full p-[0.3rem] bg-white z-50 shadow-sm">
-      <div className="flex justify-between items-center">
+    <div className="fixed top-0 left-0 w-full p-[0.3rem] bg-ink/90 backdrop-blur-md border-b border-white/10 z-50">
+      <div className="flex justify-between items-center max-w-[1400px] mx-auto px-4 md:px-12">
         <a
           href="/"
-          className="flex items-center justify-end space-x-4 ml-0 lg:ml-[10rem] hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
+          className="flex items-center justify-end space-x-4 hover:scale-105 transition ease-in-out duration-300 cursor-pointer"
         >
           <img
-            className="w-24 h-24 object-contain text-black"
+            className="w-[4.25rem] h-[4.25rem] object-contain"
             src="../images/logo.png"
             alt="Logo"
           />
@@ -27,26 +27,26 @@ function Navbar() {
               {isMobileMenuOpen ? (
                 <>
                   <span className="absolute inset-0 flex items-center justify-center rotate-45 opacity-100 transition-all duration-300">
-                    <span className="h-0.5 w-6 bg-neutral-800 block transform rotate-90"></span>
-                    <span className="h-0.5 w-6 bg-neutral-800 block absolute"></span>
+                    <span className="h-0.5 w-6 bg-white block transform rotate-90"></span>
+                    <span className="h-0.5 w-6 bg-white block absolute"></span>
                   </span>
                 </>
               ) : (
                 <div className="space-y-1.5">
-                  <span className="block h-0.5 w-6 bg-neutral-800 transition-all duration-300 group-hover:w-5 active:rotate-6"></span>
-                  <span className="block h-0.5 w-6 bg-neutral-800 active:rotate-6"></span>
-                  <span className="block h-0.5 w-6 bg-neutral-800 transition-all duration-300 group-hover:w-5 origin-right active:rotate-6"></span>
+                  <span className="block h-0.5 w-6 bg-white transition-all duration-300 group-hover:w-5 active:rotate-6"></span>
+                  <span className="block h-0.5 w-6 bg-white active:rotate-6"></span>
+                  <span className="block h-0.5 w-6 bg-white transition-all duration-300 group-hover:w-5 origin-right active:rotate-6"></span>
                 </div>
               )}
             </div>
           </button>
           {isMobileMenuOpen && (
-            <nav className="absolute top-28 right-0 w-full p-4 bg-gray-200 border-t-2 border-neutral-200 z-10">
-              <ul className="space-y-4">
+            <nav className="absolute top-full right-0 w-full px-6 py-8 bg-ink border-t border-white/10 z-10">
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="/"
-                    className="relative inline-block underline-80 text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                    className="relative inline-block text-2xl text-white font-black tracking-tight hover:text-brand py-1 transition ease-in duration-200"
                   >
                     Αρχική
                   </a>
@@ -54,7 +54,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/services"
-                    className="relative inline-block underline-80 text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                    className="relative inline-block text-2xl text-white font-black tracking-tight hover:text-brand py-1 transition ease-in duration-200"
                   >
                     Υπηρεσίες
                   </a>
@@ -62,7 +62,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/blog"
-                    className="relative inline-block underline-80 text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                    className="relative inline-block text-2xl text-white font-black tracking-tight hover:text-brand py-1 transition ease-in duration-200"
                   >
                     Blog
                   </a>
@@ -70,7 +70,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/about/who-we-are"
-                    className="relative inline-block underline-80 text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                    className="relative inline-block text-2xl text-white font-black tracking-tight hover:text-brand py-1 transition ease-in duration-200"
                   >
                     Σχετικά με εμάς
                   </a>
@@ -78,7 +78,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/contact"
-                    className="relative inline-block underline-80 text-lg text-neutral-800 font-semibold hover:bg-gray-300 rounded p-2 transition ease-in duration-200"
+                    className="relative inline-block text-2xl text-white font-black tracking-tight hover:text-brand py-1 transition ease-in duration-200"
                   >
                     Επικοινωνία
                   </a>
@@ -87,34 +87,34 @@ function Navbar() {
             </nav>
           )}
         </div>
-        <nav className="hidden lg:flex mr-0 md:mr-[10rem]">
+        <nav className="hidden lg:flex items-center">
           <a
             href="/"
-            className="relative inline-block underline-80 text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+            className="relative inline-block underline-80 text-[15px] mr-8 text-white/75 font-bold tracking-wide hover:text-white transition ease-in duration-200"
           >
             Αρχική
           </a>
           <a
             href="/services"
-            className="relative inline-block underline-80 text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+            className="relative inline-block underline-80 text-[15px] mr-8 text-white/75 font-bold tracking-wide hover:text-white transition ease-in duration-200"
           >
             Υπηρεσίες
           </a>
           <a
             href="/blog"
-            className="relative inline-block underline-80 text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+            className="relative inline-block underline-80 text-[15px] mr-8 text-white/75 font-bold tracking-wide hover:text-white transition ease-in duration-200"
           >
             Blog
           </a>
           <a
             href="/about/who-we-are"
-            className="relative inline-block underline-80 text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+            className="relative inline-block underline-80 text-[15px] mr-8 text-white/75 font-bold tracking-wide hover:text-white transition ease-in duration-200"
           >
             Σχετικά με εμάς
           </a>
           <a
             href="/contact"
-            className="relative inline-block underline-80 text-lg mr-6 text-neutral-800 font-semibold hover:text-neutral-600 transition ease-in duration-200"
+            className="relative inline-block text-[15px] px-6 py-2.5 rounded-full bg-brand text-ink font-bold tracking-wide hover:bg-white transition ease-in duration-200"
           >
             Επικοινωνία
           </a>

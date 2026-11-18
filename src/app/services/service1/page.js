@@ -62,29 +62,29 @@ function Service1() {
     }
     
     return (
-      <div className="bg-gray-50 overflow-hidden">
+      <div className="bg-paper text-ink overflow-hidden">
         {/* Navbar */}
         <Navbar />
   
         {/* Hero Section */}
-        <div className="relative h-screen">
+        <div className="hero">
           {/* Background Image */}
           <div className="absolute w-full h-full">
             <img
-              className="absolute w-full h-full object-cover"
+              className="hero-media"
               src="/images/service3.jpg"
               alt="Background Image"
             />
           </div>
   
           {/* Overlay with gradient effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-black/50 z-1"></div>
+          <div className="hero-shade"></div>
   
           {/* Hero Title */}
-          <div className="flex justify-center items-center h-full px-4">
-            <div className="text-center max-w-4xl">
+          <div className="hero-inner">
+            <div className="hero-copy">
               <h1
-                className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center relative z-10 transition-all duration-1000 ease-out ${
+                className={`hero-title transition-all duration-1000 ease-out ${
                   showTitle
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -92,7 +92,7 @@ function Service1() {
               >
                 Στρατηγική επικοινωνίας με πραγματικό Αντίκτυπο
               </h1>
-              <p className={`mt-6 text-lg text-gray-200 max-w-3xl mx-auto transition-all duration-1000 ease-out ${
+              <p className={`hero-sub transition-all duration-1000 ease-out ${
                 showTitle ? "opacity-100 translate-y-0 delay-300" : "opacity-0 translate-y-8"
               }`}>
                 Στρατηγική επικοινωνίας που εστιάζει στο αποτέλεσμα και τις ουσιαστικές συνδέσεις
@@ -104,24 +104,24 @@ function Service1() {
         </div>
 
         {/* Overview Section */}
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <AnimatedSection className="max-w-4xl mx-auto">
+        <div className="wrap py-20 md:py-28">
+          <AnimatedSection className="max-w-5xl mx-auto">
             {/* Featured content panel */}
-            <div className="bg-white rounded-xl p-8 mb-12 shadow-sm border border-gray-100 relative overflow-hidden">
+            <div className="bg-white p-8 md:p-14 mb-12 border border-ink/10 relative overflow-hidden">
               {/* Decorative accent */}
-              <div className="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+              <div className="absolute top-0 left-0 w-3 h-full bg-brand"></div>
               
-              <p className="mb-6 text-lg leading-relaxed text-gray-700 pl-6">
+              <p className="mb-6 text-xl md:text-[1.35rem] leading-relaxed text-ink/80 pl-6 md:pl-8">
                 Προσφέρουμε ολοκληρωμένες υπηρεσίες στρατηγικής επικοινωνίας, σχεδιασμένες για να κάνουν πραγματική διαφορά στον κόσμο. Κατανοούμε ότι κάθε επιχείρηση και οργανισμός έχει μοναδικές προκλήσεις και ευκαιρίες, και στόχος μας είναι να τις αξιοποιήσουμε στο έπακρο.
               </p>
               
               <div className="w-full flex justify-center my-12">
-                <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center shadow-inner">
-                  <Target className="text-blue-600" size={40} />
+                <div className="w-24 h-24 rounded-full bg-brand-tint flex items-center justify-center">
+                  <Target className="text-brand-deep" size={40} />
                 </div>
               </div>
               
-              <p className="text-lg leading-relaxed text-gray-700 pl-6">
+              <p className="text-xl md:text-[1.35rem] leading-relaxed text-ink/80 pl-6 md:pl-8">
                 Είτε είστε μια επιχείρηση που θέλει να εδραιώσει την παρουσία της στην αγορά, είτε μια μεγάλη οργάνωση που επιθυμεί να ανανεώσει τη στρατηγική της, είμαστε εδώ για να σας καθοδηγήσουμε. Εστιάζουμε στην ανάπτυξη και υλοποίηση στρατηγικών που όχι μόνο ενισχύουν την εικόνα και φήμη σας, αλλά δημιουργούν ουσιαστική σύνδεση με το κοινό σας.
               </p>
             </div>
@@ -130,45 +130,45 @@ function Service1() {
         </div>
 
         {/* Process Steps */}
-        <div className="bg-gray-100 py-16 mb-16">
-          <div className="container mx-auto px-4">
-            <AnimatedSection className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Πώς δουλευούμε</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Εφαρμόζουμε μια δοκιμασμένη μεθοδολογία για να επιτύχουμε τους στόχους σας</p>
+        <div className="bg-ink text-white py-24 md:py-28">
+          <div className="wrap">
+            <AnimatedSection className="mb-20">
+              <h2 className="section-title on-dark mb-6 text-[clamp(2rem,4vw,3.5rem)]">Πώς δουλευούμε</h2>
+              <p className="text-white/65 max-w-2xl text-lg">Εφαρμόζουμε μια δοκιμασμένη μεθοδολογία για να επιτύχουμε τους στόχους σας</p>
             </AnimatedSection>
             
-            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            <div className="max-w-none grid grid-cols-1 md:grid-cols-3 gap-8 relative">
               {/* Connecting line (visible on md screens and up) */}
-              <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-blue-200"></div>
+              <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-brand/40"></div>
               
               <AnimatedSection className="relative" delay={100}>
-                <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100 text-center relative">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto -mt-16 pb-1 mb-6 shadow-md relative z-10">
-                    <span className="text-white text-xl font-bold">1</span>
+                <div className="bg-ink-soft p-8 border border-white/10 text-center relative h-full">
+                  <div className="w-16 h-16 bg-brand rounded-full flex items-center justify-center mx-auto -mt-16 pb-1 mb-6 ring-8 ring-ink relative z-10">
+                    <span className="text-ink text-2xl font-black">1</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Ανάλυση και Έρευνα</h3>
-                  <p className="text-gray-600">Κατανοούμε εις βάθος τον οργανισμό σας, το περιβάλλον, το κοινό σας και τους στόχους σας, 
+                  <h3 className="text-xl font-black tracking-tight mb-3 text-white">Ανάλυση και Έρευνα</h3>
+                  <p className="text-white/65">Κατανοούμε εις βάθος τον οργανισμό σας, το περιβάλλον, το κοινό σας και τους στόχους σας, 
                     ώστε να δημιουργήσουμε μια στρατηγική που να ανταποκρίνεται μόνο στις δικές σας ανάγκες.</p>
                 </div>
               </AnimatedSection>
               
               <AnimatedSection className="relative" delay={300}>
-                <div className="bg-white rounded-lg p-8 pb-[6.5rem] shadow-sm border border-gray-100 text-center relative">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto -mt-16 mb-6 pb-1 shadow-md relative z-10">
-                    <span className="text-white text-xl font-bold">2</span>
+                <div className="bg-ink-soft p-8 border border-white/10 text-center relative h-full">
+                  <div className="w-16 h-16 bg-brand rounded-full flex items-center justify-center mx-auto -mt-16 mb-6 pb-1 ring-8 ring-ink relative z-10">
+                    <span className="text-ink text-2xl font-black">2</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Στρατηγικός Σχεδιασμός</h3>
-                  <p className="text-gray-600">Σχεδιάζουμε προσμαρμοσμένες στρατηγικές επικοινωνίας με έμφαση στους στόχους σας και την αποτελεσματικότητα.</p>
+                  <h3 className="text-xl font-black tracking-tight mb-3 text-white">Στρατηγικός Σχεδιασμός</h3>
+                  <p className="text-white/65">Σχεδιάζουμε προσμαρμοσμένες στρατηγικές επικοινωνίας με έμφαση στους στόχους σας και την αποτελεσματικότητα.</p>
                 </div>
               </AnimatedSection>
               
               <AnimatedSection className="relative" delay={500}>
-                <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-100 text-center relative">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto -mt-16 pb-1 mb-6 shadow-md relative z-10">
-                    <span className="text-white text-xl font-bold">3</span>
+                <div className="bg-ink-soft p-8 border border-white/10 text-center relative h-full">
+                  <div className="w-16 h-16 bg-brand rounded-full flex items-center justify-center mx-auto -mt-16 pb-1 mb-6 ring-8 ring-ink relative z-10">
+                    <span className="text-ink text-2xl font-black">3</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Αξιολόγηση, Βελτίωση και Προσαρμογή</h3>
-                  <p className="text-gray-600">Παρακολουθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, 
+                  <h3 className="text-xl font-black tracking-tight mb-3 text-white">Αξιολόγηση, Βελτίωση και Προσαρμογή</h3>
+                  <p className="text-white/65">Παρακολουθούμε διαρκώς και αναλύουμε την απόδοση των στρατηγικών μας, 
                     προσαρμόζοντας τις τακτικές μας για τη μέγιστη δυνατή αποτελεσματικότητα.</p>
                 </div>
               </AnimatedSection>
@@ -180,14 +180,14 @@ function Service1() {
 
       {/* Call to Action Section */}
       <AnimatedElement animation="fade-up" delay={300}>
-        <div className="bg-gray-100 py-16 md:py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Έτοιμοι να κάνουμε τη διαφορά;</h2>
-            <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+        <div className="cta-band">
+          <div className="cta-inner">
+            <h2 className="cta-title">Έτοιμοι να κάνουμε τη διαφορά;</h2>
+            <p className="cta-text">
             Ανακαλύψτε πώς μπορούμε να συνεργαστούμε για να επιτύχετε τους στρατηγικούς σας στόχους
             </p>
             <Link
-              className="inline-block bg-gradient-to-r from-cyan-500 to-cyan-700 text-white text-xl font-semibold py-4 px-8 rounded-lg shadow-lg hover:from-cyan-600 hover:to-cyan-800 transition-all duration-300 transform hover:scale-105"
+              className="btn btn-ink"
               href="/contact"
             >
               Ας συνεργαστούμε
